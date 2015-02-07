@@ -3,8 +3,8 @@ package net.darkhax.colourfulmobs;
 import java.util.Arrays;
 
 import net.darkhax.colourfulmobs.common.CommonProxy;
-import net.darkhax.colourfulmobs.lib.Constants;
 import net.darkhax.colourfulmobs.common.items.ItemColorWand;
+import net.darkhax.colourfulmobs.lib.Constants;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -23,7 +23,7 @@ public class ColourfulMobs {
 	public static ColourfulMobs instance;
 
 	public static Item itemColorWand = new ItemColorWand();
-	
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent pre) {
 

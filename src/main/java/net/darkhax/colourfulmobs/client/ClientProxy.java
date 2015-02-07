@@ -7,7 +7,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerSidedEvents() {
-		
+
 		MinecraftForge.EVENT_BUS.register(new RenderingHandler());
 	}
 }
