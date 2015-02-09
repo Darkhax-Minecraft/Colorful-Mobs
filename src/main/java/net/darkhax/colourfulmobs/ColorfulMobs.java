@@ -42,6 +42,7 @@ public class ColorfulMobs {
         setModInfo(pre.getModMetadata());
         proxy.registerSidedEvents();
         GameRegistry.registerItem(itemColorWand, "colorWand", Constants.MOD_ID);
+        MinecraftForge.EVENT_BUS.register(new MobDataHandler());
     }
 
     void setModInfo(ModMetadata meta) {
