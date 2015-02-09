@@ -1,5 +1,7 @@
 package net.darkhax.colourfulmobs.client;
 
+import net.darkhax.colourfulmobs.common.ColorObject;
+import net.darkhax.colourfulmobs.common.ColorProperties;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.RenderLivingEvent;
 
@@ -9,20 +11,17 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class RenderingHandler {
 
-	@SubscribeEvent
-	public void onEntityRender(RenderLivingEvent.Pre event) {
+    @SubscribeEvent
+    public void onEntityRender(RenderLivingEvent.Pre event) {
 
-		if (event.entity.getEntityData() != null
-				&& event.entity.getEntityData().hasKey("ColorfulMobs")) {
+        if (ColorProperties.hasColorProperties(event.entity)) {
 
-			NBTTagCompound colorTag = event.entity.getEntityData()
-					.getCompoundTag("ColorfulMobs");
-			GL11.glPushMatrix();
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glColor4f(colorTag.getFloat("pigmentRed"),
-					colorTag.getFloat("pigmentGreen"),
-					colorTag.getFloat("pigmentBlue"), 1.0f);
-			GL11.glPopMatrix();
-		}
-	}
+            ColorObject obj = ColorProperties.getPropsFromEntity(event.entity).colorObj;
+            GL11.glPushMatrix();
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glColor4f(obj.red, obj.blue, obj.green, obj.alpha);
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glPopMatrix();
+        }
+    }
 }
