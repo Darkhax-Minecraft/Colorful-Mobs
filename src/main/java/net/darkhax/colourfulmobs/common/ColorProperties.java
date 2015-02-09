@@ -52,6 +52,7 @@ public class ColorProperties implements IExtendedEntityProperties {
 
     public static void setPropsToEntity(EntityLivingBase living) {
 
+    	System.out.println("Registering: " + living.getEntityId());
         living.registerExtendedProperties(PROP_NAME, new ColorProperties(living));
     }
 

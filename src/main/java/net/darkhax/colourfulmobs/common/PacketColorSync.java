@@ -23,6 +23,7 @@ public class PacketColorSync implements IMessage {
     
     public PacketColorSync(ColorObject color, EntityLivingBase living) {
 
+    	
         entityID = living.getEntityId();
         this.colorObj = color;
     }
@@ -49,8 +50,16 @@ public class PacketColorSync implements IMessage {
             if (ctx.side == Side.CLIENT) {
                
                 Entity entity = PlayerHelper.thePlayer().worldObj.getEntityByID(packet.entityID);
-                if(entity instanceof EntityLivingBase)
+                if(entity instanceof EntityLivingBase) {
+                	
+                	System.out.println("Packet is good!");
                     ColorProperties.setEntityColors(packet.colorObj, (EntityLivingBase) entity);
+                }
+                
+                else {
+                	
+                	System.out.println("The entity is null!!!!");
+                }
             }
             
             return null;

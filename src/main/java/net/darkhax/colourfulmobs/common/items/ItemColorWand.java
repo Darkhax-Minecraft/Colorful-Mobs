@@ -27,7 +27,11 @@ public class ItemColorWand extends Item {
 
         ColorObject colorObj = new ColorObject(false);
         ColorProperties.setEntityColors(colorObj, entity);
-        ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
+        
+    	if (!player.worldObj.isRemote) {
+    		
+            ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
+    	}
         return true;
     }
 }

@@ -14,7 +14,6 @@ public class MobDataHandler {
     @SubscribeEvent
     public void onStartTrackingMob(EntityJoinWorldEvent event) {
 
-        System.out.println("Hello");
         if (event.entity instanceof EntityLiving && !(event.entity instanceof EntityPlayer) && ColorProperties.hasColorProperties((EntityLiving) event.entity)) {
 
             ColorfulMobs.instance.network.sendToAll(new PacketColorSync(ColorProperties.getPropsFromEntity((EntityLivingBase) event.entity).colorObj, (EntityLivingBase) event.entity));
