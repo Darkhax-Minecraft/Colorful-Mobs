@@ -5,14 +5,14 @@ import net.minecraft.item.Item;
 
 public class CreativeTabColor extends CreativeTabs {
 
-	public CreativeTabColor() {
+    public CreativeTabColor() {
 
-		super("colorfulmobs");
-	}
+        super("colorfulmobs");
+    }
 
-	@Override
-	public Item getTabIconItem() {
+    @Override
+    public Item getTabIconItem() {
 
-		return ColorfulMobs.itemColorWand;
-	}
+        return ColorfulMobs.itemColorWand;
+    }
 }

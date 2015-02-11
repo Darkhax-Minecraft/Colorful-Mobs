@@ -10,25 +10,18 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MobDataHandler {
 
-	@SubscribeEvent
-	public void onStartTrackingMob(EntityEvent.EntityConstructing event) {
+    @SubscribeEvent
+    public void onStartTrackingMob(EntityEvent.EntityConstructing event) {
 
-		if (event.entity instanceof EntityLiving
-				&& !(event.entity instanceof EntityPlayer))
-			ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
-	}
+        if (event.entity instanceof EntityLiving && !(event.entity instanceof EntityPlayer))
+            ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
+    }
 
-	@SubscribeEvent
-	public void onWorldJoin(PlayerEvent.StartTracking event) {
+    @SubscribeEvent
+    public void onWorldJoin(PlayerEvent.StartTracking event) {
 
-		if (event.target instanceof EntityLiving
-				&& !(event.target instanceof EntityPlayer)
-				&& !event.target.worldObj.isRemote) {
-			ColorfulMobs.instance.network
-					.sendToAll(new PacketColorSync(
-							ColorProperties
-									.getPropsFromEntity((EntityLivingBase) event.target).colorObj,
-							(EntityLivingBase) event.target));
-		}
-	}
+        if (event.target instanceof EntityLiving && !(event.target instanceof EntityPlayer) && !event.target.worldObj.isRemote) {
+            ColorfulMobs.instance.network.sendToAll(new PacketColorSync(ColorProperties.getPropsFromEntity((EntityLivingBase) event.target).colorObj, (EntityLivingBase) event.target));
+        }
+    }
 }

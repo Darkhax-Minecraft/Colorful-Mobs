@@ -11,25 +11,23 @@ import net.minecraft.item.ItemStack;
 
 public class ItemColorWand extends Item {
 
-	public ItemColorWand() {
+    public ItemColorWand() {
 
-		this.setCreativeTab(ColorfulMobs.tabColor);
-		this.setUnlocalizedName("colorfulmobs.colorwand");
-		this.setTextureName("colorfulmobs:colorwand");
-	}
+        this.setCreativeTab(ColorfulMobs.tabColor);
+        this.setUnlocalizedName("colorfulmobs.colorwand");
+        this.setTextureName("colorfulmobs:colorwand");
+    }
 
-	@Override
-	public boolean itemInteractionForEntity(ItemStack stack,
-			EntityPlayer player, EntityLivingBase entity) {
+    @Override
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
 
-		if (!player.worldObj.isRemote) {
+        if (!player.worldObj.isRemote) {
 
-			ColorObject colorObj = new ColorObject(false);
-			ColorProperties.setEntityColors(colorObj, entity);
-			ColorfulMobs.instance.network.sendToAll(new PacketColorSync(
-					colorObj, entity));
-		}
+            ColorObject colorObj = new ColorObject(false);
+            ColorProperties.setEntityColors(colorObj, entity);
+            ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
