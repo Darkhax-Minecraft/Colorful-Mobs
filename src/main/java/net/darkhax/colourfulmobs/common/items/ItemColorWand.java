@@ -1,13 +1,16 @@
 package net.darkhax.colourfulmobs.common.items;
 
+import net.darkhax.bookshelf.objects.ColorObject;
 import net.darkhax.colourfulmobs.ColorfulMobs;
-import net.darkhax.colourfulmobs.common.ColorObject;
 import net.darkhax.colourfulmobs.common.ColorProperties;
 import net.darkhax.colourfulmobs.common.PacketColorSync;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
 
 public class ItemColorWand extends Item {
 

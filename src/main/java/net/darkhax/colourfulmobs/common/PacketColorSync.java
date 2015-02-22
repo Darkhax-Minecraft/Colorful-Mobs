@@ -2,6 +2,7 @@ package net.darkhax.colourfulmobs.common;
 
 import io.netty.buffer.ByteBuf;
 import net.darkhax.bookshelf.helper.PlayerHelper;
+import net.darkhax.bookshelf.objects.ColorObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -35,7 +36,7 @@ public class PacketColorSync implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {
 
-        ByteBufUtils.writeVarInt(buf, entityID, 5);
+        ByteBufUtils.writeVarInt(buf, this.entityID, 5);
         ByteBufUtils.writeTag(buf, ColorObject.getTagFromColor(this.colorObj));
     }
 
@@ -45,7 +46,7 @@ public class PacketColorSync implements IMessage {
         public IMessage onMessage(PacketColorSync packet, MessageContext ctx) {
 
             if (ctx.side == Side.CLIENT) {
-
+                
                 Entity entity = PlayerHelper.thePlayer().worldObj.getEntityByID(packet.entityID);
                 if (entity instanceof EntityLivingBase)
                     ColorProperties.setEntityColors(packet.colorObj, (EntityLivingBase) entity);

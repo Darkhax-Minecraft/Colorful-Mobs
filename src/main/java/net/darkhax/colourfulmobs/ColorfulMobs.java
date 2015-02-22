@@ -3,7 +3,7 @@ package net.darkhax.colourfulmobs;
 import java.util.Arrays;
 
 import net.darkhax.colourfulmobs.common.CommonProxy;
-import net.darkhax.colourfulmobs.common.MobDataHandler;
+import net.darkhax.colourfulmobs.common.EntityHandler;
 import net.darkhax.colourfulmobs.common.PacketColorSync;
 import net.darkhax.colourfulmobs.common.items.ItemColorWand;
 import net.darkhax.colourfulmobs.common.items.ItemColoredPowder;
@@ -46,7 +46,7 @@ public class ColorfulMobs {
         proxy.registerSidedEvents();
         GameRegistry.registerItem(itemColorWand, "colorWand", Constants.MOD_ID);
         GameRegistry.registerItem(itemPowder, "colorPowder", Constants.MOD_ID);
-        MinecraftForge.EVENT_BUS.register(new MobDataHandler());
+        MinecraftForge.EVENT_BUS.register(new EntityHandler());
     }
 
     void setModInfo(ModMetadata meta) {

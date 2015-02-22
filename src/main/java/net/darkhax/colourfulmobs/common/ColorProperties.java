@@ -1,5 +1,6 @@
 package net.darkhax.colourfulmobs.common;
 
+import net.darkhax.bookshelf.objects.ColorObject;
 import net.darkhax.colourfulmobs.ColorfulMobs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

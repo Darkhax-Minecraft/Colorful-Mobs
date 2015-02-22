@@ -2,8 +2,8 @@ package net.darkhax.colourfulmobs.common.items;
 
 import java.util.List;
 
+import net.darkhax.bookshelf.objects.ColorObject;
 import net.darkhax.colourfulmobs.ColorfulMobs;
-import net.darkhax.colourfulmobs.common.ColorObject;
 import net.darkhax.colourfulmobs.common.ColorProperties;
 import net.darkhax.colourfulmobs.common.PacketColorSync;
 import net.minecraft.client.renderer.texture.IIconRegister;
