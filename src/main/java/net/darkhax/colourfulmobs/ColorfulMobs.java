@@ -7,6 +7,7 @@ import net.darkhax.colourfulmobs.common.EntityHandler;
 import net.darkhax.colourfulmobs.common.PacketColorSync;
 import net.darkhax.colourfulmobs.common.items.ItemColorWand;
 import net.darkhax.colourfulmobs.common.items.ItemColoredPowder;
+import net.darkhax.colourfulmobs.common.items.ItemGhostDust;
 import net.darkhax.colourfulmobs.lib.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -34,6 +35,7 @@ public class ColorfulMobs {
 
     public static CreativeTabs tabColor = new CreativeTabColor();
     public static Item itemColorWand = new ItemColorWand();
+    public static Item itemGhostDust = new ItemGhostDust();
     public static Item itemPowder = new ItemColoredPowder();
 
     @EventHandler
@@ -45,13 +47,14 @@ public class ColorfulMobs {
         setModInfo(pre.getModMetadata());
         proxy.registerSidedEvents();
         GameRegistry.registerItem(itemColorWand, "colorWand", Constants.MOD_ID);
+        GameRegistry.registerItem(itemGhostDust, "ghostDust", Constants.MOD_ID);
         GameRegistry.registerItem(itemPowder, "colorPowder", Constants.MOD_ID);
         MinecraftForge.EVENT_BUS.register(new EntityHandler());
     }
 
     void setModInfo(ModMetadata meta) {
 
-        meta.authorList = Arrays.asList("Darkhax");
+        meta.authorList = Arrays.asList("Darkhax", "lclc98");
         meta.logoFile = "";
         meta.credits = "Maintained by Darkhax";
         meta.description = "More Swords provides a magnificent chain of lustrous new swords that expound upon the foundation of Minecraft weaponry. Razor sharp swords of magic as well as stronger, more practical blaes!";
