@@ -5,6 +5,7 @@ import net.darkhax.bookshelf.helper.PlayerHelper;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -45,12 +46,11 @@ public class PacketColorSync implements IMessage {
         @Override
         public IMessage onMessage(PacketColorSync packet, MessageContext ctx) {
 
-            if (ctx.side == Side.CLIENT) {
-                
-                Entity entity = PlayerHelper.thePlayer().worldObj.getEntityByID(packet.entityID);
-                if (entity instanceof EntityLivingBase)
-                    ColorProperties.setEntityColors(packet.colorObj, (EntityLivingBase) entity);
-            }
+            EntityPlayer player = (ctx.side == Side.CLIENT) ? PlayerHelper.thePlayer() : ctx.getServerHandler().playerEntity;
+            Entity entity = player.worldObj.getEntityByID(packet.entityID);
+            
+            if (entity instanceof EntityLivingBase)
+                ColorProperties.setEntityColors(packet.colorObj, (EntityLivingBase) entity);
 
             return null;
         }
