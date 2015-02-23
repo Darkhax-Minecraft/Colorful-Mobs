@@ -29,7 +29,7 @@ public class GuiColorSelection extends GuiScreen {
         this.entity = entity;
     }
 
-    protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -40,7 +40,7 @@ public class GuiColorSelection extends GuiScreen {
         this.drawTexturedModalRect(k + 32, l + 30, 20, 20, 110, 115);
 
         if (entity != null)
-            drawEntityOnScreen(k + 87, l + 130, 40, (float) (k + 43 - p_146976_2_), (float) (l + 45 - 30 - p_146976_3_), entity);
+            drawEntityOnScreen(k + 87, l + 130, 40, (float) (k + 43 - mouseX), (float) (l + 45 - 30 - mouseY), entity);
     }
 
     @Override
@@ -101,34 +101,34 @@ public class GuiColorSelection extends GuiScreen {
         this.textA.drawTextBox();
     }
 
-    public static void drawEntityOnScreen(int p_147046_0_, int p_147046_1_, int p_147046_2_, float p_147046_3_, float p_147046_4_, EntityLivingBase p_147046_5_) {
+    public static void drawEntityOnScreen(int x, int y, int scale, float mouseX, float mouseY, EntityLivingBase entity) {
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) p_147046_0_, (float) p_147046_1_, 50.0F);
-        GL11.glScalef((float) (-p_147046_2_), (float) p_147046_2_, (float) p_147046_2_);
+        GL11.glTranslatef((float) x, (float) y, 50.0F);
+        GL11.glScalef((float) (-scale), (float) scale, (float) scale);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        float f2 = p_147046_5_.renderYawOffset;
-        float f3 = p_147046_5_.rotationYaw;
-        float f4 = p_147046_5_.rotationPitch;
-        float f5 = p_147046_5_.prevRotationYawHead;
-        float f6 = p_147046_5_.rotationYawHead;
+        float f2 = entity.renderYawOffset;
+        float f3 = entity.rotationYaw;
+        float f4 = entity.rotationPitch;
+        float f5 = entity.prevRotationYawHead;
+        float f6 = entity.rotationYawHead;
         GL11.glRotatef(135.0F, 0.0F, 1.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
         GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-((float) Math.atan((double) (p_147046_4_ / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
-        p_147046_5_.renderYawOffset = (float) Math.atan((double) (p_147046_3_ / 40.0F)) * 20.0F;
-        p_147046_5_.rotationYaw = (float) Math.atan((double) (p_147046_3_ / 40.0F)) * 40.0F;
-        p_147046_5_.rotationPitch = -((float) Math.atan((double) (p_147046_4_ / 40.0F))) * 20.0F;
-        p_147046_5_.rotationYawHead = p_147046_5_.rotationYaw;
-        p_147046_5_.prevRotationYawHead = p_147046_5_.rotationYaw;
-        GL11.glTranslatef(0.0F, p_147046_5_.yOffset, 0.0F);
+        GL11.glRotatef(-((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
+        entity.renderYawOffset = (float) Math.atan((double) (mouseX / 40.0F)) * 20.0F;
+        entity.rotationYaw = (float) Math.atan((double) (mouseX / 40.0F)) * 40.0F;
+        entity.rotationPitch = -((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F;
+        entity.rotationYawHead = entity.rotationYaw;
+        entity.prevRotationYawHead = entity.rotationYaw;
+        GL11.glTranslatef(0.0F, entity.yOffset, 0.0F);
         RenderManager.instance.playerViewY = 180.0F;
-        RenderManager.instance.renderEntityWithPosYaw(p_147046_5_, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
-        p_147046_5_.renderYawOffset = f2;
-        p_147046_5_.rotationYaw = f3;
-        p_147046_5_.rotationPitch = f4;
-        p_147046_5_.prevRotationYawHead = f5;
-        p_147046_5_.rotationYawHead = f6;
+        RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        entity.renderYawOffset = f2;
+        entity.rotationYaw = f3;
+        entity.rotationPitch = f4;
+        entity.prevRotationYawHead = f5;
+        entity.rotationYawHead = f6;
         GL11.glPopMatrix();
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -143,34 +143,9 @@ public class GuiColorSelection extends GuiScreen {
         // if
         if (button.id == 1) {
             if (entity != null) {
-
-                String color = textR.getText();
-                if (color != null && !color.equals("")) {
-                    r = Integer.parseInt(color);
-                }
-                color = textG.getText();
-                if (color != null && !color.equals("")) {
-                    g = Integer.parseInt(color);
-                }
-                color = textB.getText();
-                if (color != null && !color.equals("")) {
-                    b = Integer.parseInt(color);
-                }
-                color = textA.getText();
-                if (color != null && !color.equals("")) {
-                    a = Integer.parseInt(color);
-                }
-
-                ColorObject colorObj = new ColorObject(r, g, b, a);
-                ColorProperties.setEntityColors(colorObj, entity);
-
                 // send packet
-                ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
-                // clear text boxes
-                this.textR.setText("");
-                this.textG.setText("");
-                this.textB.setText("");
-                this.textA.setText("");
+                updateColor();
+                ColorfulMobs.instance.network.sendToAll(new PacketColorSync(new ColorObject(r, g, b, a), entity));
             }
             // close gui
             this.mc.displayGuiScreen(null);
@@ -193,87 +168,112 @@ public class GuiColorSelection extends GuiScreen {
     protected void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
         if (textR.isFocused()) {
-            boolean x = addText(textR, typedChar, keyCode);
+            addText(textR, typedChar, keyCode);
         } else if (textG.isFocused()) {
             addText(textG, typedChar, keyCode);
         } else if (textB.isFocused()) {
             addText(textB, typedChar, keyCode);
         } else if (textA.isFocused()) {
             addText(textA, typedChar, keyCode);
-        } else {
-
-
         }
     }
 
-    private boolean addText(GuiTextField text, char typedChar, int keyCode) {
+    public void updateColor() {
+        String color = textR.getText();
+        if (color != null && !color.equals("")) {
+            r = Integer.parseInt(color);
+        }
+        color = textG.getText();
+        if (color != null && !color.equals("")) {
+            g = Integer.parseInt(color);
+        }
+        color = textB.getText();
+        if (color != null && !color.equals("")) {
+            b = Integer.parseInt(color);
+        }
+        color = textA.getText();
+        if (color != null && !color.equals("")) {
+            a = Integer.parseInt(color);
+        }
+
+        ColorProperties.setEntityColors(new ColorObject(r, g, b, a), entity);
+
+    }
+
+    private boolean addText(GuiTextField textField, char typedChar, int keyCode) {
         if (typedChar >= '0' && typedChar <= '9') {
-            if ((text.getText() == null || text.getText().length() == 0) && typedChar >= '0' && typedChar <= '2') {
-                text.textboxKeyTyped(typedChar, keyCode);
+            textField.textboxKeyTyped(typedChar, keyCode);
+            if (Integer.parseInt(textField.getText()) <= 255) {
+                updateColor();
                 return true;
-            } else if (text.getText().length() > 0 && typedChar >= '0' && typedChar <= '5') {
-                text.textboxKeyTyped(typedChar, keyCode);
+            } else {
+                textField.setText("255");
+                updateColor();
                 return true;
             }
         } else {
             switch (keyCode) {
                 case 14:
                     if (GuiScreen.isCtrlKeyDown()) {
-                        text.deleteWords(-1);
+                        textField.deleteWords(-1);
+                        updateColor();
                     } else {
-                        text.deleteFromCursor(-1);
+                        textField.deleteFromCursor(-1);
+                        updateColor();
                     }
 
                     return true;
                 case 199:
                     if (GuiScreen.isShiftKeyDown()) {
-                        text.setSelectionPos(0);
+                        textField.setSelectionPos(0);
                     } else {
-                        text.setCursorPositionZero();
+                        textField.setCursorPositionZero();
                     }
 
                     return true;
                 case 203:
                     if (GuiScreen.isShiftKeyDown()) {
                         if (GuiScreen.isCtrlKeyDown()) {
-                            text.setSelectionPos(text.getNthWordFromPos(-1, text.getSelectionEnd()));
+                            textField.setSelectionPos(textField.getNthWordFromPos(-1, textField.getSelectionEnd()));
                         } else {
-                            text.setSelectionPos(text.getSelectionEnd() - 1);
+                            textField.setSelectionPos(textField.getSelectionEnd() - 1);
                         }
                     } else if (GuiScreen.isCtrlKeyDown()) {
-                        text.setCursorPosition(text.getNthWordFromCursor(-1));
+                        textField.setCursorPosition(textField.getNthWordFromCursor(-1));
                     } else {
-                        text.moveCursorBy(-1);
+                        textField.moveCursorBy(-1);
                     }
 
                     return true;
                 case 205:
                     if (GuiScreen.isShiftKeyDown()) {
                         if (GuiScreen.isCtrlKeyDown()) {
-                            text.setSelectionPos(text.getNthWordFromPos(1, text.getSelectionEnd()));
+                            textField.setSelectionPos(textField.getNthWordFromPos(1, textField.getSelectionEnd()));
                         } else {
-                            text.setSelectionPos(text.getSelectionEnd() + 1);
+                            textField.setSelectionPos(textField.getSelectionEnd() + 1);
                         }
                     } else if (GuiScreen.isCtrlKeyDown()) {
-                        text.setCursorPosition(text.getNthWordFromCursor(1));
+                        textField.setCursorPosition(textField.getNthWordFromCursor(1));
                     } else {
-                        text.moveCursorBy(1);
+                        textField.moveCursorBy(1);
                     }
 
                     return true;
                 case 207:
                     if (GuiScreen.isShiftKeyDown()) {
-                        text.setSelectionPos(text.getText().length());
+                        textField.setSelectionPos(textField.getText().length());
                     } else {
-                        text.setCursorPositionEnd();
+                        textField.setCursorPositionEnd();
                     }
 
                     return true;
                 case 211:
                     if (GuiScreen.isCtrlKeyDown()) {
-                        text.deleteWords(1);
+                        textField.deleteWords(1);
+                        updateColor();
                     } else {
-                        text.deleteFromCursor(1);
+                        textField.deleteFromCursor(1);
+                        updateColor();
                     }
 
                     return true;
