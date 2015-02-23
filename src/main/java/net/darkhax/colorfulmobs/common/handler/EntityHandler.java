@@ -20,7 +20,7 @@ public class EntityHandler {
     @SubscribeEvent
     public void onEntityConstructed(EntityEvent.EntityConstructing event) {
 
-        if (event.entity instanceof EntityLiving && !(event.entity instanceof EntityPlayer)) {
+        if (event.entity instanceof EntityLiving && (!(event.entity instanceof EntityPlayer) || ConfigurationHandler.dyePlayer)) {
 
             ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
 
@@ -34,9 +34,9 @@ public class EntityHandler {
     @SubscribeEvent
     public void onEntityTracked(PlayerEvent.StartTracking event) {
 
-        if (event.target instanceof EntityLiving && !(event.target instanceof EntityPlayer) && !event.target.worldObj.isRemote) {
+        if (event.target instanceof EntityLiving && (!(event.target instanceof EntityPlayer) || ConfigurationHandler.dyePlayer) && !event.target.worldObj.isRemote) {
 
-            ColorfulMobs.instance.network.sendToAll(new PacketColorSync(ColorProperties.getPropsFromEntity((EntityLivingBase) event.target).colorObj, (EntityLivingBase) event.target));
+            ColorfulMobs.network.sendToAll(new PacketColorSync(ColorProperties.getPropsFromEntity((EntityLivingBase) event.target).colorObj, (EntityLivingBase) event.target));
         }
     }
 
