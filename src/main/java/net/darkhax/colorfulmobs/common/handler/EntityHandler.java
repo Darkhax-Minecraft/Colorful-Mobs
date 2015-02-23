@@ -1,8 +1,11 @@
-package net.darkhax.colourfulmobs.common;
+package net.darkhax.colorfulmobs.common.handler;
 
 import net.darkhax.bookshelf.helper.ItemHelper;
 import net.darkhax.bookshelf.objects.ColorObject;
-import net.darkhax.colourfulmobs.ColorfulMobs;
+import net.darkhax.colorfulmobs.ColorfulMobs;
+import net.darkhax.colorfulmobs.common.ColorProperties;
+import net.darkhax.colorfulmobs.common.ConfigurationHandler;
+import net.darkhax.colorfulmobs.common.PacketColorSync;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

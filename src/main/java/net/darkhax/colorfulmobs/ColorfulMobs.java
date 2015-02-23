@@ -1,17 +1,5 @@
-package net.darkhax.colourfulmobs;
+package net.darkhax.colorfulmobs;
 
-import java.util.Arrays;
-
-import net.darkhax.colourfulmobs.common.CommonProxy;
-import net.darkhax.colourfulmobs.common.EntityHandler;
-import net.darkhax.colourfulmobs.common.PacketColorSync;
-import net.darkhax.colourfulmobs.common.items.ItemColorWand;
-import net.darkhax.colourfulmobs.common.items.ItemColoredPowder;
-import net.darkhax.colourfulmobs.common.items.ItemGhostDust;
-import net.darkhax.colourfulmobs.lib.Constants;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.ModMetadata;
@@ -21,6 +9,19 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.darkhax.colorfulmobs.common.CommonProxy;
+import net.darkhax.colorfulmobs.common.PacketColorSync;
+import net.darkhax.colorfulmobs.common.handler.EntityHandler;
+import net.darkhax.colorfulmobs.common.handler.GuiHandler;
+import net.darkhax.colorfulmobs.common.items.ItemColorWand;
+import net.darkhax.colorfulmobs.common.items.ItemColoredPowder;
+import net.darkhax.colorfulmobs.common.items.ItemGhostDust;
+import net.darkhax.colorfulmobs.lib.Constants;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
+
+import java.util.Arrays;
 
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER)
 public class ColorfulMobs {
@@ -50,6 +51,8 @@ public class ColorfulMobs {
         GameRegistry.registerItem(itemGhostDust, "ghostDust", Constants.MOD_ID);
         GameRegistry.registerItem(itemPowder, "colorPowder", Constants.MOD_ID);
         MinecraftForge.EVENT_BUS.register(new EntityHandler());
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
     void setModInfo(ModMetadata meta) {

@@ -1,4 +1,4 @@
-package net.darkhax.colourfulmobs.common;
+package net.darkhax.colorfulmobs.common;
 
 public class ConfigurationHandler {
 

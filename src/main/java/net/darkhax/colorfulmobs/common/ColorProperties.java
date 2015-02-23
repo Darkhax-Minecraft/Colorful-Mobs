@@ -1,7 +1,7 @@
-package net.darkhax.colourfulmobs.common;
+package net.darkhax.colorfulmobs.common;
 
 import net.darkhax.bookshelf.objects.ColorObject;
-import net.darkhax.colourfulmobs.ColorfulMobs;
+import net.darkhax.colorfulmobs.ColorfulMobs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;

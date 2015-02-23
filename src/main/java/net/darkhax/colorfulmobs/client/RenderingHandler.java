@@ -1,7 +1,7 @@
-package net.darkhax.colourfulmobs.client;
+package net.darkhax.colorfulmobs.client;
 
 import net.darkhax.bookshelf.objects.ColorObject;
-import net.darkhax.colourfulmobs.common.ColorProperties;
+import net.darkhax.colorfulmobs.common.ColorProperties;
 import net.minecraftforge.client.event.RenderLivingEvent;
 
 import org.lwjgl.opengl.GL11;
