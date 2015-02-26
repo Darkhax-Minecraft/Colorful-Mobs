@@ -44,6 +44,7 @@ public class ColorfulMobs {
 
         network = NetworkRegistry.INSTANCE.newSimpleChannel("ColorfulMobs");
         network.registerMessage(PacketColorSync.PacketColorSyncHandler.class, PacketColorSync.class, 0, Side.CLIENT);
+        network.registerMessage(PacketColorSync.PacketColorSyncHandler.class, PacketColorSync.class, 0, Side.SERVER);
 
         setModInfo(pre.getModMetadata());
         proxy.registerSidedEvents();

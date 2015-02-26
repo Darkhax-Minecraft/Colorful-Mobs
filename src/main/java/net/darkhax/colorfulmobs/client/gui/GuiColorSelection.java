@@ -145,7 +145,7 @@ public class GuiColorSelection extends GuiScreen {
             if (entity != null) {
                 // send packet
                 updateColor();
-                ColorfulMobs.instance.network.sendToAll(new PacketColorSync(new ColorObject(r, g, b, a), entity));
+                ColorfulMobs.network.sendToServer(new PacketColorSync(new ColorObject(r, g, b, a), entity));
             }
             // close gui
             this.mc.displayGuiScreen(null);
