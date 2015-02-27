@@ -18,12 +18,11 @@ public class ItemColorSetter extends Item {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-
-        if (!player.worldObj.isRemote && stack.hasTagCompound()) {
+        if (!player.worldObj.isRemote) {
 
             ColorObject colorObj = getColorToApply(stack, entity);
             ColorProperties.setEntityColors(colorObj, entity);
-            ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
+            ColorfulMobs.network.sendToAll(new PacketColorSync(colorObj, entity));
         }
 
         stack.stackSize--;

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
 import net.epoxide.colorfulmobs.handler.EntityHandler;
 import net.epoxide.colorfulmobs.handler.GuiHandler;
 import net.epoxide.colorfulmobs.items.ItemColorWand;
@@ -41,6 +42,7 @@ public class ColorfulMobs {
     public static Item itemGhostDust = new ItemGhostDust();
     public static Item itemPowder = new ItemColoredPowder();
 
+    public static ConfigurationHandler config;
     @EventHandler
     public void preInit(FMLPreInitializationEvent pre) {
 
@@ -50,6 +52,9 @@ public class ColorfulMobs {
 
         setModInfo(pre.getModMetadata());
         proxy.registerSidedEvents();
+
+        config = new ConfigurationHandler(pre.getSuggestedConfigurationFile());
+
         GameRegistry.registerItem(itemColorWand, "colorWand", Constants.MOD_ID);
         GameRegistry.registerItem(itemRainbowDust, "rainbowDust", Constants.MOD_ID);
         GameRegistry.registerItem(itemGhostDust, "ghostDust", Constants.MOD_ID);

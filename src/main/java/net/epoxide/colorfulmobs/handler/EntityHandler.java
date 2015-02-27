@@ -23,7 +23,7 @@ public class EntityHandler {
 
             ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
 
-            if (ConfigurationHandler.spawnRandom && Math.random() > 0.30) {
+            if (ColorProperties.hasColorProperties((EntityLivingBase) event.entity) && !ColorObject.isGeneric(ColorProperties.getPropsFromEntity((EntityLivingBase) event.entity).colorObj) && ConfigurationHandler.spawnRandom && Math.random() > 0.30) {
 
                 ColorProperties.setEntityColors(new ColorObject(false), (EntityLivingBase) event.entity);
             }
