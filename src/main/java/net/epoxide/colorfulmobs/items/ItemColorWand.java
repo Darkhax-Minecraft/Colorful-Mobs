@@ -1,7 +1,7 @@
-package net.darkhax.colorfulmobs.common.items;
+package net.epoxide.colorfulmobs.items;
 
-import net.darkhax.colorfulmobs.ColorfulMobs;
-import net.darkhax.colorfulmobs.common.handler.GuiHandler;
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.handler.GuiHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

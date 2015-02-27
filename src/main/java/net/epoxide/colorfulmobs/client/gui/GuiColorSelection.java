@@ -1,10 +1,10 @@
-package net.darkhax.colorfulmobs.client.gui;
+package net.epoxide.colorfulmobs.client.gui;
 
 import net.darkhax.bookshelf.objects.ColorObject;
-import net.darkhax.colorfulmobs.ColorfulMobs;
-import net.darkhax.colorfulmobs.common.ColorProperties;
-import net.darkhax.colorfulmobs.common.PacketColorSync;
-import net.darkhax.colorfulmobs.lib.Constants;
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;

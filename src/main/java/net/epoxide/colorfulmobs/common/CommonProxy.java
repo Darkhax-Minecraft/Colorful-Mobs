@@ -1,4 +1,4 @@
-package net.darkhax.colorfulmobs.common;
+package net.epoxide.colorfulmobs.common;
 
 public class CommonProxy {
 

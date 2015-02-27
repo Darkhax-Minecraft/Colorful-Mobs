@@ -1,15 +1,15 @@
-package net.darkhax.colorfulmobs;
+package net.epoxide.colorfulmobs;
 
 import java.util.Arrays;
 
-import net.darkhax.colorfulmobs.common.CommonProxy;
-import net.darkhax.colorfulmobs.common.PacketColorSync;
-import net.darkhax.colorfulmobs.common.handler.EntityHandler;
-import net.darkhax.colorfulmobs.common.handler.GuiHandler;
-import net.darkhax.colorfulmobs.common.items.ItemColorWand;
-import net.darkhax.colorfulmobs.common.items.ItemColoredPowder;
-import net.darkhax.colorfulmobs.common.items.ItemGhostDust;
-import net.darkhax.colorfulmobs.lib.Constants;
+import net.epoxide.colorfulmobs.common.CommonProxy;
+import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.handler.EntityHandler;
+import net.epoxide.colorfulmobs.handler.GuiHandler;
+import net.epoxide.colorfulmobs.items.ItemColorWand;
+import net.epoxide.colorfulmobs.items.ItemColoredPowder;
+import net.epoxide.colorfulmobs.items.ItemGhostDust;
+import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;

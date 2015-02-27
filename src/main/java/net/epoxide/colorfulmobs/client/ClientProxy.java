@@ -1,6 +1,6 @@
-package net.darkhax.colorfulmobs.client;
+package net.epoxide.colorfulmobs.client;
 
-import net.darkhax.colorfulmobs.common.CommonProxy;
+import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {

@@ -1,6 +1,6 @@
-package net.darkhax.colorfulmobs.common.handler;
+package net.epoxide.colorfulmobs.handler;
 
-import net.darkhax.colorfulmobs.client.gui.GuiColorSelection;
+import net.epoxide.colorfulmobs.client.gui.GuiColorSelection;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

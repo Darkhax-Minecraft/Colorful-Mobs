@@ -1,4 +1,4 @@
-package net.darkhax.colorfulmobs.common;
+package net.epoxide.colorfulmobs.common;
 
 import io.netty.buffer.ByteBuf;
 import net.darkhax.bookshelf.helper.PlayerHelper;
