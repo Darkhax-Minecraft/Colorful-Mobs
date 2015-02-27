@@ -27,10 +27,12 @@ public class GuiColorSelection extends GuiScreen {
     private int r = 255, g = 255, b = 255, a = 255;
 
     public GuiColorSelection(EntityLivingBase entity) {
+        
         this.entity = entity;
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -46,6 +48,7 @@ public class GuiColorSelection extends GuiScreen {
 
     @Override
     public void initGui() {
+        
         super.initGui();
 
         int k = (this.width - this.xSize) / 2;
@@ -54,12 +57,12 @@ public class GuiColorSelection extends GuiScreen {
         buttonList.add(new GuiButton(1, k + 63, l + 190, 50, 20, "Confirm"));
 
         if (ColorProperties.hasColorProperties(entity)) {
+            
             ColorObject obj = ColorProperties.getPropsFromEntity(entity).colorObj;
             r = (int) (obj.red * 255);
             g = (int) (obj.green * 255);
             b = (int) (obj.blue * 255);
             a = (int) (obj.alpha * 255);
-
         }
         this.textR = new GuiTextField(fontRendererObj, k + 17, l + 160, 30, 10);
         this.textR.setMaxStringLength(3);
@@ -80,11 +83,11 @@ public class GuiColorSelection extends GuiScreen {
         this.textA.setMaxStringLength(3);
         this.textA.setTextColor(16777215);
         this.textA.setText(String.valueOf(a));
-
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        
         drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
 
@@ -103,6 +106,7 @@ public class GuiColorSelection extends GuiScreen {
     }
 
     public static void drawEntityOnScreen(int x, int y, int scale, float mouseX, float mouseY, EntityLivingBase entity) {
+        
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, 50.0F);
@@ -152,11 +156,11 @@ public class GuiColorSelection extends GuiScreen {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
-
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        
         super.mouseClicked(mouseX, mouseY, mouseButton);
         textR.mouseClicked(mouseX, mouseY, mouseButton);
         textG.mouseClicked(mouseX, mouseY, mouseButton);
