@@ -25,7 +25,9 @@ public class RenderingHandler {
 
     @SubscribeEvent
     public void onEntityRenderPost(RenderLivingEvent.Post event) {
+
         if (ColorProperties.hasColorProperties(event.entity)) {
+
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glPopMatrix();
         }

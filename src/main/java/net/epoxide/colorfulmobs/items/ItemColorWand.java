@@ -23,5 +23,4 @@ public class ItemColorWand extends Item {
         player.openGui(ColorfulMobs.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
         return true;
     }
-
 }

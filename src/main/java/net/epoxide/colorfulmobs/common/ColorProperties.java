@@ -39,21 +39,46 @@ public class ColorProperties implements IExtendedEntityProperties {
 
     }
 
+    /**
+     * Retrieves a ColorProperties object from a provided entity.
+     * 
+     * @param living: A living entity which extends EntityLivingBase, this is where the data comes from.
+     * @return ColorProperties: A ColorProperties object unique to the specified living entity.
+     */
     public static ColorProperties getPropsFromEntity(EntityLivingBase living) {
 
         return (ColorProperties) living.getExtendedProperties(PROP_NAME);
     }
 
+    /**
+     * Sets a new ColorProperties object to a living entity, this will override any existing color data,
+     * and is mandatory to apply before setting colors to mobs.
+     * 
+     * @param living
+     */
     public static void setPropsToEntity(EntityLivingBase living) {
 
         living.registerExtendedProperties(PROP_NAME, new ColorProperties(living));
     }
 
+    /**
+     * Checks to see if a living entity has color properties.
+     * 
+     * @param living: A living entity to check for colored properties.
+     * @return boolean: True if the mob has a ColorProperties object.
+     */
     public static boolean hasColorProperties(EntityLivingBase living) {
 
         return getPropsFromEntity(living) != null;
     }
 
+    /**
+     * Sets the color for an entity. Has built in check to ensure the mob actually has a ColorProperties
+     * object to write to.
+     * 
+     * @param color: A ColorObject containing the color being set. This will override existing colors.
+     * @param living: A living entity to have color data applied to.
+     */
     public static void setEntityColors(ColorObject color, EntityLivingBase living) {
 
         if (!hasColorProperties(living))

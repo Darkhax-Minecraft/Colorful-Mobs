@@ -27,12 +27,12 @@ public class GuiColorSelection extends GuiScreen {
     private int r = 255, g = 255, b = 255, a = 255;
 
     public GuiColorSelection(EntityLivingBase entity) {
-        
+
         this.entity = entity;
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        
+
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -40,6 +40,7 @@ public class GuiColorSelection extends GuiScreen {
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
+
         this.drawTexturedModalRect(k + 32, l + 30, 20, 20, 110, 115);
 
         if (entity != null)
@@ -48,7 +49,7 @@ public class GuiColorSelection extends GuiScreen {
 
     @Override
     public void initGui() {
-        
+
         super.initGui();
 
         int k = (this.width - this.xSize) / 2;
@@ -57,13 +58,14 @@ public class GuiColorSelection extends GuiScreen {
         buttonList.add(new GuiButton(1, k + 63, l + 190, 50, 20, "Confirm"));
 
         if (ColorProperties.hasColorProperties(entity)) {
-            
+
             ColorObject obj = ColorProperties.getPropsFromEntity(entity).colorObj;
             r = (int) (obj.red * 255);
             g = (int) (obj.green * 255);
             b = (int) (obj.blue * 255);
             a = (int) (obj.alpha * 255);
         }
+
         this.textR = new GuiTextField(fontRendererObj, k + 17, l + 160, 30, 10);
         this.textR.setMaxStringLength(3);
         this.textR.setTextColor(16777215);
@@ -87,7 +89,7 @@ public class GuiColorSelection extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        
+
         drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         super.drawScreen(mouseX, mouseY, partialTicks);
 
@@ -99,6 +101,7 @@ public class GuiColorSelection extends GuiScreen {
         drawString(this.fontRendererObj, "Alpha", k + 129, l + 150, 0xffffff);
 
         drawCenteredString(fontRendererObj, "Color Menu", k + 87, l + 15, 0xffffff);
+
         this.textR.drawTextBox();
         this.textG.drawTextBox();
         this.textB.drawTextBox();
@@ -106,7 +109,7 @@ public class GuiColorSelection extends GuiScreen {
     }
 
     public static void drawEntityOnScreen(int x, int y, int scale, float mouseX, float mouseY, EntityLivingBase entity) {
-        
+
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, 50.0F);
@@ -145,13 +148,15 @@ public class GuiColorSelection extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
 
-        // if
         if (button.id == 1) {
+
             if (entity != null) {
+
                 // send packet
                 updateColor();
                 ColorfulMobs.network.sendToServer(new PacketColorSync(new ColorObject(r, g, b, a), entity));
             }
+
             // close gui
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
@@ -160,123 +165,168 @@ public class GuiColorSelection extends GuiScreen {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        
+
         super.mouseClicked(mouseX, mouseY, mouseButton);
         textR.mouseClicked(mouseX, mouseY, mouseButton);
         textG.mouseClicked(mouseX, mouseY, mouseButton);
         textB.mouseClicked(mouseX, mouseY, mouseButton);
         textA.mouseClicked(mouseX, mouseY, mouseButton);
-
     }
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) {
+
         super.keyTyped(typedChar, keyCode);
-        if (textR.isFocused()) {
+
+        if (textR.isFocused())
             addText(textR, typedChar, keyCode);
-        } else if (textG.isFocused()) {
+
+        else if (textG.isFocused())
             addText(textG, typedChar, keyCode);
-        } else if (textB.isFocused()) {
+
+        else if (textB.isFocused())
             addText(textB, typedChar, keyCode);
-        } else if (textA.isFocused()) {
+
+        else if (textA.isFocused())
             addText(textA, typedChar, keyCode);
-        }
     }
 
+    /**
+     * Updates all the color text and values.
+     */
     public void updateColor() {
+
         String color = textR.getText();
-        if (color != null && !color.equals("")) {
+        if (color != null && !color.equals(""))
             r = Integer.parseInt(color);
-        }
+
         color = textG.getText();
-        if (color != null && !color.equals("")) {
+        if (color != null && !color.equals(""))
             g = Integer.parseInt(color);
-        }
+
         color = textB.getText();
-        if (color != null && !color.equals("")) {
+        if (color != null && !color.equals(""))
             b = Integer.parseInt(color);
-        }
+
         color = textA.getText();
-        if (color != null && !color.equals("")) {
+        if (color != null && !color.equals(""))
             a = Integer.parseInt(color);
-        }
 
         ColorProperties.setEntityColors(new ColorObject(r, g, b, a), entity);
 
     }
 
+    /**
+     * Adds a character to a textField. Used for typing the RGBA values.
+     * 
+     * @param textField: The GUITextField being added to.
+     * @param typedChar: The character which is being added to the text field.
+     * @param keyCode: A numeric value which represents the key being typed.
+     * 
+     * @return boolean: Will return true if the character was successfully added.
+     */
     private boolean addText(GuiTextField textField, char typedChar, int keyCode) {
+
         if (typedChar >= '0' && typedChar <= '9') {
+
             textField.textboxKeyTyped(typedChar, keyCode);
+
             if (Integer.parseInt(textField.getText()) <= 255) {
+
                 updateColor();
                 return true;
-            } else {
+            }
+
+            else {
+
                 textField.setText("255");
                 updateColor();
                 return true;
             }
-        } else {
+        }
+
+        else {
+
             switch (keyCode) {
+
             case 14:
                 if (GuiScreen.isCtrlKeyDown()) {
+
                     textField.deleteWords(-1);
                     updateColor();
-                } else {
+                }
+
+                else {
+
                     textField.deleteFromCursor(-1);
                     updateColor();
                 }
 
                 return true;
+
             case 199:
-                if (GuiScreen.isShiftKeyDown()) {
+                if (GuiScreen.isShiftKeyDown())
                     textField.setSelectionPos(0);
-                } else {
+
+                else
                     textField.setCursorPositionZero();
-                }
 
                 return true;
+
             case 203:
                 if (GuiScreen.isShiftKeyDown()) {
-                    if (GuiScreen.isCtrlKeyDown()) {
+
+                    if (GuiScreen.isCtrlKeyDown())
                         textField.setSelectionPos(textField.getNthWordFromPos(-1, textField.getSelectionEnd()));
-                    } else {
+
+                    else
                         textField.setSelectionPos(textField.getSelectionEnd() - 1);
-                    }
-                } else if (GuiScreen.isCtrlKeyDown()) {
-                    textField.setCursorPosition(textField.getNthWordFromCursor(-1));
-                } else {
-                    textField.moveCursorBy(-1);
                 }
 
+                else if (GuiScreen.isCtrlKeyDown())
+                    textField.setCursorPosition(textField.getNthWordFromCursor(-1));
+
+                else
+                    textField.moveCursorBy(-1);
+
                 return true;
+
             case 205:
                 if (GuiScreen.isShiftKeyDown()) {
-                    if (GuiScreen.isCtrlKeyDown()) {
+
+                    if (GuiScreen.isCtrlKeyDown())
                         textField.setSelectionPos(textField.getNthWordFromPos(1, textField.getSelectionEnd()));
-                    } else {
+
+                    else
                         textField.setSelectionPos(textField.getSelectionEnd() + 1);
-                    }
-                } else if (GuiScreen.isCtrlKeyDown()) {
+                }
+
+                else if (GuiScreen.isCtrlKeyDown())
                     textField.setCursorPosition(textField.getNthWordFromCursor(1));
-                } else {
+
+                else
                     textField.moveCursorBy(1);
-                }
 
                 return true;
+
             case 207:
-                if (GuiScreen.isShiftKeyDown()) {
+                if (GuiScreen.isShiftKeyDown())
                     textField.setSelectionPos(textField.getText().length());
-                } else {
+
+                else
                     textField.setCursorPositionEnd();
-                }
 
                 return true;
+
             case 211:
                 if (GuiScreen.isCtrlKeyDown()) {
+
                     textField.deleteWords(1);
                     updateColor();
-                } else {
+                }
+
+                else {
+
                     textField.deleteFromCursor(1);
                     updateColor();
                 }
@@ -284,6 +334,7 @@ public class GuiColorSelection extends GuiScreen {
                 return true;
             }
         }
+
         return false;
     }
 }
