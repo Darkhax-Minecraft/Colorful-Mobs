@@ -4,6 +4,7 @@
 item.colorfulmobs.powder.name=Dye Powder
 item.colorfulmobs.powder.random.name=Random Dye Powder
 item.colorfulmobs.ghostdust.name=Invisibility Powder
+item.colorfulmobs.rainbowdust.name=Rainbow Dust
 
 #Tooltips
 tooltip.colorfulmobs.transparency=Transparency

@@ -9,6 +9,7 @@ import net.epoxide.colorfulmobs.handler.GuiHandler;
 import net.epoxide.colorfulmobs.items.ItemColorWand;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
 import net.epoxide.colorfulmobs.items.ItemGhostDust;
+import net.epoxide.colorfulmobs.items.ItemRainbowDust;
 import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -36,6 +37,7 @@ public class ColorfulMobs {
 
     public static CreativeTabs tabColor = new CreativeTabColor();
     public static Item itemColorWand = new ItemColorWand();
+    public static Item itemRainbowDust = new ItemRainbowDust();
     public static Item itemGhostDust = new ItemGhostDust();
     public static Item itemPowder = new ItemColoredPowder();
 
@@ -49,6 +51,7 @@ public class ColorfulMobs {
         setModInfo(pre.getModMetadata());
         proxy.registerSidedEvents();
         GameRegistry.registerItem(itemColorWand, "colorWand", Constants.MOD_ID);
+        GameRegistry.registerItem(itemRainbowDust, "rainbowDust", Constants.MOD_ID);
         GameRegistry.registerItem(itemGhostDust, "ghostDust", Constants.MOD_ID);
         GameRegistry.registerItem(itemPowder, "colorPowder", Constants.MOD_ID);
         MinecraftForge.EVENT_BUS.register(new EntityHandler());

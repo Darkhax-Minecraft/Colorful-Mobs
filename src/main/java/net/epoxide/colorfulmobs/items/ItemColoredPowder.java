@@ -3,9 +3,6 @@ package net.epoxide.colorfulmobs.items;
 import java.util.List;
 
 import net.darkhax.bookshelf.objects.ColorObject;
-import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
-import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,7 +14,7 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemColoredPowder extends Item {
+public class ItemColoredPowder extends ItemColorSetter {
 
     public static IIcon rope;
     public static IIcon sack;
@@ -27,22 +24,16 @@ public class ItemColoredPowder extends Item {
     public ItemColoredPowder() {
 
         this.hasSubtypes = true;
-        this.setCreativeTab(ColorfulMobs.tabColor);
         this.setUnlocalizedName("colorfulmobs.powder");
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
+    public ColorObject getColorToApply(ItemStack stack, EntityLivingBase entity) {
 
-        if (!player.worldObj.isRemote && stack.hasTagCompound()) {
+        if (stack.hasTagCompound())
+            return ColorObject.getColorFromTag(stack.getTagCompound());
 
-            ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
-            ColorProperties.setEntityColors(colorObj, entity);
-            ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
-        }
-
-        stack.stackSize--;
-        return true;
+        return new ColorObject(1, 1, 1);
     }
 
     @Override
