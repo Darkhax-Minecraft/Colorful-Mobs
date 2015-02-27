@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -213,70 +214,70 @@ public class GuiColorSelection extends GuiScreen {
             }
         } else {
             switch (keyCode) {
-                case 14:
+            case 14:
+                if (GuiScreen.isCtrlKeyDown()) {
+                    textField.deleteWords(-1);
+                    updateColor();
+                } else {
+                    textField.deleteFromCursor(-1);
+                    updateColor();
+                }
+
+                return true;
+            case 199:
+                if (GuiScreen.isShiftKeyDown()) {
+                    textField.setSelectionPos(0);
+                } else {
+                    textField.setCursorPositionZero();
+                }
+
+                return true;
+            case 203:
+                if (GuiScreen.isShiftKeyDown()) {
                     if (GuiScreen.isCtrlKeyDown()) {
-                        textField.deleteWords(-1);
-                        updateColor();
+                        textField.setSelectionPos(textField.getNthWordFromPos(-1, textField.getSelectionEnd()));
                     } else {
-                        textField.deleteFromCursor(-1);
-                        updateColor();
+                        textField.setSelectionPos(textField.getSelectionEnd() - 1);
                     }
+                } else if (GuiScreen.isCtrlKeyDown()) {
+                    textField.setCursorPosition(textField.getNthWordFromCursor(-1));
+                } else {
+                    textField.moveCursorBy(-1);
+                }
 
-                    return true;
-                case 199:
-                    if (GuiScreen.isShiftKeyDown()) {
-                        textField.setSelectionPos(0);
-                    } else {
-                        textField.setCursorPositionZero();
-                    }
-
-                    return true;
-                case 203:
-                    if (GuiScreen.isShiftKeyDown()) {
-                        if (GuiScreen.isCtrlKeyDown()) {
-                            textField.setSelectionPos(textField.getNthWordFromPos(-1, textField.getSelectionEnd()));
-                        } else {
-                            textField.setSelectionPos(textField.getSelectionEnd() - 1);
-                        }
-                    } else if (GuiScreen.isCtrlKeyDown()) {
-                        textField.setCursorPosition(textField.getNthWordFromCursor(-1));
-                    } else {
-                        textField.moveCursorBy(-1);
-                    }
-
-                    return true;
-                case 205:
-                    if (GuiScreen.isShiftKeyDown()) {
-                        if (GuiScreen.isCtrlKeyDown()) {
-                            textField.setSelectionPos(textField.getNthWordFromPos(1, textField.getSelectionEnd()));
-                        } else {
-                            textField.setSelectionPos(textField.getSelectionEnd() + 1);
-                        }
-                    } else if (GuiScreen.isCtrlKeyDown()) {
-                        textField.setCursorPosition(textField.getNthWordFromCursor(1));
-                    } else {
-                        textField.moveCursorBy(1);
-                    }
-
-                    return true;
-                case 207:
-                    if (GuiScreen.isShiftKeyDown()) {
-                        textField.setSelectionPos(textField.getText().length());
-                    } else {
-                        textField.setCursorPositionEnd();
-                    }
-
-                    return true;
-                case 211:
+                return true;
+            case 205:
+                if (GuiScreen.isShiftKeyDown()) {
                     if (GuiScreen.isCtrlKeyDown()) {
-                        textField.deleteWords(1);
-                        updateColor();
+                        textField.setSelectionPos(textField.getNthWordFromPos(1, textField.getSelectionEnd()));
                     } else {
-                        textField.deleteFromCursor(1);
-                        updateColor();
+                        textField.setSelectionPos(textField.getSelectionEnd() + 1);
                     }
+                } else if (GuiScreen.isCtrlKeyDown()) {
+                    textField.setCursorPosition(textField.getNthWordFromCursor(1));
+                } else {
+                    textField.moveCursorBy(1);
+                }
 
-                    return true;
+                return true;
+            case 207:
+                if (GuiScreen.isShiftKeyDown()) {
+                    textField.setSelectionPos(textField.getText().length());
+                } else {
+                    textField.setCursorPositionEnd();
+                }
+
+                return true;
+            case 211:
+                if (GuiScreen.isCtrlKeyDown()) {
+                    textField.deleteWords(1);
+                    updateColor();
+                } else {
+                    textField.deleteFromCursor(1);
+                    updateColor();
+                }
+
+                return true;
             }
         }
         return false;

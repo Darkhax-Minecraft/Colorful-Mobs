@@ -80,12 +80,12 @@ public class ItemColoredPowder extends Item {
             stack.setTagCompound(ColorObject.getTagFromColor(colors[i]));
             itemList.add(stack);
         }
-        
+
         for (int i = 0; i < 16; i++) {
-            
+
             ItemStack stack = new ItemStack(this);
             stack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(false)));
-            stack.setStackDisplayName(EnumChatFormatting.DARK_AQUA + "Random Dye Powder");        
+            stack.setStackDisplayName(EnumChatFormatting.DARK_AQUA + "Random Dye Powder");
             itemList.add(stack);
         }
     }
@@ -98,15 +98,15 @@ public class ItemColoredPowder extends Item {
         this.rope = register.registerIcon("colorfulmobs:powder1");
         this.sack = register.registerIcon("colorfulmobs:powder2");
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
-        
+
         if (stack.hasTagCompound()) {
-            
+
             ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
-            
+
             if (colorObj != null)
                 list.add(EnumChatFormatting.RED + "" + (colorObj.red * 255) + " " + EnumChatFormatting.GREEN + (colorObj.green * 255) + " " + EnumChatFormatting.BLUE + (colorObj.blue * 255));
         }

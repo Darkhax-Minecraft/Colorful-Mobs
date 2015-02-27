@@ -1,10 +1,12 @@
 package net.darkhax.colorfulmobs.client;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.darkhax.colorfulmobs.common.ColorProperties;
 import net.minecraftforge.client.event.RenderLivingEvent;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class RenderingHandler {
 

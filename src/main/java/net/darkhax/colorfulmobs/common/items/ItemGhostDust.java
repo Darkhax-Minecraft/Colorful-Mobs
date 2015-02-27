@@ -22,7 +22,7 @@ public class ItemGhostDust extends Item {
 
     public static IIcon rope;
     public static IIcon sack;
-    
+
     public ItemGhostDust() {
 
         this.hasSubtypes = true;
@@ -38,12 +38,12 @@ public class ItemGhostDust extends Item {
             ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
             ColorProperties props = ColorProperties.getPropsFromEntity(entity);
             if (props.hasColorProperties(entity) && !ColorObject.isGeneric(props.colorObj)) {
-                
+
                 float alpha = colorObj.alpha;
                 colorObj = props.colorObj;
                 colorObj.alpha = alpha;
             }
-            
+
             ColorProperties.setEntityColors(colorObj, entity);
             ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
         }
@@ -55,8 +55,8 @@ public class ItemGhostDust extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass) {
-        
-            return 10511680;
+
+        return 10511680;
     }
 
     @Override
@@ -93,22 +93,22 @@ public class ItemGhostDust extends Item {
         this.rope = register.registerIcon("colorfulmobs:powder1");
         this.sack = register.registerIcon("colorfulmobs:powder2");
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        
+
         return true;
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
-        
+
         if (stack.hasTagCompound()) {
-            
+
             ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
-            
+
             if (colorObj != null)
                 list.add(NumericHelper.round(colorObj.alpha, 4) + "% " + StatCollector.translateToLocal("tooltip.colorfulmobs.transparency"));
         }
