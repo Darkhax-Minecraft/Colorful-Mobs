@@ -32,8 +32,8 @@ public class ItemColorSetter extends Item {
     /**
      * Supplies the ColorObject being applied by this item to an entity. Can be overridden to change the
      * behavior of colors being set.
-     * 
-     * @param stack: The ItemStack for this item.
+     *
+     * @param stack:  The ItemStack for this item.
      * @param entity: The living entity which is having color applied to it.
      * @return ColorObject: A ColorObject to be applied by this item.
      */
@@ -44,8 +44,8 @@ public class ItemColorSetter extends Item {
 
     /**
      * Used to check if the item should be consumed after a single use.
-     * 
-     * @param stack: The ItemStack for this item.
+     *
+     * @param stack:  The ItemStack for this item.
      * @param entity: The living entity which this item was used on.
      * @return boolean: True by default. If true, the item will be consumed.
      */

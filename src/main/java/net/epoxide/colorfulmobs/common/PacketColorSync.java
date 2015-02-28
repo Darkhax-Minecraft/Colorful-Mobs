@@ -1,16 +1,17 @@
 package net.epoxide.colorfulmobs.common;
 
-import io.netty.buffer.ByteBuf;
-import net.darkhax.bookshelf.helper.PlayerHelper;
-import net.darkhax.bookshelf.objects.ColorObject;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
+import io.netty.buffer.ByteBuf;
+import net.darkhax.bookshelf.helper.PlayerHelper;
+import net.darkhax.bookshelf.objects.ColorObject;
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class PacketColorSync implements IMessage {
 
@@ -52,6 +53,8 @@ public class PacketColorSync implements IMessage {
             if (entity instanceof EntityLivingBase)
                 ColorProperties.setEntityColors(packet.colorObj, (EntityLivingBase) entity);
 
+            if (ctx.side == Side.SERVER)
+                ColorfulMobs.network.sendToAll(packet);
             return null;
         }
     }

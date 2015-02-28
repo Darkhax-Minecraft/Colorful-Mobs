@@ -2,6 +2,7 @@ package net.epoxide.colorfulmobs.handler;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.epoxide.colorfulmobs.lib.Constants;
@@ -16,7 +17,7 @@ public class ConfigurationHandler {
     public static boolean spawnRandom = true;
     public static boolean dropPowder = true;
     public static boolean limitMobs = false;
-    public static String[] validMobs = null;
+    public static List<String> validMobs = null;
     public static boolean dyePlayer = false;
 
     public static String GENERAL = "General";
@@ -24,9 +25,9 @@ public class ConfigurationHandler {
     public static Configuration config;
 
     public ConfigurationHandler(File file) {
-        
-        this.config = new Configuration(file);
-        
+
+        config = new Configuration(file);
+
         FMLCommonHandler.instance().bus().register(this);
         syncConfigData();
     }
@@ -59,6 +60,18 @@ public class ConfigurationHandler {
         prop.comment = "Can players dye each other?";
         prop.setLanguageKey("colorfulmobs.configGui.playerDye");
         dyePlayer = prop.getBoolean(true);
+        propOrder.add(prop.getName());
+
+        prop = config.get(GENERAL, "Limit Valid Mobs", false);
+        prop.comment = "If only the valid mobs spawn";
+        prop.setLanguageKey("colorfulmobs.configGui.limitMobs`");
+        limitMobs = prop.getBoolean(false);
+        propOrder.add(prop.getName());
+
+        prop = config.get(GENERAL, "Valid Mobs", new String[]{});
+        prop.comment = "Valid Mobs that can spawn";
+        prop.setLanguageKey("colorfulmobs.configGui.validMobs");
+        validMobs = Arrays.asList(prop.getStringList());
         propOrder.add(prop.getName());
 
         config.setCategoryPropertyOrder(GENERAL, propOrder);

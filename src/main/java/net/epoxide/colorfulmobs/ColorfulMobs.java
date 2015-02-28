@@ -1,7 +1,14 @@
 package net.epoxide.colorfulmobs;
 
-import java.util.Arrays;
-
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.ModMetadata;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
@@ -15,15 +22,8 @@ import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
+
+import java.util.Arrays;
 
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER)
 public class ColorfulMobs {
@@ -67,9 +67,9 @@ public class ColorfulMobs {
     /**
      * Sets the mod meta for a mod, this is the information displayed when looking at this modification
      * in the in-game mod list provided by MinecraftForge.
-     * 
+     *
      * @param meta: The ModMetadata object for this mod. This can be retrieved from the
-     *        FMLPreInitializationEvent.
+     *              FMLPreInitializationEvent.
      */
     void setModInfo(ModMetadata meta) {
 
