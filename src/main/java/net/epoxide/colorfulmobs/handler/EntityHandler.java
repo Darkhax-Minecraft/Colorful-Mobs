@@ -19,15 +19,8 @@ public class EntityHandler {
     @SubscribeEvent
     public void onEntityConstructed(EntityEvent.EntityConstructing event) {
 
-        if (event.entity instanceof EntityLiving && (!(event.entity instanceof EntityPlayer) || ConfigurationHandler.dyePlayer)) {
-
+        if (event.entity instanceof EntityLiving && (!(event.entity instanceof EntityPlayer) || ConfigurationHandler.dyePlayer))
             ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
-
-            if (ColorProperties.hasColorProperties((EntityLivingBase) event.entity) && !ColorObject.isGeneric(ColorProperties.getPropsFromEntity((EntityLivingBase) event.entity).colorObj) && ConfigurationHandler.spawnRandom && Math.random() > 0.30) {
-
-                ColorProperties.setEntityColors(new ColorObject(false), (EntityLivingBase) event.entity);
-            }
-        }
     }
 
     @SubscribeEvent

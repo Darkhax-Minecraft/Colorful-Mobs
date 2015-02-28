@@ -43,6 +43,7 @@ public class ColorfulMobs {
     public static Item itemPowder = new ItemColoredPowder();
 
     public static ConfigurationHandler config;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent pre) {
 

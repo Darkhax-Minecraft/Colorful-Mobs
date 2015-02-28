@@ -1,15 +1,15 @@
 package net.epoxide.colorfulmobs.handler;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.epoxide.colorfulmobs.lib.Constants;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.epoxide.colorfulmobs.lib.Constants;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ConfigurationHandler {
 
@@ -24,8 +24,9 @@ public class ConfigurationHandler {
     public static Configuration config;
 
     public ConfigurationHandler(File file) {
+        
         this.config = new Configuration(file);
-
+        
         FMLCommonHandler.instance().bus().register(this);
         syncConfigData();
     }
@@ -38,6 +39,7 @@ public class ConfigurationHandler {
     }
 
     private void syncConfigData() {
+        
         List<String> propOrder = new ArrayList<String>();
         Property prop;
 
@@ -61,8 +63,7 @@ public class ConfigurationHandler {
 
         config.setCategoryPropertyOrder(GENERAL, propOrder);
 
-        if (config.hasChanged()) {
+        if (config.hasChanged())
             config.save();
-        }
     }
 }
