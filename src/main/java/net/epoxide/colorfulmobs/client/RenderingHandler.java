@@ -1,12 +1,14 @@
 package net.epoxide.colorfulmobs.client;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
 import net.minecraft.entity.EntityList;
 import net.minecraftforge.client.event.RenderLivingEvent;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class RenderingHandler {
 

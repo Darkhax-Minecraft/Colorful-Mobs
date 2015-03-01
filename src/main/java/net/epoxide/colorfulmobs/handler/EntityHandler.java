@@ -1,6 +1,5 @@
 package net.epoxide.colorfulmobs.handler;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.darkhax.bookshelf.helper.ItemHelper;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
@@ -14,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EntityHandler {
 
@@ -54,7 +54,6 @@ public class EntityHandler {
             ItemHelper.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
         }
     }
-
 
     public boolean isValidMob(Entity entity) {
 
