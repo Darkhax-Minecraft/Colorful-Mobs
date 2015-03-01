@@ -1,5 +1,6 @@
 package net.epoxide.colorfulmobs.handler;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.darkhax.bookshelf.helper.ItemHelper;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
@@ -9,11 +10,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EntityHandler {
 
@@ -29,10 +30,6 @@ public class EntityHandler {
                 ColorProperties.setEntityColors(new ColorObject(false), (EntityLivingBase) event.entity);
             }
         }
-
-        if (event.entity instanceof EntityLiving && isMobDyed((EntityLivingBase) event.entity))
-            ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
-
     }
 
     @SubscribeEvent
@@ -57,6 +54,10 @@ public class EntityHandler {
 
     public boolean isValidMob(Entity entity) {
 
+        if (entity instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
+
+            return true;
+
         if (ConfigurationHandler.limitMobs)
 
             if (ConfigurationHandler.validMobs.contains(EntityList.getEntityString(entity)))
@@ -68,6 +69,6 @@ public class EntityHandler {
 
     public boolean isMobDyed(EntityLivingBase entity) {
 
-        return ColorProperties.hasColorProperties(entity) && !ColorObject.isGeneric(ColorProperties.getPropsFromEntity(entity).colorObj);
+        return ColorProperties.hasColorProperties(entity);
     }
 }

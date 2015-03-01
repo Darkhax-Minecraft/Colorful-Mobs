@@ -40,7 +40,7 @@ public class ConfigurationHandler {
     }
 
     private void syncConfigData() {
-
+        
         List<String> propOrder = new ArrayList<String>();
         Property prop;
 
@@ -56,10 +56,10 @@ public class ConfigurationHandler {
         dropPowder = prop.getBoolean(true);
         propOrder.add(prop.getName());
 
-        prop = config.get(GENERAL, "Player Dye", true);
+        prop = config.get(GENERAL, "Player Dye", false);
         prop.comment = "Can players dye each other?";
         prop.setLanguageKey("colorfulmobs.configGui.playerDye");
-        dyePlayer = prop.getBoolean(true);
+        dyePlayer = prop.getBoolean(false);
         propOrder.add(prop.getName());
 
         prop = config.get(GENERAL, "Limit Valid Mobs", false);
@@ -68,7 +68,7 @@ public class ConfigurationHandler {
         limitMobs = prop.getBoolean(false);
         propOrder.add(prop.getName());
 
-        prop = config.get(GENERAL, "Valid Mobs", new String[] {});
+        prop = config.get(GENERAL, "Valid Mobs", new String[]{});
         prop.comment = "Valid Mobs that can spawn";
         prop.setLanguageKey("colorfulmobs.configGui.validMobs");
         validMobs = Arrays.asList(prop.getStringList());

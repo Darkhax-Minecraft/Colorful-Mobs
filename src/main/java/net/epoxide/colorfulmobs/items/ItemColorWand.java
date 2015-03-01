@@ -20,13 +20,16 @@ public class ItemColorWand extends Item {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-        System.out.println(EntityList.getEntityString(entity) + ":" + ConfigurationHandler.validMobs);
-        if (ConfigurationHandler.limitMobs) {
-            if (ConfigurationHandler.validMobs.contains(EntityList.getEntityString(entity))) {
-                GuiHandler.setEntity(entity);
-                player.openGui(ColorfulMobs.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
-            }
-        }
+
+        if (ConfigurationHandler.limitMobs)
+
+            if (!ConfigurationHandler.validMobs.contains(EntityList.getEntityString(entity)))
+
+                return true;
+
+        GuiHandler.setEntity(entity);
+        player.openGui(ColorfulMobs.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+
         return true;
     }
 }

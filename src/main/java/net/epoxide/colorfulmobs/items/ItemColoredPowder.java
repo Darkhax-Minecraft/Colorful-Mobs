@@ -58,7 +58,7 @@ public class ItemColoredPowder extends ItemColorSetter {
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamageForRenderPass(int damage, int pass) {
 
-        return pass > 0 ? this.rope : this.sack;
+        return pass > 0 ? rope : sack;
     }
 
     @Override
@@ -86,8 +86,8 @@ public class ItemColoredPowder extends ItemColorSetter {
     public void registerIcons(IIconRegister register) {
 
         super.registerIcons(register);
-        this.rope = register.registerIcon("colorfulmobs:powder1");
-        this.sack = register.registerIcon("colorfulmobs:powder2");
+        rope = register.registerIcon("colorfulmobs:powder1");
+        sack = register.registerIcon("colorfulmobs:powder2");
     }
 
     @Override
