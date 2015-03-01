@@ -1,20 +1,17 @@
 package net.epoxide.colorfulmobs.handler;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.darkhax.bookshelf.helper.ItemHelper;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EntityHandler {
 
