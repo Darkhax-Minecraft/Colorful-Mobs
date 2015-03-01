@@ -2,8 +2,11 @@ package net.epoxide.colorfulmobs.common;
 
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -86,5 +89,37 @@ public class ColorProperties implements IExtendedEntityProperties {
 
         ColorProperties props = getPropsFromEntity(living);
         props.colorObj = color;
+    }
+
+    /**
+     * Checks to see if a mob is a valid target for working with color.
+     * 
+     * @param entity: The entity being checked.
+     * @return boolean: True if the mob is a player, false if the spawn limits are on but the mob is not
+     *         in the allowed list, and true if no limits are placed.
+     */
+    public static boolean isValidMob(EntityLivingBase living) {
+
+        if (living instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
+            return true;
+
+        if (ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(living)))
+            return false;
+
+        return true;
+    }
+
+    /**
+     * Checks to see if an entity is dyed, this is an advanced version of hasColorProperties, that
+     * excludes white as a valid dye color.
+     * 
+     * @param living: The entity being checked for color.
+     * @return boolean: True if the mob has color data that is not white, false if it doesn't.
+     */
+    public static boolean isEntityDyed(EntityLivingBase living) {
+
+        if (hasColorProperties(living) && ColorObject.isGeneric(getPropsFromEntity(living).colorObj))
+            ;
+        return false;
     }
 }

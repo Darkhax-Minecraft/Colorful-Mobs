@@ -15,6 +15,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class ConfigurationHandler {
 
     public static boolean spawnRandom = true;
+    public static double spawnRate = 0.04d;
     public static boolean dropPowder = true;
     public static boolean limitMobs = false;
     public static List<String> validMobs = null;
@@ -40,7 +41,7 @@ public class ConfigurationHandler {
     }
 
     private void syncConfigData() {
-        
+
         List<String> propOrder = new ArrayList<String>();
         Property prop;
 
@@ -48,6 +49,12 @@ public class ConfigurationHandler {
         prop.comment = "Are mobs dyed on spawn?";
         prop.setLanguageKey("colorfulmobs.configGui.spawnRandom");
         spawnRandom = prop.getBoolean(true);
+        propOrder.add(prop.getName());
+
+        prop = config.get(GENERAL, "Dyed Spawn Chance", 0.04);
+        prop.comment = "What percent chance should mobs spawn already colored?";
+        prop.setLanguageKey("colorfulmobs.configGui.spawnRate");
+        spawnRate = prop.getDouble();
         propOrder.add(prop.getName());
 
         prop = config.get(GENERAL, "Drop Dye Powder", true);
@@ -68,7 +75,7 @@ public class ConfigurationHandler {
         limitMobs = prop.getBoolean(false);
         propOrder.add(prop.getName());
 
-        prop = config.get(GENERAL, "Valid Mobs", new String[]{});
+        prop = config.get(GENERAL, "Valid Mobs", new String[] {});
         prop.comment = "Valid Mobs that can spawn";
         prop.setLanguageKey("colorfulmobs.configGui.validMobs");
         validMobs = Arrays.asList(prop.getStringList());
