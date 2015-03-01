@@ -15,19 +15,19 @@ public class RenderingHandler {
     @SubscribeEvent
     public void onEntityRenderPre(RenderLivingEvent.Pre event) {
 
-        if (ConfigurationHandler.limitMobs) {
+        if (event.entity != null) {
+            
+            if (event.entity == null || ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(event.entity)))
+                return;
+            
+            
+            if (ColorProperties.hasColorProperties(event.entity)) {
 
-            if (ConfigurationHandler.validMobs.contains(EntityList.getEntityString(event.entity))) {
+                ColorObject obj = ColorProperties.getPropsFromEntity(event.entity).colorObj;
 
-                if (ColorProperties.hasColorProperties(event.entity)) {
-
-                    ColorObject obj = ColorProperties.getPropsFromEntity(event.entity).colorObj;
-
-                    GL11.glPushMatrix();
-                    GL11.glEnable(GL11.GL_BLEND);
-                    GL11.glColor4f(obj.red, obj.green, obj.blue, obj.alpha);
-                }
-
+                GL11.glPushMatrix();
+                GL11.glEnable(GL11.GL_BLEND);
+                GL11.glColor4f(obj.red, obj.green, obj.blue, obj.alpha);
             }
         }
     }
@@ -35,16 +35,16 @@ public class RenderingHandler {
     @SubscribeEvent
     public void onEntityRenderPost(RenderLivingEvent.Post event) {
 
-        if (ConfigurationHandler.limitMobs) {
+        if (event.entity != null) {
+            
+            if (event.entity == null || ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(event.entity)))
+                return;
+        }
+        
+        if (ColorProperties.hasColorProperties(event.entity)) {
 
-            if (ConfigurationHandler.validMobs.contains(EntityList.getEntityString(event.entity))) {
-
-                if (ColorProperties.hasColorProperties(event.entity)) {
-
-                    GL11.glDisable(GL11.GL_BLEND);
-                    GL11.glPopMatrix();
-                }
-            }
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glPopMatrix();
         }
     }
 }
