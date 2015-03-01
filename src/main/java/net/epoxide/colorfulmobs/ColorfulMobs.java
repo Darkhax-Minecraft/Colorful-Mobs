@@ -65,9 +65,9 @@ public class ColorfulMobs {
     /**
      * Sets the mod meta for a mod, this is the information displayed when looking at this modification
      * in the in-game mod list provided by MinecraftForge.
-     *
+     * 
      * @param meta: The ModMetadata object for this mod. This can be retrieved from the
-     *              FMLPreInitializationEvent.
+     *        FMLPreInitializationEvent.
      */
     void setModInfo(ModMetadata meta) {
 
