@@ -118,8 +118,6 @@ public class ColorProperties implements IExtendedEntityProperties {
      */
     public static boolean isEntityDyed(EntityLivingBase living) {
 
-        if (hasColorProperties(living) && ColorObject.isGeneric(getPropsFromEntity(living).colorObj))
-            ;
-        return false;
+        return (hasColorProperties(living) && !ColorObject.isGeneric(getPropsFromEntity(living).colorObj)) ? true : false;
     }
 }
