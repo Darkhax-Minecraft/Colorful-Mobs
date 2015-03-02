@@ -100,9 +100,6 @@ public class ColorProperties implements IExtendedEntityProperties {
      */
     public static boolean isValidMob(EntityLivingBase living) {
 
-        // System.out.println("Code: " + EntityList.getEntityString(living) + " List: " +
-        // ConfigurationHandler.validMobs.toString());
-
         if (living instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
             return true;
 
