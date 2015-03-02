@@ -18,7 +18,7 @@ public class EntityHandler {
     @SubscribeEvent
     public void onEntityConstructed(EntityEvent.EntityConstructing event) {
 
-        if (event.entity instanceof EntityLiving && ColorProperties.isValidMob((EntityLivingBase) event.entity)) {
+        if (event.entity instanceof EntityLiving) {
 
             ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
 
