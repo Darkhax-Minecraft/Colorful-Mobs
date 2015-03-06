@@ -9,6 +9,7 @@ import net.epoxide.colorfulmobs.handler.EntityHandler;
 import net.epoxide.colorfulmobs.handler.GuiHandler;
 import net.epoxide.colorfulmobs.items.ItemColorWand;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
+import net.epoxide.colorfulmobs.items.ItemDataChecker;
 import net.epoxide.colorfulmobs.items.ItemGhostDust;
 import net.epoxide.colorfulmobs.items.ItemRainbowDust;
 import net.epoxide.colorfulmobs.lib.Constants;
@@ -41,6 +42,7 @@ public class ColorfulMobs {
     public static Item itemRainbowDust = new ItemRainbowDust();
     public static Item itemGhostDust = new ItemGhostDust();
     public static Item itemPowder = new ItemColoredPowder();
+    public static Item itemDataChacker = new ItemDataChecker();
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent pre) {
@@ -54,10 +56,11 @@ public class ColorfulMobs {
 
         new ConfigurationHandler(pre.getSuggestedConfigurationFile());
 
-        GameRegistry.registerItem(itemColorWand, "colorWand", Constants.MOD_ID);
-        GameRegistry.registerItem(itemRainbowDust, "rainbowDust", Constants.MOD_ID);
-        GameRegistry.registerItem(itemGhostDust, "ghostDust", Constants.MOD_ID);
-        GameRegistry.registerItem(itemPowder, "colorPowder", Constants.MOD_ID);
+        GameRegistry.registerItem(itemColorWand, "colorWand");
+        GameRegistry.registerItem(itemRainbowDust, "rainbowDust");
+        GameRegistry.registerItem(itemGhostDust, "ghostDust");
+        GameRegistry.registerItem(itemPowder, "colorPowder");
+        GameRegistry.registerItem(itemDataChacker, "dataChecker");
         MinecraftForge.EVENT_BUS.register(new EntityHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
