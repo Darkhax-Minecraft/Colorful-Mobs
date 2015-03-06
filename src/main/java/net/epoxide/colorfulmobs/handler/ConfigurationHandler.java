@@ -21,7 +21,7 @@ public class ConfigurationHandler {
     public static List<String> validMobs = null;
     public static boolean dyePlayer = false;
 
-    public static String GENERAL = "General";
+    public static String GENERAL = "general";
 
     public static Configuration config;
 
