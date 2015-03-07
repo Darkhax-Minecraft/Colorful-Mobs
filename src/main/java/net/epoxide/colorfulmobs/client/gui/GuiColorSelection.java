@@ -11,10 +11,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.tileentity.TileEntityMobSpawnerRenderer;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -33,7 +32,7 @@ public class GuiColorSelection extends GuiScreen {
         this.entity = entity;
     }
 
-    protected void drawGuiContainerBackgroundLayer(float partialTicks) {
+    protected void drawGuiContainerBackgroundLayer() {
 
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
@@ -43,25 +42,10 @@ public class GuiColorSelection extends GuiScreen {
 
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
 
-
         this.drawTexturedModalRect(k + 32, l + 30, 20, 20, 110, 115);
-//
-        if (entity != null) {
 
-            float targetHeight = getEntityScale(entity, (float) (Math.max(entity.boundingBox.maxX + Math.abs(entity.boundingBox.minX), entity.boundingBox.maxY + Math.abs(entity.boundingBox.minY)) / (Math.max(entity.width, entity.height))), 1.8f);
-            float scale = targetHeight / 2.25F;
-            if (entity instanceof EntityWither)
-                scale *= 1.8;
-            else if (entity instanceof EntityCaveSpider)
-                scale /= 1.8;
-            else if (entity instanceof EntitySquid)
-                scale /= 1.8;
-            drawEntityOnScreen(k + 87, l + 30 + 115 / 2 + (int) ((entity.height - (double) entity.getEyeHeight() * 0.5D) * scale), scale, entity, partialTicks);
-        }
-    }
-
-    public static float getEntityScale(EntityLivingBase ent, float baseScale, float targetHeight) {
-        return (targetHeight / Math.max(Math.max(ent.width, ent.height), 1.8F)) * baseScale;
+        if (entity != null)
+            drawEntityOnScreen(k + 87, l + 130, 40, entity);
     }
 
     @Override
@@ -107,7 +91,7 @@ public class GuiColorSelection extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
-        drawGuiContainerBackgroundLayer(partialTicks);
+        drawGuiContainerBackgroundLayer();
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         int k = (this.width - this.xSize) / 2;
@@ -127,7 +111,7 @@ public class GuiColorSelection extends GuiScreen {
 
     float zz = 0;
 
-    public void drawEntityOnScreen(int x, int y, float scale, EntityLivingBase entity, float partialTicks) {
+    public void drawEntityOnScreen(int x, int y, float scale, EntityLivingBase entity) {
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
