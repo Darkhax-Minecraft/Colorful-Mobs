@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 public class ItemDataChecker extends Item {
@@ -22,12 +23,15 @@ public class ItemDataChecker extends Item {
     
     public boolean itemInteractionForEntity(ItemStack item, EntityPlayer player, EntityLivingBase entity) {
         
+        if (player.worldObj.isRemote)
+            return false;
+        
         String outputString = "";
         
         if (ColorProperties.hasColorProperties(entity)) {
         
             ColorObject obj = ColorProperties.getPropsFromEntity(entity).colorObj;
-            outputString = outputString + StatCollector.translateToLocal("chat.colorfulmobs.red") + ": " + obj.red + " " + StatCollector.translateToLocal("chat.colorfulmobs.green") + ": " + obj.green + " " + StatCollector.translateToLocal("chat.colorfulmobs.blue") + ": " + obj.blue + " " + StatCollector.translateToLocal("chat.colorfulmobs.alpha") + ": " + obj.alpha + " ";
+            outputString = outputString + EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red") + ": " + obj.red + " " + EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green") + ": " + obj.green + " " + EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue") + ": " + obj.blue + " " + EnumChatFormatting.RESET + StatCollector.translateToLocal("chat.colorfulmobs.alpha") + ": " + obj.alpha + " ";
         }
         
         outputString = outputString + StatCollector.translateToLocal("chat.colorfulmobs.name") + ": " + EntityList.getEntityString(entity);
