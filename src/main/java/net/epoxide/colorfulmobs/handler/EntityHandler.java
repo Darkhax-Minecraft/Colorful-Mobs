@@ -30,7 +30,7 @@ public class EntityHandler {
     @SubscribeEvent
     public void onEntityTracked(PlayerEvent.StartTracking event) {
 
-        if (event.target instanceof EntityLiving && ColorProperties.isValidMob((EntityLivingBase) event.target) && !event.target.worldObj.isRemote)
+        if (event.target instanceof EntityLiving && ColorProperties.hasColorProperties((EntityLivingBase) event.target) && !event.target.worldObj.isRemote)
             ColorfulMobs.network.sendToAll(new PacketColorSync(ColorProperties.getPropsFromEntity((EntityLivingBase) event.target).colorObj, (EntityLivingBase) event.target));
     }
 
