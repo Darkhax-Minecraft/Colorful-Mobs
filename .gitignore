@@ -4,3 +4,7 @@ eclipse/
 *.iml
 *ipr
 *iws
+out/
+*.iml
+*ipr
+*iws
