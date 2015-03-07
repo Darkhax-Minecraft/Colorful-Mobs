@@ -14,7 +14,7 @@ public class ItemColorWand extends Item {
     public ItemColorWand() {
 
         this.setCreativeTab(ColorfulMobs.tabColor);
-        this.setUnlocalizedName("colorwand");
+        this.setUnlocalizedName("colorfulmobs.colorwand");
         this.setTextureName("colorfulmobs:colorwand");
     }
 
