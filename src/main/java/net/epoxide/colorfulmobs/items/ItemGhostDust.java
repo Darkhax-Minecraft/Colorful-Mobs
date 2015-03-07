@@ -31,7 +31,7 @@ public class ItemGhostDust extends ItemColoredPowder {
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass) {
 
-        return ColorObject.getIntFromColor(new ColorObject(1, 1, 1));
+        return ColorObject.getIntFromColor(new ColorObject(211, 211, 211));
     }
 
     @Override
