@@ -20,9 +20,6 @@ public class ItemColorSetter extends Item {
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
 
-        if (ConfigurationHandler.limitMobs && !ColorProperties.isValidMob(entity))
-            return false;
-
         if (!player.worldObj.isRemote) {
 
             ColorObject colorObj = getColorToApply(stack, entity);

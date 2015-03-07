@@ -17,9 +17,6 @@ public class RenderingHandler {
 
         if (event.entity != null) {
 
-            if (event.entity == null || ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(event.entity)))
-                return;
-
             if (ColorProperties.hasColorProperties(event.entity)) {
 
                 ColorObject obj = ColorProperties.getPropsFromEntity(event.entity).colorObj;
@@ -34,12 +31,6 @@ public class RenderingHandler {
 
     @SubscribeEvent
     public void onEntityRenderPost(RenderLivingEvent.Post event) {
-
-        if (event.entity != null) {
-
-            if (event.entity == null || ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(event.entity)))
-                return;
-        }
 
         if (ColorProperties.hasColorProperties(event.entity)) {
 

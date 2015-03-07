@@ -21,9 +21,6 @@ public class ItemColorWand extends Item {
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
 
-        if (ConfigurationHandler.limitMobs && !ColorProperties.isValidMob(entity))
-            return false;
-
         GuiHandler.setEntity(entity);
         player.openGui(ColorfulMobs.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
         return true;

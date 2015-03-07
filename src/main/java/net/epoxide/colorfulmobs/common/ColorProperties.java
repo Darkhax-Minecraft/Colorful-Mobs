@@ -94,7 +94,7 @@ public class ColorProperties implements IExtendedEntityProperties {
     /**
      * Checks to see if a mob is a valid target for working with color.
      * 
-     * @param entity: The entity being checked.
+     * @param living: The entity being checked.
      * @return boolean: True if the mob is a player, false if the spawn limits are on but the mob is not
      *         in the allowed list, and true if no limits are placed.
      */

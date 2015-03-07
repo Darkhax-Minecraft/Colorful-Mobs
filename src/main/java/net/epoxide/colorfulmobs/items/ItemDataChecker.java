@@ -27,7 +27,7 @@ public class ItemDataChecker extends Item {
         if (ColorProperties.hasColorProperties(entity)) {
         
             ColorObject obj = ColorProperties.getPropsFromEntity(entity).colorObj;
-            outputString = outputString + StatCollector.translateToLocal("chat.colorfulmobs.red") + ": " + obj.red + StatCollector.translateToLocal("chat.colorfulmobs.green") + ": " + obj.green + StatCollector.translateToLocal("chat.colorfulmobs.blue") + ": " + obj.blue + StatCollector.translateToLocal("chat.colorfulmobs.alpha") + ": " + obj.alpha + " ";
+            outputString = outputString + StatCollector.translateToLocal("chat.colorfulmobs.red") + ": " + obj.red + " " + StatCollector.translateToLocal("chat.colorfulmobs.green") + ": " + obj.green + " " + StatCollector.translateToLocal("chat.colorfulmobs.blue") + ": " + obj.blue + " " + StatCollector.translateToLocal("chat.colorfulmobs.alpha") + ": " + obj.alpha + " ";
         }
         
         outputString = outputString + StatCollector.translateToLocal("chat.colorfulmobs.name") + ": " + EntityList.getEntityString(entity);
