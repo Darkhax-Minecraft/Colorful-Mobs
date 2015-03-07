@@ -2,6 +2,7 @@ package net.epoxide.colorfulmobs.client.gui;
 
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.client.EntityUtil;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.lib.Constants;
@@ -10,10 +11,10 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.EntityCaveSpider;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -32,7 +33,7 @@ public class GuiColorSelection extends GuiScreen {
         this.entity = entity;
     }
 
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks) {
 
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
@@ -42,21 +43,25 @@ public class GuiColorSelection extends GuiScreen {
 
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
 
-        this.drawTexturedModalRect(k + 32, l + 30, 20, 20, 110, 115);
 
+        this.drawTexturedModalRect(k + 32, l + 30, 20, 20, 110, 115);
+//
         if (entity != null) {
-            float targetHeight = ((l + 30 + 115) / 5.0F) / 1.8F;
-            float scale = getEntityScale(entity, targetHeight, 1.8f);
-            if (entity instanceof EntityGhast)
-                scale = getEntityScale(entity, targetHeight, 1.2f);
-            else if (entity instanceof EntityWither)
-                scale = getEntityScale(entity, targetHeight, 4f);
-            drawEntityOnScreen(k + 87, (l + 30) + (115 / 2) + (int) ((entity.height - (double) entity.getEyeHeight() * 0.5D) * scale), scale, (float) (k + 43 - mouseX), (float) (l + 45 - 30 - mouseY), entity);
+
+            float targetHeight = getEntityScale(entity, (float) (Math.max(entity.boundingBox.maxX + Math.abs(entity.boundingBox.minX), entity.boundingBox.maxY + Math.abs(entity.boundingBox.minY)) / (Math.max(entity.width, entity.height))), 1.8f);
+            float scale = targetHeight / 2.25F;
+            if (entity instanceof EntityWither)
+                scale *= 1.8;
+            else if (entity instanceof EntityCaveSpider)
+                scale /= 1.8;
+            else if (entity instanceof EntitySquid)
+                scale /= 1.8;
+            drawEntityOnScreen(k + 87, l + 30 + 115 / 2 + (int) ((entity.height - (double) entity.getEyeHeight() * 0.5D) * scale), scale, entity, partialTicks);
         }
     }
 
     public static float getEntityScale(EntityLivingBase ent, float baseScale, float targetHeight) {
-        return (targetHeight / Math.max(ent.width, ent.height)) * baseScale;
+        return (targetHeight / Math.max(Math.max(ent.width, ent.height), 1.8F)) * baseScale;
     }
 
     @Override
@@ -102,7 +107,7 @@ public class GuiColorSelection extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
-        drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+        drawGuiContainerBackgroundLayer(partialTicks);
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         int k = (this.width - this.xSize) / 2;
@@ -120,41 +125,29 @@ public class GuiColorSelection extends GuiScreen {
         this.textA.drawTextBox();
     }
 
-    public static void drawEntityOnScreen(int x, int y, float scale, float mouseX, float mouseY, EntityLivingBase entity) {
+    float zz = 0;
 
-        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+    public void drawEntityOnScreen(int x, int y, float scale, EntityLivingBase entity, float partialTicks) {
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glDepthMask(true);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) x, (float) y, 50.0F);
-        GL11.glScalef(-scale, scale, scale);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+        GL11.glTranslatef(x, y, 200);
+        GL11.glScalef((-scale), scale, scale);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        float f2 = entity.renderYawOffset;
-        float f3 = entity.rotationYaw;
-        float f4 = entity.rotationPitch;
-        float f5 = entity.prevRotationYawHead;
-        float f6 = entity.rotationYawHead;
-        GL11.glRotatef(135.0F, 0.0F, 1.0F, 0.0F);
-        RenderHelper.enableStandardItemLighting();
-        GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
-        entity.renderYawOffset = (float) Math.atan((double) (mouseX / 40.0F)) * 20.0F;
-        entity.rotationYaw = (float) Math.atan((double) (mouseX / 40.0F)) * 40.0F;
-        entity.rotationPitch = -((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F;
-        entity.rotationYawHead = entity.rotationYaw;
-        entity.prevRotationYawHead = entity.rotationYaw;
-        GL11.glTranslatef(0.0F, entity.yOffset, 0.0F);
-        RenderManager.instance.playerViewY = 180.0F;
-        RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
-        entity.renderYawOffset = f2;
-        entity.rotationYaw = f3;
-        entity.rotationPitch = f4;
-        entity.prevRotationYawHead = f5;
-        entity.rotationYawHead = f6;
+        GL11.glRotatef(zz, 0.0F, 1.0F, 0.0F);
+        EntityUtil.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
         GL11.glPopMatrix();
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+
+        zz -= 1.25F;
     }
 
     @Override
