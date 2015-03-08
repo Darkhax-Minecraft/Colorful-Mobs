@@ -17,6 +17,7 @@ public class ColorProperties implements IExtendedEntityProperties {
 
     public EntityLivingBase entity;
     public ColorObject colorObj;
+    public boolean hasInitialized;
 
     public ColorProperties(EntityLivingBase living) {
 
@@ -28,12 +29,14 @@ public class ColorProperties implements IExtendedEntityProperties {
     public void saveNBTData(NBTTagCompound compound) {
 
         compound.setTag(PROP_NAME, ColorObject.getTagFromColor(this.colorObj));
+        compound.setBoolean(PROP_NAME + "Init", this.hasInitialized);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound compound) {
 
         this.colorObj = ColorObject.getColorFromTag(compound.getCompoundTag(PROP_NAME));
+        this.hasInitialized = compound.getBoolean(PROP_NAME + "Init");
         ColorfulMobs.instance.network.sendToAll(new PacketColorSync(colorObj, entity));
     }
 
