@@ -1,8 +1,6 @@
 package net.epoxide.colorfulmobs.items;
 
 import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
-import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
 import net.epoxide.colorfulmobs.handler.GuiHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

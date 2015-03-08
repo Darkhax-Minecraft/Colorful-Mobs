@@ -24,7 +24,7 @@ public class GuiConfigColorfulMobs extends GuiConfig {
     public static List<IConfigElement> generateConfigList() {
 
         ArrayList<IConfigElement> elements = new ArrayList<IConfigElement>();
-        elements.add(new ConfigElement(cfg.getCategory(cfgh.GENERAL)));       
+        elements.add(new ConfigElement(cfg.getCategory(cfgh.GENERAL)));
         return elements;
     }
 }
