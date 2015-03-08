@@ -25,6 +25,7 @@ public class ItemColoredPowder extends ItemColorSetter {
 
         this.hasSubtypes = true;
         this.setUnlocalizedName("colorfulmobs.powder");
+        this.setTextureName("colorfulmobs:powder1");
     }
 
     @Override

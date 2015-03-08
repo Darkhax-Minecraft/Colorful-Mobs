@@ -6,6 +6,7 @@ item.colorfulmobs.powder.random.name=Random Dye Powder
 item.colorfulmobs.ghostdust.name=Invisibility Powder
 item.colorfulmobs.rainbowdust.name=Rainbow Dust
 item.colorfulmobs.colorwand.name=Color Wand
+item.colorfulmobs.datachecker.name=Data Checker
 
 #Tooltips
 tooltip.colorfulmobs.transparency=Transparency
@@ -16,5 +17,6 @@ chat.colorfulmobs.red=Red
 chat.colorfulmobs.blue=Blue
 chat.colorfulmobs.green=Green
 chat.colorfulmobs.alpha=Transparency
+
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs

@@ -17,7 +17,7 @@ public class ItemDataChecker extends Item {
     public ItemDataChecker() {
         
         this.setCreativeTab(ColorfulMobs.tabColor);
-        this.setUnlocalizedName("dataChecker");
+        this.setUnlocalizedName("colorfulmobs.datachecker");
         this.setTextureName("colorfulmobs:infobook");
     }
     

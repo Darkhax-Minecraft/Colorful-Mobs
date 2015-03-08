@@ -19,6 +19,7 @@ public class ItemGhostDust extends ItemColoredPowder {
 
         this.hasSubtypes = true;
         this.setUnlocalizedName("colorfulmobs.ghostdust");
+        this.setTextureName("colorfulmobs:powder1");
     }
 
     @Override

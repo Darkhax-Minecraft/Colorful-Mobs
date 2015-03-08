@@ -75,7 +75,7 @@ public class ColorfulMobs {
     void setModInfo(ModMetadata meta) {
 
         meta.authorList = Arrays.asList("Darkhax", "lclc98");
-        meta.logoFile = "";
+        meta.logoFile = "/assets/colorfulmobs_logo.png";
         meta.credits = "Maintained by Darkhax";
         meta.description = "";
         meta.url = "http://darkhax.net";
