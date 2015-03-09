@@ -12,7 +12,9 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -95,12 +97,12 @@ public class GuiColorSelection extends GuiScreen {
 
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        drawString(this.fontRendererObj, "Red", k + 21, l + 150, 0xffffff);
-        drawString(this.fontRendererObj, "Green", k + 54, l + 150, 0xffffff);
-        drawString(this.fontRendererObj, "Blue", k + 96, l + 150, 0xffffff);
-        drawString(this.fontRendererObj, "Alpha", k + 129, l + 150, 0xffffff);
+        drawString(this.fontRendererObj, EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red"), k + 21, l + 150, 0xffffff);
+        drawString(this.fontRendererObj, EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green"), k + 54, l + 150, 0xffffff);
+        drawString(this.fontRendererObj, EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue"), k + 96, l + 150, 0xffffff);
+        drawString(this.fontRendererObj, StatCollector.translateToLocal("chat.colorfulmobs.alpha"), k + 129, l + 150, 0xffffff);
 
-        drawCenteredString(fontRendererObj, "Color Menu", k + 87, l + 15, 0xffffff);
+        drawCenteredString(fontRendererObj, StatCollector.translateToLocal("chat.colorfulmobs.colormenu"), k + 87, l + 15, 0xffffff);
 
         this.textR.drawTextBox();
         this.textG.drawTextBox();
