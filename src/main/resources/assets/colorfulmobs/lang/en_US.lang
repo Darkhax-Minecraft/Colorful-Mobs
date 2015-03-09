@@ -8,9 +8,6 @@ item.colorfulmobs.rainbowdust.name=Rainbow Dust
 item.colorfulmobs.colorwand.name=Color Wand
 item.colorfulmobs.datachecker.name=Data Checker
 
-#Tooltips
-tooltip.colorfulmobs.transparency=Transparency
-
 #Chat
 chat.colorfulmobs.name=Entity Name
 chat.colorfulmobs.red=Red

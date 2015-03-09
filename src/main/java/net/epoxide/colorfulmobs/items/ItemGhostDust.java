@@ -63,7 +63,7 @@ public class ItemGhostDust extends ItemColoredPowder {
             ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
 
             if (colorObj != null)
-                list.add((int) (colorObj.alpha * 100) + "% " + StatCollector.translateToLocal("tooltip.colorfulmobs.transparency"));
+                list.add((int) (colorObj.alpha * 100) + "% " + StatCollector.translateToLocal("chat.colorfulmobs.alpha"));
         }
     }
 }
