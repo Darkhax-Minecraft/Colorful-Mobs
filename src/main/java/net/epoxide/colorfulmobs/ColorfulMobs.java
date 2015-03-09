@@ -68,7 +68,7 @@ public class ColorfulMobs {
         GameRegistry.addRecipe(new RecipeDyePowder());
         ItemStack powderStack = new ItemStack(itemPowder, 3);
         powderStack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(255, 255, 255)));
-        GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, 15)});
+        GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, 15) });
         MinecraftForge.EVENT_BUS.register(new EntityHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }

@@ -5,7 +5,6 @@ import java.util.List;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -100,7 +99,7 @@ public class ItemColoredPowder extends ItemColorSetter {
             ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
 
             if (colorObj != null)
-                list.add(EnumChatFormatting.RED + "" + (int) (colorObj.red * 255) + " " + EnumChatFormatting.GREEN +(int) (colorObj.green * 255) + " " + EnumChatFormatting.BLUE + (int) (colorObj.blue * 255));
+                list.add(EnumChatFormatting.RED + "" + (int) (colorObj.red * 255) + " " + EnumChatFormatting.GREEN + (int) (colorObj.green * 255) + " " + EnumChatFormatting.BLUE + (int) (colorObj.blue * 255));
         }
     }
 }

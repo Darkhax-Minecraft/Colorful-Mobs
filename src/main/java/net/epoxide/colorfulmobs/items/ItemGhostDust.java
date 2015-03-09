@@ -2,10 +2,8 @@ package net.epoxide.colorfulmobs.items;
 
 import java.util.List;
 
-import net.darkhax.bookshelf.helper.NumericHelper;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -46,4 +46,5 @@ public class EntityHandler {
             ItemHelper.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
         }
     }
+
 }

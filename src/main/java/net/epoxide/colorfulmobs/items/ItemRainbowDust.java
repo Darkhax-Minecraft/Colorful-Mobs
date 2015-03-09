@@ -1,7 +1,6 @@
 package net.epoxide.colorfulmobs.items;
 
 import net.darkhax.bookshelf.objects.ColorObject;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 public class ItemRainbowDust extends ItemColorSetter {
