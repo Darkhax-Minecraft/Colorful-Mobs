@@ -19,7 +19,7 @@ public class ItemColoredPowder extends ItemColorSetter {
     public static IIcon rope;
     public static IIcon sack;
 
-    public static ColorObject[] colors = { new ColorObject(211, 211, 211), new ColorObject(255, 0, 0), new ColorObject(255, 128, 0), new ColorObject(255, 255, 0), new ColorObject(128, 255, 0), new ColorObject(0, 153, 0), new ColorObject(0, 255, 0), new ColorObject(0, 255, 128), new ColorObject(0, 255, 255), new ColorObject(0, 128, 255), new ColorObject(0, 0, 255), new ColorObject(128, 0, 255), new ColorObject(255, 0, 255), new ColorObject(255, 0, 128), new ColorObject(204, 0, 204), new ColorObject(197, 179, 88), new ColorObject(128, 128, 128), new ColorObject(102, 51, 153), new ColorObject(255, 153, 153), new ColorObject(16, 145, 117) };
+    public static ColorObject[] colors = { new ColorObject(255, 255, 255), new ColorObject(211, 211, 211), new ColorObject(255, 0, 0), new ColorObject(255, 128, 0), new ColorObject(255, 255, 0), new ColorObject(128, 255, 0), new ColorObject(0, 153, 0), new ColorObject(0, 255, 0), new ColorObject(0, 255, 128), new ColorObject(0, 255, 255), new ColorObject(0, 128, 255), new ColorObject(0, 0, 255), new ColorObject(128, 0, 255), new ColorObject(255, 0, 255), new ColorObject(255, 0, 128), new ColorObject(204, 0, 204), new ColorObject(197, 179, 88), new ColorObject(128, 128, 128), new ColorObject(102, 51, 153), new ColorObject(255, 153, 153), new ColorObject(16, 145, 117) };
 
     public ItemColoredPowder() {
 
@@ -29,7 +29,7 @@ public class ItemColoredPowder extends ItemColorSetter {
     }
 
     @Override
-    public ColorObject getColorToApply(ItemStack stack, EntityLivingBase entity) {
+    public ColorObject getColorToApply(ItemStack stack) {
 
         if (stack.hasTagCompound())
             return ColorObject.getColorFromTag(stack.getTagCompound());

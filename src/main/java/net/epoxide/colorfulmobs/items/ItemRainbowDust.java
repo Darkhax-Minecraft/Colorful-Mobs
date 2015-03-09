@@ -14,7 +14,7 @@ public class ItemRainbowDust extends ItemColorSetter {
     }
 
     @Override
-    public ColorObject getColorToApply(ItemStack stack, EntityLivingBase entity) {
+    public ColorObject getColorToApply(ItemStack stack) {
 
         return new ColorObject(false);
     }

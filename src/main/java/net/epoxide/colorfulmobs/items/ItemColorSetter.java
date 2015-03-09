@@ -21,7 +21,7 @@ public class ItemColorSetter extends Item {
 
         if (!player.worldObj.isRemote) {
 
-            ColorObject colorObj = getColorToApply(stack, entity);
+            ColorObject colorObj = getColorToApply(stack);
             ColorProperties.setEntityColors(colorObj, entity);
             ColorfulMobs.network.sendToAll(new PacketColorSync(colorObj, entity));
         }
@@ -40,7 +40,7 @@ public class ItemColorSetter extends Item {
      * @param entity: The living entity which is having color applied to it.
      * @return ColorObject: A ColorObject to be applied by this item.
      */
-    public ColorObject getColorToApply(ItemStack stack, EntityLivingBase entity) {
+    public ColorObject getColorToApply(ItemStack stack) {
 
         return new ColorObject(1, 1, 1);
     }

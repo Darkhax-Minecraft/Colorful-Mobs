@@ -23,7 +23,7 @@ public class ItemGhostDust extends ItemColoredPowder {
     }
 
     @Override
-    public ColorObject getColorToApply(ItemStack stack, EntityLivingBase entity) {
+    public ColorObject getColorToApply(ItemStack stack) {
 
         return ColorObject.getColorFromTag(stack.getTagCompound());
     }
