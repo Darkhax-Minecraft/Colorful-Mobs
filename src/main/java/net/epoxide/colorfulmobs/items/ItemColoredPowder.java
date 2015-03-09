@@ -100,7 +100,7 @@ public class ItemColoredPowder extends ItemColorSetter {
             ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
 
             if (colorObj != null)
-                list.add(EnumChatFormatting.RED + "" + (colorObj.red * 255) + " " + EnumChatFormatting.GREEN + (colorObj.green * 255) + " " + EnumChatFormatting.BLUE + (colorObj.blue * 255));
+                list.add(EnumChatFormatting.RED + "" + (int) (colorObj.red * 255) + " " + EnumChatFormatting.GREEN +(int) (colorObj.green * 255) + " " + EnumChatFormatting.BLUE + (int) (colorObj.blue * 255));
         }
     }
 }
