@@ -2,6 +2,7 @@ package net.epoxide.colorfulmobs;
 
 import java.util.Arrays;
 
+import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
@@ -13,8 +14,11 @@ import net.epoxide.colorfulmobs.items.ItemDataChecker;
 import net.epoxide.colorfulmobs.items.ItemGhostDust;
 import net.epoxide.colorfulmobs.items.ItemRainbowDust;
 import net.epoxide.colorfulmobs.lib.Constants;
+import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -61,6 +65,10 @@ public class ColorfulMobs {
         GameRegistry.registerItem(itemGhostDust, "ghostDust");
         GameRegistry.registerItem(itemPowder, "colorPowder");
         GameRegistry.registerItem(itemDataChacker, "dataChecker");
+        GameRegistry.addRecipe(new RecipeDyePowder());
+        ItemStack powderStack = new ItemStack(itemPowder, 3);
+        powderStack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(255, 255, 255)));
+        GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, 15)});
         MinecraftForge.EVENT_BUS.register(new EntityHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
