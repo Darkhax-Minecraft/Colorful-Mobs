@@ -69,7 +69,7 @@ public class GuiColorSelection extends GuiScreen {
             r = (int) (obj.red * 255);
             g = (int) (obj.green * 255);
             b = (int) (obj.blue * 255);
-            a = (int) (obj.alpha * 100);
+            a = (int) (obj.alpha * 255);
 
             ColorProperties.setEntityColors(obj, tempEntity);
         }

@@ -47,7 +47,7 @@ public class ItemGhostDust extends ItemColoredPowder {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack stack) {
+    public boolean hasEffect(ItemStack par1ItemStack, int pass) {
 
         return true;
     }
