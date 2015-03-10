@@ -12,11 +12,10 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -33,8 +32,16 @@ public class GuiColorSelection extends GuiScreen {
     public GuiColorSelection(EntityLivingBase entity) {
 
         this.entity = entity;
-        this.tempEntity = (EntityLivingBase) EntityList.createEntityByName(EntityList.getEntityString(entity), (World) null);
-        this.tempEntity.setWorld(entity.worldObj);
+        this.tempEntity = (EntityLivingBase) EntityList.createEntityByName(EntityList.getEntityString(entity), entity.worldObj);
+
+        if (this.tempEntity == null) {
+            this.tempEntity = entity;
+
+        }
+
+        NBTTagCompound compound = new NBTTagCompound();
+        entity.writeEntityToNBT(compound);
+        tempEntity.readEntityFromNBT(compound);
     }
 
     protected void drawGuiContainerBackgroundLayer() {
@@ -69,7 +76,7 @@ public class GuiColorSelection extends GuiScreen {
             r = (int) (obj.red * 255);
             g = (int) (obj.green * 255);
             b = (int) (obj.blue * 255);
-            a = (int) (obj.alpha * 255);
+            a = (int) (obj.alpha * 100);
 
             ColorProperties.setEntityColors(obj, tempEntity);
         }
