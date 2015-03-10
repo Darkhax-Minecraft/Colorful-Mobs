@@ -11,11 +11,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -26,11 +27,14 @@ public class GuiColorSelection extends GuiScreen {
     protected final int ySize = 222;
 
     private EntityLivingBase entity;
+    private EntityLivingBase tempEntity;
     private int r = 255, g = 255, b = 255, a = 255;
 
     public GuiColorSelection(EntityLivingBase entity) {
 
         this.entity = entity;
+        this.tempEntity = (EntityLivingBase) EntityList.createEntityByName(entity.getCommandSenderName(), (World) null);
+        this.tempEntity.setWorld(entity.worldObj);
     }
 
     protected void drawGuiContainerBackgroundLayer() {
@@ -45,8 +49,8 @@ public class GuiColorSelection extends GuiScreen {
 
         this.drawTexturedModalRect(k + 32, l + 30, 20, 20, 110, 115);
 
-        if (entity != null)
-            drawEntityOnScreen(k + 87, l + 130, 40, entity);
+        if (tempEntity != null)
+            drawEntityOnScreen(k + 87, l + 130, 40, tempEntity);
     }
 
     @Override
@@ -203,16 +207,16 @@ public class GuiColorSelection extends GuiScreen {
         if (color != null && !color.equals(""))
             a = Integer.parseInt(color);
 
-        ColorProperties.setEntityColors(new ColorObject(r, g, b, a), entity);
+        ColorProperties.setEntityColors(new ColorObject(r, g, b, a), tempEntity);
 
     }
 
     /**
      * Adds a character to a textField. Used for typing the RGBA values.
-     * 
+     *
      * @param textField: The GUITextField being added to.
      * @param typedChar: The character which is being added to the text field.
-     * @param keyCode: A numeric value which represents the key being typed.
+     * @param keyCode:   A numeric value which represents the key being typed.
      * @return boolean: Will return true if the character was successfully added.
      */
     private boolean addText(GuiTextField textField, char typedChar, int keyCode) {
@@ -235,81 +239,81 @@ public class GuiColorSelection extends GuiScreen {
 
             switch (keyCode) {
 
-            case 14:
-                if (GuiScreen.isCtrlKeyDown()) {
+                case 14:
+                    if (GuiScreen.isCtrlKeyDown()) {
 
-                    textField.deleteWords(-1);
-                    updateColor();
-                } else {
+                        textField.deleteWords(-1);
+                        updateColor();
+                    } else {
 
-                    textField.deleteFromCursor(-1);
-                    updateColor();
-                }
+                        textField.deleteFromCursor(-1);
+                        updateColor();
+                    }
 
-                return true;
+                    return true;
 
-            case 199:
-                if (GuiScreen.isShiftKeyDown())
-                    textField.setSelectionPos(0);
-
-                else
-                    textField.setCursorPositionZero();
-
-                return true;
-
-            case 203:
-                if (GuiScreen.isShiftKeyDown()) {
-
-                    if (GuiScreen.isCtrlKeyDown())
-                        textField.setSelectionPos(textField.getNthWordFromPos(-1, textField.getSelectionEnd()));
+                case 199:
+                    if (GuiScreen.isShiftKeyDown())
+                        textField.setSelectionPos(0);
 
                     else
-                        textField.setSelectionPos(textField.getSelectionEnd() - 1);
-                } else if (GuiScreen.isCtrlKeyDown())
-                    textField.setCursorPosition(textField.getNthWordFromCursor(-1));
+                        textField.setCursorPositionZero();
 
-                else
-                    textField.moveCursorBy(-1);
+                    return true;
 
-                return true;
+                case 203:
+                    if (GuiScreen.isShiftKeyDown()) {
 
-            case 205:
-                if (GuiScreen.isShiftKeyDown()) {
+                        if (GuiScreen.isCtrlKeyDown())
+                            textField.setSelectionPos(textField.getNthWordFromPos(-1, textField.getSelectionEnd()));
 
-                    if (GuiScreen.isCtrlKeyDown())
-                        textField.setSelectionPos(textField.getNthWordFromPos(1, textField.getSelectionEnd()));
+                        else
+                            textField.setSelectionPos(textField.getSelectionEnd() - 1);
+                    } else if (GuiScreen.isCtrlKeyDown())
+                        textField.setCursorPosition(textField.getNthWordFromCursor(-1));
 
                     else
-                        textField.setSelectionPos(textField.getSelectionEnd() + 1);
-                } else if (GuiScreen.isCtrlKeyDown())
-                    textField.setCursorPosition(textField.getNthWordFromCursor(1));
+                        textField.moveCursorBy(-1);
 
-                else
-                    textField.moveCursorBy(1);
+                    return true;
 
-                return true;
+                case 205:
+                    if (GuiScreen.isShiftKeyDown()) {
 
-            case 207:
-                if (GuiScreen.isShiftKeyDown())
-                    textField.setSelectionPos(textField.getText().length());
+                        if (GuiScreen.isCtrlKeyDown())
+                            textField.setSelectionPos(textField.getNthWordFromPos(1, textField.getSelectionEnd()));
 
-                else
-                    textField.setCursorPositionEnd();
+                        else
+                            textField.setSelectionPos(textField.getSelectionEnd() + 1);
+                    } else if (GuiScreen.isCtrlKeyDown())
+                        textField.setCursorPosition(textField.getNthWordFromCursor(1));
 
-                return true;
+                    else
+                        textField.moveCursorBy(1);
 
-            case 211:
-                if (GuiScreen.isCtrlKeyDown()) {
+                    return true;
 
-                    textField.deleteWords(1);
-                    updateColor();
-                } else {
+                case 207:
+                    if (GuiScreen.isShiftKeyDown())
+                        textField.setSelectionPos(textField.getText().length());
 
-                    textField.deleteFromCursor(1);
-                    updateColor();
-                }
+                    else
+                        textField.setCursorPositionEnd();
 
-                return true;
+                    return true;
+
+                case 211:
+                    if (GuiScreen.isCtrlKeyDown()) {
+
+                        textField.deleteWords(1);
+                        updateColor();
+                    } else {
+
+                        textField.deleteFromCursor(1);
+                        updateColor();
+                    }
+
+                    return true;
             }
         }
 
