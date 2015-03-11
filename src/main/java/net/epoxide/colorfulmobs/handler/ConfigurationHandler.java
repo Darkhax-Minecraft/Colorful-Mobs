@@ -20,8 +20,11 @@ public class ConfigurationHandler {
     public static boolean limitMobs = false;
     public static List<String> validMobs = null;
     public static boolean dyePlayer = false;
-
-    public static String GENERAL = "general";
+    public static boolean craftDye = true;
+    public static boolean cloneDye = true;
+    public static boolean craftBook = true;
+    
+    public static final String GENERAL = "general";
 
     public static Configuration config;
 
@@ -45,38 +48,56 @@ public class ConfigurationHandler {
         List<String> propOrder = new ArrayList<String>();
         Property prop;
 
-        prop = config.get(GENERAL, "Spawned Dyed Mobs", true);
-        prop.comment = "Are mobs dyed on spawn?";
+        prop = config.get(GENERAL, "Spawned Colored Mobs", true);
+        prop.comment = "Should mobs randomly be colored when they spawn?";
         prop.setLanguageKey("colorfulmobs.configGui.spawnRandom");
         spawnRandom = prop.getBoolean(true);
         propOrder.add(prop.getName());
 
         prop = config.get(GENERAL, "Dyed Spawn Chance", 0.04);
-        prop.comment = "What percent chance should mobs spawn already colored?";
+        prop.comment = "What percent chance should mobs spawn randomly colored?";
         prop.setLanguageKey("colorfulmobs.configGui.spawnRate");
         spawnRate = prop.getDouble();
         propOrder.add(prop.getName());
 
         prop = config.get(GENERAL, "Drop Dye Powder", true);
-        prop.comment = "Do mobs drop dye powder on death?";
+        prop.comment = "Should mobs drop dye powder on death?";
         prop.setLanguageKey("colorfulmobs.configGui.dropPowder");
         dropPowder = prop.getBoolean(true);
         propOrder.add(prop.getName());
 
-        prop = config.get(GENERAL, "Player Dye", false);
-        prop.comment = "Can players dye each other?";
+        prop = config.get(GENERAL, "Dyeable Players", false);
+        prop.comment = "Should players be able to dye each other?";
         prop.setLanguageKey("colorfulmobs.configGui.playerDye");
         dyePlayer = prop.getBoolean(false);
         propOrder.add(prop.getName());
 
-        prop = config.get(GENERAL, "Limit Valid Mobs", false);
-        prop.comment = "If only the valid mobs spawn";
-        prop.setLanguageKey("colorfulmobs.configGui.limitMobs`");
+        prop = config.get(GENERAL, "Limit To Valid Mobs", false);
+        prop.comment = "Should only mobs on the valid list be able to spawn with random colors?";
+        prop.setLanguageKey("colorfulmobs.configGui.limitMobs");
         limitMobs = prop.getBoolean(false);
         propOrder.add(prop.getName());
-
-        prop = config.get(GENERAL, "Valid Mobs", new String[] {});
-        prop.comment = "Valid Mobs that can spawn";
+        
+        prop = config.get(GENERAL, "Craft Blank Dye", true);
+        prop.comment ="Should blank dye powder be craftable?";
+        prop.setLanguageKey("colorfulmobs.configGui.craftDye");
+        limitMobs = prop.getBoolean(true);
+        propOrder.add(prop.getName());
+        
+        prop = config.get(GENERAL, "Craft Data Checker", true);
+        prop.comment = "Should the Data Checker be craftable?";
+        prop.setLanguageKey("colorfulmobs.configGui.dataChecker");
+        limitMobs = prop.getBoolean(true);
+        propOrder.add(prop.getName());
+        
+        prop = config.get(GENERAL, "Clone Dyes", true);
+        prop.comment = "Should players be able to copy their dye colors?";
+        prop.setLanguageKey("colorfulmobs.configGui.cloneDye");
+        limitMobs = prop.getBoolean(true);
+        propOrder.add(prop.getName());
+        
+        prop = config.get(GENERAL, "Valid Mob List", new String[] {});
+        prop.comment = "If the Limit To Valid Mobs is set to true, only mobs on this list can spawn with random colors. Use the Data Checker to get valid entity names. ";
         prop.setLanguageKey("colorfulmobs.configGui.validMobs");
         validMobs = Arrays.asList(prop.getStringList());
         propOrder.add(prop.getName());
