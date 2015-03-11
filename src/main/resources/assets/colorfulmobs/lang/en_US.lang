@@ -17,5 +17,16 @@ chat.colorfulmobs.alpha=Alpha
 chat.colorfulmobs.transparency=Transparency
 chat.colorfulmobs.colormenu=Color Menu
 
+#Gui Comments
+colorfulmobs.configGui.spawnRandom=Spawn Colored Mobs
+colorfulmobs.configGui.spawnRate=Dyed Spawn Chance
+colorfulmobs.configGui.dropPowder=Drop Dye Powder
+colorfulmobs.configGui.playerDye=Dyeable Players
+colorfulmobs.configGui.limitMobs=Limit To Valid Mobs
+colorfulmobs.configGui.craftDye=Craft Blank Dye
+colorfulmobs.configGui.dataChecker=Craft Data Checker
+colorfulmobs.configGui.cloneDye=Clone Dyes
+colorfulmobs.configGui.validMobs=Valid Mob List
+
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs
