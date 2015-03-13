@@ -46,7 +46,7 @@ public class ColorfulMobs {
     public static Item itemRainbowDust = new ItemRainbowDust();
     public static Item itemGhostDust = new ItemGhostDust();
     public static Item itemPowder = new ItemColoredPowder();
-    public static Item itemDataChacker = new ItemDataChecker();
+    public static Item itemDataChecker = new ItemDataChecker();
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent pre) {
@@ -64,13 +64,23 @@ public class ColorfulMobs {
         GameRegistry.registerItem(itemRainbowDust, "rainbowDust");
         GameRegistry.registerItem(itemGhostDust, "ghostDust");
         GameRegistry.registerItem(itemPowder, "colorPowder");
-        GameRegistry.registerItem(itemDataChacker, "dataChecker");
-        GameRegistry.addRecipe(new RecipeDyePowder());
-        ItemStack powderStack = new ItemStack(itemPowder, 3);
-        powderStack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(255, 255, 255)));
-        GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, 15) });
+        GameRegistry.registerItem(itemDataChecker, "dataChecker");
+        
         MinecraftForge.EVENT_BUS.register(new EntityHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+        
+        if (ConfigurationHandler.cloneDye)
+            GameRegistry.addRecipe(new RecipeDyePowder());
+        
+        if (ConfigurationHandler.craftDye) {
+            
+            ItemStack powderStack = new ItemStack(itemPowder, 3);
+            powderStack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(255, 255, 255)));
+            GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, 15) });
+        }
+        
+        if (ConfigurationHandler.craftBook) 
+            GameRegistry.addShapelessRecipe(new ItemStack(itemDataChecker), itemPowder, Items.book);
     }
 
     /**
