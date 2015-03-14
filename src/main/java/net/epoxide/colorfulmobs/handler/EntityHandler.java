@@ -7,6 +7,7 @@ import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -44,6 +45,12 @@ public class EntityHandler {
             ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
             stack.setTagCompound(ColorObject.getTagFromColor(ColorProperties.getPropsFromEntity(event.entityLiving).colorObj));
             ItemHelper.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
+            
+            if (event.source.getEntity() instanceof EntityPlayer) {
+                
+                EntityPlayer player = (EntityPlayer) event.source.getEntity();
+                player.triggerAchievement(AchievementHandler.achKillDyed);
+            }
         }
     }
 

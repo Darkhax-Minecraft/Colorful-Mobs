@@ -5,6 +5,7 @@ import java.util.Arrays;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
 import net.epoxide.colorfulmobs.handler.EntityHandler;
 import net.epoxide.colorfulmobs.handler.GuiHandler;
@@ -81,6 +82,8 @@ public class ColorfulMobs {
         
         if (ConfigurationHandler.craftBook) 
             GameRegistry.addShapelessRecipe(new ItemStack(itemDataChecker), itemPowder, Items.book);
+        
+        new AchievementHandler();
     }
 
     /**

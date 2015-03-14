@@ -30,3 +30,23 @@ colorfulmobs.configGui.validMobs=Valid Mob List
 
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs
+
+#Achievement
+achievement.cfm.harvester=Rainbow Factory
+achievement.cfm.artist=Artist
+achievement.cfm.artisan=Artisan
+achievement.cfm.ghost=2Spooky5Me
+achievement.cfm.rainbow=Spectrum
+achievement.cfm.overload=Spectral Overload
+achievement.cfm.disapointment=The Disappointment
+achievement.cfm.success=Pleasant Surprise
+achievement.cfm.datachecker=Over 9000!!!
+
+achievement.cfm.harvester.desc=Kill a colored mob.
+achievement.cfm.artist.desc=Dye a mob.
+achievement.cfm.artisan.desc=Copy a dye color.
+achievement.cfm.ghost.desc=Make a ghost!
+achievement.cfm.rainbow.desc=Use the rainbow dust.
+achievement.cfm.overload.desc=Use the color wand.
+achievement.cfm.disapointment.desc=Become disappointed. 
+achievement.cfm.datachecker.desc=Vegeta, what does the scouter say about his power level?

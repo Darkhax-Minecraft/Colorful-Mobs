@@ -3,7 +3,9 @@ package net.epoxide.colorfulmobs.items;
 import java.util.List;
 
 import net.darkhax.bookshelf.objects.ColorObject;
+import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,14 @@ public class ItemGhostDust extends ItemColoredPowder {
     public ColorObject getColorToApply(ItemStack stack) {
 
         return ColorObject.getColorFromTag(stack.getTagCompound());
+    }
+    
+    @Override
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
+        
+        super.itemInteractionForEntity(stack, player, entity);
+        player.triggerAchievement(AchievementHandler.achGhost);
+        return true;
     }
 
     @Override

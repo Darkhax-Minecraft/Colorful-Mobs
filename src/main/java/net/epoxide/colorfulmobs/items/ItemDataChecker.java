@@ -3,6 +3,7 @@ package net.epoxide.colorfulmobs.items;
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,8 @@ public class ItemDataChecker extends Item {
 
     public boolean itemInteractionForEntity(ItemStack item, EntityPlayer player, EntityLivingBase entity) {
 
+        player.triggerAchievement(AchievementHandler.achDataChecker);
+        
         if (player.worldObj.isRemote)
             return false;
 
