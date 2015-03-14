@@ -20,10 +20,10 @@ public class ItemRainbowDust extends ItemColorSetter {
 
         return new ColorObject(false);
     }
-    
+
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-        
+
         super.itemInteractionForEntity(stack, player, entity);
         player.triggerAchievement(AchievementHandler.achRainbow);
         return true;

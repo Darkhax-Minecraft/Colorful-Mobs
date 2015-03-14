@@ -25,7 +25,7 @@ public class ItemDataChecker extends Item {
     public boolean itemInteractionForEntity(ItemStack item, EntityPlayer player, EntityLivingBase entity) {
 
         player.triggerAchievement(AchievementHandler.achDataChecker);
-        
+
         if (player.worldObj.isRemote)
             return false;
 

@@ -108,7 +108,7 @@ public class ColorProperties implements IExtendedEntityProperties {
 
         if (ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(living)))
             return false;
-        
+
         return true;
     }
 

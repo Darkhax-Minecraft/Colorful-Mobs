@@ -23,7 +23,7 @@ public class ConfigurationHandler {
     public static boolean craftDye = true;
     public static boolean cloneDye = true;
     public static boolean craftBook = true;
-    
+
     public static final String GENERAL = "general";
 
     public static Configuration config;
@@ -77,25 +77,25 @@ public class ConfigurationHandler {
         prop.setLanguageKey("colorfulmobs.configGui.limitMobs");
         limitMobs = prop.getBoolean(false);
         propOrder.add(prop.getName());
-        
+
         prop = config.get(GENERAL, "Craft Blank Dye", true);
-        prop.comment ="Should blank dye powder be craftable?";
+        prop.comment = "Should blank dye powder be craftable?";
         prop.setLanguageKey("colorfulmobs.configGui.craftDye");
         craftDye = prop.getBoolean(true);
         propOrder.add(prop.getName());
-        
+
         prop = config.get(GENERAL, "Craft Data Checker", true);
         prop.comment = "Should the Data Checker be craftable?";
         prop.setLanguageKey("colorfulmobs.configGui.dataChecker");
         cloneDye = prop.getBoolean(true);
         propOrder.add(prop.getName());
-        
+
         prop = config.get(GENERAL, "Clone Dyes", true);
         prop.comment = "Should players be able to copy their dye colors?";
         prop.setLanguageKey("colorfulmobs.configGui.cloneDye");
         craftBook = prop.getBoolean(true);
         propOrder.add(prop.getName());
-        
+
         prop = config.get(GENERAL, "Valid Mob List", new String[] {});
         prop.comment = "If the Limit To Valid Mobs is set to true, only mobs on this list can spawn with random colors. Use the Data Checker to get valid entity names. ";
         prop.setLanguageKey("colorfulmobs.configGui.validMobs");

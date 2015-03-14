@@ -27,10 +27,10 @@ public class ItemGhostDust extends ItemColoredPowder {
 
         return ColorObject.getColorFromTag(stack.getTagCompound());
     }
-    
+
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-        
+
         super.itemInteractionForEntity(stack, player, entity);
         player.triggerAchievement(AchievementHandler.achGhost);
         return true;

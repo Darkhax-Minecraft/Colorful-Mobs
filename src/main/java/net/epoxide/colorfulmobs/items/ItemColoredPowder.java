@@ -4,8 +4,6 @@ import java.util.List;
 
 import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
-import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -65,10 +63,10 @@ public class ItemColoredPowder extends ItemColorSetter {
 
         return pass > 0 ? rope : sack;
     }
-    
+
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-        
+
         super.itemInteractionForEntity(stack, player, entity);
         player.triggerAchievement(AchievementHandler.achDyeMob);
         return true;
@@ -115,17 +113,18 @@ public class ItemColoredPowder extends ItemColorSetter {
                 list.add(EnumChatFormatting.RED + "" + (int) (colorObj.red * 255) + " " + EnumChatFormatting.GREEN + (int) (colorObj.green * 255) + " " + EnumChatFormatting.BLUE + (int) (colorObj.blue * 255));
         }
     }
-    
+
     /**
-     * A method to help get item stack representations of a color object. Mostly used for achievements. 
-     * @param obj: Desired color. 
-     * @return ItemStack: A new stack containing this item, and its color data. 
+     * A method to help get item stack representations of a color object. Mostly used for achievements.
+     * 
+     * @param obj: Desired color.
+     * @return ItemStack: A new stack containing this item, and its color data.
      */
     public static ItemStack getStackFromColorObject(ColorObject obj) {
-        
+
         ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
         stack.setTagCompound(ColorObject.getTagFromColor(obj));
-        
+
         return stack;
     }
 }
