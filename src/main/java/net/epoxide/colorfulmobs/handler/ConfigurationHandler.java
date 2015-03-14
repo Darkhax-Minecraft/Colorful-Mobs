@@ -81,19 +81,19 @@ public class ConfigurationHandler {
         prop = config.get(GENERAL, "Craft Blank Dye", true);
         prop.comment ="Should blank dye powder be craftable?";
         prop.setLanguageKey("colorfulmobs.configGui.craftDye");
-        limitMobs = prop.getBoolean(true);
+        craftDye = prop.getBoolean(true);
         propOrder.add(prop.getName());
         
         prop = config.get(GENERAL, "Craft Data Checker", true);
         prop.comment = "Should the Data Checker be craftable?";
         prop.setLanguageKey("colorfulmobs.configGui.dataChecker");
-        limitMobs = prop.getBoolean(true);
+        cloneDye = prop.getBoolean(true);
         propOrder.add(prop.getName());
         
         prop = config.get(GENERAL, "Clone Dyes", true);
         prop.comment = "Should players be able to copy their dye colors?";
         prop.setLanguageKey("colorfulmobs.configGui.cloneDye");
-        limitMobs = prop.getBoolean(true);
+        craftBook = prop.getBoolean(true);
         propOrder.add(prop.getName());
         
         prop = config.get(GENERAL, "Valid Mob List", new String[] {});
