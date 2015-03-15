@@ -42,10 +42,10 @@ public class ColorfulMobs {
 
     public static CreativeTabs tabColor = new CreativeTabColor();
     public static Item itemColorWand = new ItemColorWand();
+    public static Item itemDataChecker = new ItemDataChecker();
     public static Item itemRainbowDust = new ItemRainbowDust();
     public static Item itemGhostDust = new ItemGhostDust();
     public static Item itemPowder = new ItemColoredPowder();
-    public static Item itemDataChecker = new ItemDataChecker();
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent pre) {
@@ -60,10 +60,10 @@ public class ColorfulMobs {
         new ConfigurationHandler(pre.getSuggestedConfigurationFile());
 
         GameRegistry.registerItem(itemColorWand, "colorWand");
+        GameRegistry.registerItem(itemDataChecker, "dataChecker");
         GameRegistry.registerItem(itemRainbowDust, "rainbowDust");
         GameRegistry.registerItem(itemGhostDust, "ghostDust");
         GameRegistry.registerItem(itemPowder, "colorPowder");
-        GameRegistry.registerItem(itemDataChecker, "dataChecker");
 
         MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
         FMLCommonHandler.instance().bus().register(new ForgeEventHandler.FMLEventHandler());
