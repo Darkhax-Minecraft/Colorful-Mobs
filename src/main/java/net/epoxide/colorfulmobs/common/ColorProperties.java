@@ -123,4 +123,15 @@ public class ColorProperties implements IExtendedEntityProperties {
 
         return (hasColorProperties(living) && !ColorObject.isGeneric(getPropsFromEntity(living).colorObj)) ? true : false;
     }
+    
+    /**
+     * Simple method to make grabbing colors look nicer. 
+     * 
+     * @param living: The entity to grab color from.
+     * @return ColorObject: The color of that entity.
+     */
+    public static ColorObject getColorFromEntity(EntityLivingBase living) {
+        
+        return ColorProperties.getPropsFromEntity(living).colorObj;
+    }
 }

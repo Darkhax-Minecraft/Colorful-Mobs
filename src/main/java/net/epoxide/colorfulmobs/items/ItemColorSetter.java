@@ -22,6 +22,10 @@ public class ItemColorSetter extends Item {
         if (!player.worldObj.isRemote) {
 
             ColorObject colorObj = getColorToApply(stack);
+            
+            if (ColorProperties.isEntityDyed(entity))
+                colorObj = applyMerger(ColorProperties.getColorFromEntity(entity), colorObj);
+                
             ColorProperties.setEntityColors(colorObj, entity);
             ColorfulMobs.network.sendToAll(new PacketColorSync(colorObj, entity));
         }
@@ -58,10 +62,11 @@ public class ItemColorSetter extends Item {
     }
 
     /**
+     * Used to decide what happens when this color is used on top of an existing one. 
      * 
-     * @param existingObj
-     * @param newObj
-     * @return
+     * @param existingObj: The existing color object. 
+     * @param newObj: The newer color object this item wants to apply.
+     * @return ColorObject: The final ColorObject that will be used for the color. 
      */
     public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
 

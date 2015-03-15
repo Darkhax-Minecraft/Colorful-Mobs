@@ -20,6 +20,12 @@ public class ItemRainbowDust extends ItemColorSetter {
 
         return new ColorObject(false);
     }
+    
+    @Override
+    public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
+
+        return new ColorObject(newObj.red, newObj.blue, newObj.green, existingObj.alpha);
+    }
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {

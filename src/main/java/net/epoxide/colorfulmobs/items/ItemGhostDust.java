@@ -27,6 +27,12 @@ public class ItemGhostDust extends ItemColoredPowder {
 
         return ColorObject.getColorFromTag(stack.getTagCompound());
     }
+    
+    @Override
+    public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
+
+        return new ColorObject(existingObj.red, existingObj.blue, existingObj.green, newObj.alpha);
+    }
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
