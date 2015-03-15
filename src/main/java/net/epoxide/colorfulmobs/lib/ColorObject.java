@@ -152,6 +152,9 @@ public class ColorObject {
      */
     public static boolean isGeneric(ColorObject colorObj) {
 
+        if (colorObj == null)
+            return false;
+
         return isGeneric(colorObj, 1.0f);
     }
 

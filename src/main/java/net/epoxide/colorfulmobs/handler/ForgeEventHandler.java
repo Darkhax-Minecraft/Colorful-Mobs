@@ -3,6 +3,7 @@ package net.epoxide.colorfulmobs.handler;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.items.ItemColoredPowder;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.GenericUtilities;
 import net.minecraft.entity.EntityLiving;
@@ -13,8 +14,9 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
-public class EntityHandler {
+public class ForgeEventHandler {
 
     @SubscribeEvent
     public void onEntityConstructed(EntityEvent.EntityConstructing event) {
@@ -52,6 +54,29 @@ public class EntityHandler {
                 player.triggerAchievement(AchievementHandler.achKillDyed);
             }
         }
+
+        if (event.entityLiving instanceof EntityPlayer && event.source.getEntity() instanceof EntityLivingBase) {
+
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
+            EntityLivingBase base = (EntityLivingBase) event.source.getEntity();
+
+            if (ColorProperties.hasColorProperties(base) && !ColorObject.isGeneric(ColorProperties.getPropsFromEntity(base).colorObj))
+                player.triggerAchievement(AchievementHandler.achColorDeath);
+        }
     }
 
+    public static class FMLEventHandler {
+
+        @SubscribeEvent
+        public void onRecipeCraft(ItemCraftedEvent event) {
+
+            if (event.crafting != null && event.crafting.getItem() instanceof ItemColoredPowder) {
+
+                ColorObject color = ColorObject.getColorFromTag(event.crafting.getTagCompound());
+
+                if (color != null && !ColorObject.isGeneric(color))
+                    event.player.triggerAchievement(AchievementHandler.achCloneDye);
+            }
+        }
+    }
 }

@@ -67,9 +67,15 @@ public class ItemColoredPowder extends ItemColorSetter {
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
 
-        super.itemInteractionForEntity(stack, player, entity);
-        player.triggerAchievement(AchievementHandler.achDyeMob);
-        return true;
+        ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
+
+        if (ColorObject.isGeneric(colorObj))
+            player.triggerAchievement(AchievementHandler.achPureDye);
+
+        else
+            player.triggerAchievement(AchievementHandler.achDyeMob);
+
+        return super.itemInteractionForEntity(stack, player, entity);
     }
 
     @Override

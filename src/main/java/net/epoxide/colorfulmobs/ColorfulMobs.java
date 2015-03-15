@@ -6,7 +6,7 @@ import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
-import net.epoxide.colorfulmobs.handler.EntityHandler;
+import net.epoxide.colorfulmobs.handler.ForgeEventHandler;
 import net.epoxide.colorfulmobs.handler.GuiHandler;
 import net.epoxide.colorfulmobs.items.ItemColorWand;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
@@ -21,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.ModMetadata;
@@ -67,7 +68,8 @@ public class ColorfulMobs {
         GameRegistry.registerItem(itemPowder, "colorPowder");
         GameRegistry.registerItem(itemDataChecker, "dataChecker");
 
-        MinecraftForge.EVENT_BUS.register(new EntityHandler());
+        MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
+        FMLCommonHandler.instance().bus().register(new ForgeEventHandler.FMLEventHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
         if (ConfigurationHandler.cloneDye)

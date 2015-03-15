@@ -3,7 +3,6 @@ package net.epoxide.colorfulmobs.handler;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
 import net.epoxide.colorfulmobs.lib.ColorObject;
-import net.minecraft.init.Items;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
@@ -16,8 +15,8 @@ public class AchievementHandler {
     public static Achievement achGhost;
     public static Achievement achRainbow;
     public static Achievement achWand;
-    public static Achievement achBreedFail;
-    public static Achievement achBreedSuccess;
+    public static Achievement achColorDeath;
+    public static Achievement achPureDye;
     public static Achievement achDataChecker;
 
     public AchievementHandler() {
@@ -28,11 +27,11 @@ public class AchievementHandler {
         achGhost = new Achievement("cfm.ghost", "cfm.ghost", 2, 2, ColorfulMobs.itemGhostDust, null).registerStat();
         achRainbow = new Achievement("cfm.rainbow", "cfm.rainbow", 1, 1, ColorfulMobs.itemRainbowDust, null).setSpecial().registerStat();
         achWand = new Achievement("cfm.overload", "cfm.overload", 1, 2, ColorfulMobs.itemColorWand, null).registerStat();
-        achBreedFail = new Achievement("cfm.disapointment", "cfm.disapointment", 2, 1, Items.wheat, null).registerStat();
-        achBreedSuccess = new Achievement("cfm.success", "cfm.success", 1, 0, Items.egg, null).registerStat();
+        achColorDeath = new Achievement("cfm.death", "cfm.death", 2, 1, ItemColoredPowder.getStackFromColorObject(new ColorObject(20, 20, 20)), null).registerStat();
+        achPureDye = new Achievement("cfm.purify", "cfm.purify", 1, 0, ItemColoredPowder.getStackFromColorObject(new ColorObject(255, 255, 255)), null).registerStat();
         achDataChecker = new Achievement("cfm.datachecker", "cfm.datachecker", 0, 1, ColorfulMobs.itemDataChecker, null).registerStat();
 
-        Achievement[] achList = { achKillDyed, achDyeMob, achCloneDye, achGhost, achRainbow, achWand, achBreedFail, achBreedSuccess, achDataChecker };
+        Achievement[] achList = { achKillDyed, achDyeMob, achCloneDye, achGhost, achRainbow, achWand, achColorDeath, achPureDye, achDataChecker };
         achPage = new AchievementPage("Colorful Mobs", achList);
         AchievementPage.registerAchievementPage(achPage);
     }
