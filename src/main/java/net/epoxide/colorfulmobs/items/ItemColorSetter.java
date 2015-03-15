@@ -56,4 +56,15 @@ public class ItemColorSetter extends Item {
 
         return true;
     }
+    
+    /**
+     * 
+     * @param existingObj
+     * @param newObj
+     * @return
+     */
+    public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
+       
+        return newObj;
+    }
 }
