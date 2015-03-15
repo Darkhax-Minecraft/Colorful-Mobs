@@ -20,7 +20,7 @@ public class ItemRainbowDust extends ItemColorSetter {
 
         return new ColorObject(false);
     }
-    
+
     @Override
     public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
 

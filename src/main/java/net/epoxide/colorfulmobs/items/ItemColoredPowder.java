@@ -38,7 +38,7 @@ public class ItemColoredPowder extends ItemColorSetter {
 
         return new ColorObject(1, 1, 1);
     }
-    
+
     @Override
     public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
 
