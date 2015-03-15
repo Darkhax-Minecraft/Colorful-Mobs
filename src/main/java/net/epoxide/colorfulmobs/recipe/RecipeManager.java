@@ -20,15 +20,15 @@ public class RecipeManager {
         if (ConfigurationHandler.craftBook)
             GameRegistry.addShapelessRecipe(new ItemStack(ColorfulMobs.itemDataChecker), ColorfulMobs.itemPowder, Items.book);
     }
-    
+
     public void createBasicDyeRecipes() {
-        
+
         int counter = 0;
         for (EnumVanillaColors color : EnumVanillaColors.values()) {
-            
+
             ItemStack powderStack = new ItemStack(ColorfulMobs.itemPowder, 3);
             powderStack.setTagCompound(ColorObject.getTagFromColor(color.colorObj));
-            GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, counter)});
+            GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, counter) });
             counter++;
         }
     }
