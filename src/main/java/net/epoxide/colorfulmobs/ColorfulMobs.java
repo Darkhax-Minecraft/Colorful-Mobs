@@ -16,6 +16,7 @@ import net.epoxide.colorfulmobs.items.ItemRainbowDust;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.Constants;
 import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
+import net.epoxide.colorfulmobs.recipe.RecipeManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -72,19 +73,7 @@ public class ColorfulMobs {
         FMLCommonHandler.instance().bus().register(new ForgeEventHandler.FMLEventHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
-        if (ConfigurationHandler.cloneDye)
-            GameRegistry.addRecipe(new RecipeDyePowder());
-
-        if (ConfigurationHandler.craftDye) {
-
-            ItemStack powderStack = new ItemStack(itemPowder, 3);
-            powderStack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(255, 255, 255)));
-            GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, 15) });
-        }
-
-        if (ConfigurationHandler.craftBook)
-            GameRegistry.addShapelessRecipe(new ItemStack(itemDataChecker), itemPowder, Items.book);
-
+        new RecipeManager();
         new AchievementHandler();
     }
 
