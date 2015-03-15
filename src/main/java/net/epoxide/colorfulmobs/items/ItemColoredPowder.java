@@ -92,9 +92,9 @@ public class ItemColoredPowder extends ItemColorSetter {
         int counter = 0;
         for (EnumVanillaColors color : EnumVanillaColors.values()) {
 
-            ItemStack powderStack = new ItemStack(ColorfulMobs.itemPowder, 3);
+            ItemStack powderStack = new ItemStack(ColorfulMobs.itemPowder, 1);
             powderStack.setTagCompound(ColorObject.getTagFromColor(color.colorObj));
-            GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, counter) });
+            itemList.add(powderStack);
             counter++;
         }
 
