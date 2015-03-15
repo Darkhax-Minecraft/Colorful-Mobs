@@ -28,7 +28,7 @@ public class RecipeManager {
 
             ItemStack powderStack = new ItemStack(ColorfulMobs.itemPowder, 3);
             powderStack.setTagCompound(ColorObject.getTagFromColor(color.colorObj));
-            GameRegistry.addRecipe(new ShapedOreRecipe(powderStack, new Object[] {" s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), color.colorName}));
+            GameRegistry.addRecipe(new ShapedOreRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), color.colorName }));
         }
     }
 }
