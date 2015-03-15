@@ -1,8 +1,8 @@
 package net.epoxide.colorfulmobs.common;
 
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;

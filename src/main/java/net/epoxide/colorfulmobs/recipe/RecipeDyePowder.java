@@ -1,8 +1,8 @@
 package net.epoxide.colorfulmobs.recipe;
 
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

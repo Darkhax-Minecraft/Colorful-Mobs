@@ -1,10 +1,10 @@
 package net.epoxide.colorfulmobs.client.gui;
 
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.client.EntityUtil;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

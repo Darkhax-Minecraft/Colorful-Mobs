@@ -2,8 +2,8 @@ package net.epoxide.colorfulmobs.items;
 
 import java.util.List;
 
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

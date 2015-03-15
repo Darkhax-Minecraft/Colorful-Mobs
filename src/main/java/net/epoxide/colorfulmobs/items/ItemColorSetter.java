@@ -1,9 +1,9 @@
 package net.epoxide.colorfulmobs.items;
 
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -56,7 +56,7 @@ public class ItemColorSetter extends Item {
 
         return true;
     }
-    
+
     /**
      * 
      * @param existingObj
@@ -64,7 +64,7 @@ public class ItemColorSetter extends Item {
      * @return
      */
     public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
-       
+
         return newObj;
     }
 }

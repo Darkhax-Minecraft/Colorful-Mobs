@@ -1,10 +1,10 @@
 package net.epoxide.colorfulmobs.handler;
 
-import net.darkhax.bookshelf.helper.ItemHelper;
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
+import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.epoxide.colorfulmobs.lib.GenericUtilities;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,7 +44,7 @@ public class EntityHandler {
 
             ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
             stack.setTagCompound(ColorObject.getTagFromColor(ColorProperties.getPropsFromEntity(event.entityLiving).colorObj));
-            ItemHelper.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
+            GenericUtilities.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
 
             if (event.source.getEntity() instanceof EntityPlayer) {
 

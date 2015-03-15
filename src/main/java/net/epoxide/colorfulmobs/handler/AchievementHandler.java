@@ -1,8 +1,8 @@
 package net.epoxide.colorfulmobs.handler;
 
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.init.Items;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;

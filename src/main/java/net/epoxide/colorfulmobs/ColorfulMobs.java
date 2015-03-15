@@ -2,7 +2,6 @@ package net.epoxide.colorfulmobs;
 
 import java.util.Arrays;
 
-import net.darkhax.bookshelf.objects.ColorObject;
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
@@ -14,6 +13,7 @@ import net.epoxide.colorfulmobs.items.ItemColoredPowder;
 import net.epoxide.colorfulmobs.items.ItemDataChecker;
 import net.epoxide.colorfulmobs.items.ItemGhostDust;
 import net.epoxide.colorfulmobs.items.ItemRainbowDust;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.Constants;
 import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 import net.minecraft.creativetab.CreativeTabs;
