@@ -89,13 +89,11 @@ public class ItemColoredPowder extends ItemColorSetter {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List itemList) {
 
-        int counter = 0;
         for (EnumVanillaColors color : EnumVanillaColors.values()) {
 
             ItemStack powderStack = new ItemStack(ColorfulMobs.itemPowder, 1);
             powderStack.setTagCompound(ColorObject.getTagFromColor(color.colorObj));
             itemList.add(powderStack);
-            counter++;
         }
 
         for (int i = 0; i < 16; i++) {
