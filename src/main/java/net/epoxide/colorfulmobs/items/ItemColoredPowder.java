@@ -5,14 +5,17 @@ import java.util.List;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.epoxide.colorfulmobs.lib.EnumVanillaColors;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -20,8 +23,6 @@ public class ItemColoredPowder extends ItemColorSetter {
 
     public static IIcon rope;
     public static IIcon sack;
-
-    public static ColorObject[] colors = { new ColorObject(255, 255, 255), new ColorObject(211, 211, 211), new ColorObject(255, 0, 0), new ColorObject(255, 128, 0), new ColorObject(255, 255, 0), new ColorObject(128, 255, 0), new ColorObject(0, 153, 0), new ColorObject(0, 255, 0), new ColorObject(0, 255, 128), new ColorObject(0, 255, 255), new ColorObject(0, 128, 255), new ColorObject(0, 0, 255), new ColorObject(128, 0, 255), new ColorObject(255, 0, 255), new ColorObject(255, 0, 128), new ColorObject(204, 0, 204), new ColorObject(197, 179, 88), new ColorObject(128, 128, 128), new ColorObject(102, 51, 153), new ColorObject(255, 153, 153), new ColorObject(16, 145, 117) };
 
     public ItemColoredPowder() {
 
@@ -88,11 +89,13 @@ public class ItemColoredPowder extends ItemColorSetter {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List itemList) {
 
-        for (int i = 0; i < colors.length; i++) {
+        int counter = 0;
+        for (EnumVanillaColors color : EnumVanillaColors.values()) {
 
-            ItemStack stack = new ItemStack(this);
-            stack.setTagCompound(ColorObject.getTagFromColor(colors[i]));
-            itemList.add(stack);
+            ItemStack powderStack = new ItemStack(ColorfulMobs.itemPowder, 3);
+            powderStack.setTagCompound(ColorObject.getTagFromColor(color.colorObj));
+            GameRegistry.addRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), new ItemStack(Items.dye, 1, counter) });
+            counter++;
         }
 
         for (int i = 0; i < 16; i++) {
