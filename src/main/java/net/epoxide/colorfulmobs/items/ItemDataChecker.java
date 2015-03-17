@@ -29,7 +29,7 @@ public class ItemDataChecker extends Item {
         if (player.worldObj.isRemote)
             return false;
 
-        String outputString = "";
+        String outputString = StatCollector.translateToLocal("chat.colorfulmobs.name") + ": " + EntityList.getEntityString(entity) + " ";
 
         if (ColorProperties.hasColorProperties(entity)) {
 
@@ -37,7 +37,6 @@ public class ItemDataChecker extends Item {
             outputString = outputString + EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red") + ": " + (int) (obj.red * 255) + " " + EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green") + ": " + (int) (obj.green * 255) + " " + EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue") + ": " + (int) (obj.blue * 255) + " " + EnumChatFormatting.RESET + StatCollector.translateToLocal("chat.colorfulmobs.transparency") + ": " + (int) (obj.alpha * 100) + "% ";
         }
 
-        outputString = outputString + StatCollector.translateToLocal("chat.colorfulmobs.name") + ": " + EntityList.getEntityString(entity);
         player.addChatMessage(new ChatComponentText(outputString));
         return true;
     }
