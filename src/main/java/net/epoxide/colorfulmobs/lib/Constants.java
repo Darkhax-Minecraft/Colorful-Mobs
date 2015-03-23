@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Constants {
-
+    
     public static final String MOD_ID = "ColorfulMobs";
     public static final String MOD_NAME = "Colorful Mobs";
     public static final String VERSION_NUMBER = "1.1.0";

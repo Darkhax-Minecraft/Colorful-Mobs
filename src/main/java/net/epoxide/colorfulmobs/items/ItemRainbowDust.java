@@ -7,29 +7,29 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class ItemRainbowDust extends ItemColorSetter {
-
+    
     public ItemRainbowDust() {
-
+    
         this.hasSubtypes = true;
         this.setTextureName("colorfulmobs:rainbowdust");
         this.setUnlocalizedName("colorfulmobs.rainbowdust");
     }
-
+    
     @Override
-    public ColorObject getColorToApply(ItemStack stack) {
-
+    public ColorObject getColorToApply (ItemStack stack) {
+    
         return new ColorObject(false);
     }
-
+    
     @Override
-    public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
-
+    public ColorObject applyMerger (ColorObject existingObj, ColorObject newObj) {
+    
         return new ColorObject(newObj.red, newObj.blue, newObj.green, existingObj.alpha);
     }
-
+    
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-
+    public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
+    
         super.itemInteractionForEntity(stack, player, entity);
         player.triggerAchievement(AchievementHandler.achRainbow);
         return true;

@@ -7,29 +7,29 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
-
+    
     private static EntityLivingBase entitys;
-
-    public static void setEntity(EntityLivingBase entity) {
-
+    
+    public static void setEntity (EntityLivingBase entity) {
+    
         entitys = entity;
     }
-
+    
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-
+    public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z) {
+    
         return null;
     }
-
+    
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-
+    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z) {
+    
         switch (ID) {
-
-        case 0:
-            return new GuiColorSelection(entitys);
+        
+            case 0:
+                return new GuiColorSelection(entitys);
         }
-
+        
         return null;
     }
 }

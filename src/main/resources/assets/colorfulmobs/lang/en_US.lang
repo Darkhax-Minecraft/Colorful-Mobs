@@ -27,6 +27,11 @@ colorfulmobs.configGui.craftDye=Craft Blank Dye
 colorfulmobs.configGui.dataChecker=Craft Data Checker
 colorfulmobs.configGui.cloneDye=Clone Dyes
 colorfulmobs.configGui.validMobs=Valid Mob List
+colorfulmobs.configGui.ghostDust=Craft Ghost Dust
+colorfulmobs.configGui.rainbowRate=Rainbow Dust Spawn Rate
+colorfulmobs.configGui.canFindRainbow=Can Find Rainbow Dust
+colorfulmobs.configGui.chestLoot=Valid Chest List
+colorfulmobs.configGui.craftWand=Can Craft Rainbow Wand
 
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs

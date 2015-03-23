@@ -14,45 +14,45 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 
 public class PacketColorSync implements IMessage {
-
+    
     public int entityID;
     public ColorObject colorObj;
-
+    
     public PacketColorSync() {
-
+    
     }
-
+    
     public PacketColorSync(ColorObject color, EntityLivingBase living) {
-
+    
         entityID = living.getEntityId();
         this.colorObj = color;
     }
-
+    
     @Override
-    public void fromBytes(ByteBuf buf) {
-
+    public void fromBytes (ByteBuf buf) {
+    
         this.entityID = ByteBufUtils.readVarInt(buf, 5);
         this.colorObj = ColorObject.getColorFromTag(ByteBufUtils.readTag(buf));
     }
-
+    
     @Override
-    public void toBytes(ByteBuf buf) {
-
+    public void toBytes (ByteBuf buf) {
+    
         ByteBufUtils.writeVarInt(buf, this.entityID, 5);
         ByteBufUtils.writeTag(buf, ColorObject.getTagFromColor(this.colorObj));
     }
-
+    
     public static class PacketColorSyncHandler implements IMessageHandler<PacketColorSync, IMessage> {
-
+        
         @Override
-        public IMessage onMessage(PacketColorSync packet, MessageContext ctx) {
-
+        public IMessage onMessage (PacketColorSync packet, MessageContext ctx) {
+        
             EntityPlayer player = (ctx.side == Side.CLIENT) ? GenericUtilities.thePlayer() : ctx.getServerHandler().playerEntity;
             Entity entity = player.worldObj.getEntityByID(packet.entityID);
-
+            
             if (entity instanceof EntityLivingBase)
                 ColorProperties.setEntityColors(packet.colorObj, (EntityLivingBase) entity);
-
+            
             if (ctx.side == Side.SERVER)
                 ColorfulMobs.network.sendToAll(packet);
             return null;

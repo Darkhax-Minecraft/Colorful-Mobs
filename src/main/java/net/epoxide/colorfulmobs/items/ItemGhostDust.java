@@ -2,6 +2,7 @@ package net.epoxide.colorfulmobs.items;
 
 import java.util.List;
 
+import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,70 +15,77 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGhostDust extends ItemColoredPowder {
-
+    
     public ItemGhostDust() {
-
+    
         this.hasSubtypes = true;
         this.setUnlocalizedName("colorfulmobs.ghostdust");
         this.setTextureName("colorfulmobs:powder1");
     }
-
+    
     @Override
-    public ColorObject getColorToApply(ItemStack stack) {
-
+    public ColorObject getColorToApply (ItemStack stack) {
+    
         return ColorObject.getColorFromTag(stack.getTagCompound());
     }
-
+    
     @Override
-    public ColorObject applyMerger(ColorObject existingObj, ColorObject newObj) {
-
+    public ColorObject applyMerger (ColorObject existingObj, ColorObject newObj) {
+    
         return new ColorObject(existingObj.red, existingObj.blue, existingObj.green, newObj.alpha);
     }
-
+    
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-
+    public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
+    
         super.itemInteractionForEntity(stack, player, entity);
         player.triggerAchievement(AchievementHandler.achGhost);
         return true;
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(ItemStack stack, int pass) {
-
+    public int getColorFromItemStack (ItemStack stack, int pass) {
+    
         return ColorObject.getIntFromColor(new ColorObject(211, 211, 211));
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs tab, List itemList) {
-
+    public void getSubItems (Item item, CreativeTabs tab, List itemList) {
+    
         for (int i = 0; i < 6; i++) {
-
+            
             ItemStack stack = new ItemStack(this);
             stack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(1.0f, 1.0f, 1.0f, (0.20f * i))));
             itemList.add(stack);
         }
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack, int pass) {
-
+    public boolean hasEffect (ItemStack par1ItemStack, int pass) {
+    
         return true;
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
-
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean advanced) {
+    
         if (stack.hasTagCompound()) {
-
+            
             ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
-
+            
             if (colorObj != null)
                 list.add((int) (colorObj.alpha * 100) + "% " + StatCollector.translateToLocal("chat.colorfulmobs.transparency"));
         }
+    }
+    
+    public static ItemStack getStackFromStrenght (float strength) {
+    
+        ItemStack stack = new ItemStack(ColorfulMobs.itemGhostDust);
+        stack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(1.0f, 1.0f, 1.0f, strength)));
+        return stack;
     }
 }
