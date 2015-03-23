@@ -15,6 +15,7 @@ public class ItemColorWand extends Item {
         this.setCreativeTab(ColorfulMobs.tabColor);
         this.setUnlocalizedName("colorfulmobs.colorwand");
         this.setTextureName("colorfulmobs:colorwand");
+        this.setMaxDamage(16);
     }
     
     @Override
@@ -23,6 +24,13 @@ public class ItemColorWand extends Item {
         player.triggerAchievement(AchievementHandler.achWand);
         GuiHandler.setEntity(entity);
         player.openGui(ColorfulMobs.instance, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        stack.damageItem(1, player);
         return true;
+    }
+    
+    @Override
+    public boolean getIsRepairable (ItemStack input, ItemStack repairItem) {
+    
+        return (repairItem.getItem() instanceof ItemRainbowDust);
     }
 }
