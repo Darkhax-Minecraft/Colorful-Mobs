@@ -281,6 +281,14 @@ public class ColorObject {
         return tag;
     }
     
+    /**
+     * A basic wrapper method that handles the creation of new ItemStacks. This method will
+     * re-apply the nbt tag compound after it has been set. This prevents null tags from
+     * slipping through.
+     * 
+     * @param stack: The ItemStack you wish to write to.
+     * @return ItemStack: The instance of ItemStack that was used.
+     */
     public ItemStack writeToItemStack (ItemStack stack) {
     
         stack.setTagCompound(writeToTag(stack.getTagCompound()));
