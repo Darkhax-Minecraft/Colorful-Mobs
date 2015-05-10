@@ -24,7 +24,7 @@ public class ItemRainbowDust extends ItemColorSetter {
     @Override
     public ColorObject applyMerger (ColorObject existingObj, ColorObject newObj) {
     
-        return new ColorObject(newObj.red, newObj.blue, newObj.green, existingObj.alpha);
+        return new ColorObject(newObj.getRed(), newObj.getGreen(), newObj.getBlue(), existingObj.getAlpha());
     }
     
     @Override

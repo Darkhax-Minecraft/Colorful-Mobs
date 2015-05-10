@@ -31,15 +31,15 @@ public class PacketColorSync implements IMessage {
     @Override
     public void fromBytes (ByteBuf buf) {
     
-        this.entityID = ByteBufUtils.readVarInt(buf, 5);
-        this.colorObj = ColorObject.getColorFromTag(ByteBufUtils.readTag(buf));
+        this.entityID = buf.readInt();
+        this.colorObj = new ColorObject(ByteBufUtils.readTag(buf));
     }
     
     @Override
     public void toBytes (ByteBuf buf) {
     
-        ByteBufUtils.writeVarInt(buf, this.entityID, 5);
-        ByteBufUtils.writeTag(buf, ColorObject.getTagFromColor(this.colorObj));
+        buf.writeInt(this.entityID);
+        ByteBufUtils.writeTag(buf, this.colorObj.getTagFromColor());
     }
     
     public static class PacketColorSyncHandler implements IMessageHandler<PacketColorSync, IMessage> {
@@ -55,6 +55,7 @@ public class PacketColorSync implements IMessage {
             
             if (ctx.side == Side.SERVER)
                 ColorfulMobs.network.sendToAll(packet);
+            
             return null;
         }
     }

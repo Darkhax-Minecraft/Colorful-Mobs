@@ -2,7 +2,6 @@ package net.epoxide.colorfulmobs.recipe;
 
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
-import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -24,7 +23,7 @@ public class RecipeDyePowder implements IRecipe {
                 
                 ItemColoredPowder powder = (ItemColoredPowder) currentStack.getItem();
                 
-                if (!ColorObject.isGeneric(powder.getColorToApply(currentStack))) {
+                if (!powder.getColorToApply(currentStack).isGenericWhite()) {
                     
                     if (mainStack != null)
                         return false;
@@ -35,7 +34,7 @@ public class RecipeDyePowder implements IRecipe {
                     }
                 }
                 
-                if (ColorObject.isGeneric(powder.getColorToApply(currentStack)))
+                if (powder.getColorToApply(currentStack).isGenericWhite())
                     itemCount++;
             }
         }
@@ -57,7 +56,7 @@ public class RecipeDyePowder implements IRecipe {
                 
                 ItemColoredPowder powder = (ItemColoredPowder) currentStack.getItem();
                 
-                if (!ColorObject.isGeneric(powder.getColorToApply(currentStack))) {
+                if (!powder.getColorToApply(currentStack).isGenericWhite()) {
                     
                     if (mainStack != null)
                         return null;
@@ -68,7 +67,7 @@ public class RecipeDyePowder implements IRecipe {
                     }
                 }
                 
-                if (ColorObject.isGeneric(powder.getColorToApply(currentStack)))
+                if (powder.getColorToApply(currentStack).isGenericWhite())
                     itemCount++;
             }
         }

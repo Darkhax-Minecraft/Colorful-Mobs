@@ -45,7 +45,7 @@ public class ForgeEventHandler {
         if (ConfigurationHandler.dropPowder && ColorProperties.isEntityDyed(event.entityLiving)) {
             
             ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
-            stack.setTagCompound(ColorObject.getTagFromColor(ColorProperties.getPropsFromEntity(event.entityLiving).colorObj));
+            ColorProperties.getPropsFromEntity(event.entityLiving).colorObj.writeToItemStack(stack);
             GenericUtilities.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
             
             if (event.source.getEntity() instanceof EntityPlayer) {
@@ -60,7 +60,7 @@ public class ForgeEventHandler {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             EntityLivingBase base = (EntityLivingBase) event.source.getEntity();
             
-            if (ColorProperties.hasColorProperties(base) && !ColorObject.isGeneric(ColorProperties.getPropsFromEntity(base).colorObj))
+            if (ColorProperties.hasColorProperties(base) && !ColorProperties.getPropsFromEntity(base).colorObj.isGenericWhite())
                 player.triggerAchievement(AchievementHandler.achColorDeath);
         }
     }
@@ -72,9 +72,9 @@ public class ForgeEventHandler {
         
             if (event.crafting != null && event.crafting.getItem() instanceof ItemColoredPowder) {
                 
-                ColorObject color = ColorObject.getColorFromTag(event.crafting.getTagCompound());
+                ColorObject color = new ColorObject(event.crafting.getTagCompound());
                 
-                if (color != null && !ColorObject.isGeneric(color))
+                if (color != null && !color.isGenericWhite())
                     event.player.triggerAchievement(AchievementHandler.achCloneDye);
             }
         }

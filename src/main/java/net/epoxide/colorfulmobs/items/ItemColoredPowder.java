@@ -33,7 +33,7 @@ public class ItemColoredPowder extends ItemColorSetter {
     public ColorObject getColorToApply (ItemStack stack) {
     
         if (stack.hasTagCompound())
-            return ColorObject.getColorFromTag(stack.getTagCompound());
+            return new ColorObject(stack.getTagCompound());
         
         return new ColorObject(1, 1, 1);
     }
@@ -41,7 +41,7 @@ public class ItemColoredPowder extends ItemColorSetter {
     @Override
     public ColorObject applyMerger (ColorObject existingObj, ColorObject newObj) {
     
-        return new ColorObject(newObj.red, newObj.blue, newObj.green, existingObj.alpha);
+        return new ColorObject(newObj.getRed(), newObj.getGreen(), newObj.getBlue(), existingObj.getAlpha());
     }
     
     @Override
@@ -49,7 +49,7 @@ public class ItemColoredPowder extends ItemColorSetter {
     public int getColorFromItemStack (ItemStack stack, int pass) {
     
         if (pass == 0 && stack.hasTagCompound())
-            return ColorObject.getIntFromColor(ColorObject.getColorFromTag(stack.stackTagCompound));
+            return new ColorObject(stack.stackTagCompound).getIntFromColor();
         
         else
             return 10511680;
@@ -72,9 +72,9 @@ public class ItemColoredPowder extends ItemColorSetter {
     @Override
     public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
     
-        ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
+        ColorObject colorObj = new ColorObject(stack.getTagCompound());
         
-        if (ColorObject.isGeneric(colorObj))
+        if (colorObj.isGenericWhite())
             player.triggerAchievement(AchievementHandler.achPureDye);
         
         else
@@ -90,14 +90,14 @@ public class ItemColoredPowder extends ItemColorSetter {
         for (EnumVanillaColors color : EnumVanillaColors.values()) {
             
             ItemStack powderStack = new ItemStack(ColorfulMobs.itemPowder, 1);
-            powderStack.setTagCompound(ColorObject.getTagFromColor(color.colorObj));
+            color.colorObj.writeToItemStack(powderStack);
             itemList.add(powderStack);
         }
         
         for (int i = 0; i < 16; i++) {
             
             ItemStack stack = new ItemStack(this);
-            stack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(false)));
+            new ColorObject(false).writeToItemStack(stack);
             stack.setStackDisplayName(EnumChatFormatting.DARK_AQUA + "Random Dye Powder");
             itemList.add(stack);
         }
@@ -118,10 +118,10 @@ public class ItemColoredPowder extends ItemColorSetter {
     
         if (stack.hasTagCompound()) {
             
-            ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
+            ColorObject colorObj = new ColorObject(stack.getTagCompound());
             
             if (colorObj != null)
-                list.add(EnumChatFormatting.RED + "" + (int) (colorObj.red * 255) + " " + EnumChatFormatting.GREEN + (int) (colorObj.green * 255) + " " + EnumChatFormatting.BLUE + (int) (colorObj.blue * 255));
+                list.add(colorObj.toString());
         }
     }
     
@@ -135,8 +135,7 @@ public class ItemColoredPowder extends ItemColorSetter {
     public static ItemStack getStackFromColorObject (ColorObject obj) {
     
         ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
-        stack.setTagCompound(ColorObject.getTagFromColor(obj));
-        
+        obj.writeToItemStack(stack);
         return stack;
     }
 }

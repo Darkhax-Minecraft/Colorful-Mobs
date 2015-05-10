@@ -74,10 +74,10 @@ public class GuiColorSelection extends GuiScreen {
         if (ColorProperties.hasColorProperties(entity)) {
             
             ColorObject obj = ColorProperties.getPropsFromEntity(entity).colorObj;
-            r = (int) (obj.red * 255);
-            g = (int) (obj.green * 255);
-            b = (int) (obj.blue * 255);
-            a = (int) (obj.alpha * 100);
+            r = (int) (obj.getRed() * 255);
+            g = (int) (obj.getGreen() * 255);
+            b = (int) (obj.getBlue() * 255);
+            a = (int) (obj.getAlpha() * 100);
             
             ColorProperties.setEntityColors(obj, tempEntity);
         }

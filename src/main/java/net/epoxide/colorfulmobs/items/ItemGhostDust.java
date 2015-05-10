@@ -26,13 +26,13 @@ public class ItemGhostDust extends ItemColoredPowder {
     @Override
     public ColorObject getColorToApply (ItemStack stack) {
     
-        return ColorObject.getColorFromTag(stack.getTagCompound());
+        return new ColorObject(stack.getTagCompound());
     }
     
     @Override
     public ColorObject applyMerger (ColorObject existingObj, ColorObject newObj) {
     
-        return new ColorObject(existingObj.red, existingObj.blue, existingObj.green, newObj.alpha);
+        return new ColorObject(existingObj.getRed(), existingObj.getGreen(), existingObj.getBlue(), newObj.getAlpha());
     }
     
     @Override
@@ -47,7 +47,7 @@ public class ItemGhostDust extends ItemColoredPowder {
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack (ItemStack stack, int pass) {
     
-        return ColorObject.getIntFromColor(new ColorObject(211, 211, 211));
+        return new ColorObject(211, 211, 211).getIntFromColor();
     }
     
     @Override
@@ -57,7 +57,7 @@ public class ItemGhostDust extends ItemColoredPowder {
         for (int i = 0; i < 6; i++) {
             
             ItemStack stack = new ItemStack(this);
-            stack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(1.0f, 1.0f, 1.0f, (0.20f * i))));
+            new ColorObject(1.0f, 1.0f, 1.0f, (0.20f * i)).writeToItemStack(stack);
             itemList.add(stack);
         }
     }
@@ -75,17 +75,17 @@ public class ItemGhostDust extends ItemColoredPowder {
     
         if (stack.hasTagCompound()) {
             
-            ColorObject colorObj = ColorObject.getColorFromTag(stack.getTagCompound());
+            ColorObject colorObj = new ColorObject(stack.getTagCompound());
             
             if (colorObj != null)
-                list.add((int) (colorObj.alpha * 100) + "% " + StatCollector.translateToLocal("chat.colorfulmobs.transparency"));
+                list.add((100 - (int) (colorObj.getAlpha() * 100)) + "% " + StatCollector.translateToLocal("chat.colorfulmobs.transparency"));
         }
     }
     
     public static ItemStack getStackFromStrenght (float strength) {
     
         ItemStack stack = new ItemStack(ColorfulMobs.itemGhostDust);
-        stack.setTagCompound(ColorObject.getTagFromColor(new ColorObject(1.0f, 1.0f, 1.0f, strength)));
+        new ColorObject(1.0f, 1.0f, 1.0f, strength).writeToItemStack(stack);
         return stack;
     }
 }

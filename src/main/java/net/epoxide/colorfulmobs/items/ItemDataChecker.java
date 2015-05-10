@@ -34,7 +34,7 @@ public class ItemDataChecker extends Item {
         if (ColorProperties.hasColorProperties(entity)) {
             
             ColorObject obj = ColorProperties.getPropsFromEntity(entity).colorObj;
-            outputString = outputString + EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red") + ": " + (int) (obj.red * 255) + " " + EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green") + ": " + (int) (obj.green * 255) + " " + EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue") + ": " + (int) (obj.blue * 255) + " " + EnumChatFormatting.RESET + StatCollector.translateToLocal("chat.colorfulmobs.transparency") + ": " + (int) (obj.alpha * 100) + "% ";
+            outputString = outputString + EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red") + ": " + (int) (obj.getRed() * 255) + " " + EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green") + ": " + (int) (obj.getGreen() * 255) + " " + EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue") + ": " + (int) (obj.getBlue() * 255) + " " + EnumChatFormatting.RESET + StatCollector.translateToLocal("chat.colorfulmobs.transparency") + ": " + (100 - (int) (obj.getAlpha() * 100)) + "%";
         }
         
         player.addChatMessage(new ChatComponentText(outputString));

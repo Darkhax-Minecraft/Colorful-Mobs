@@ -1,6 +1,8 @@
 package net.epoxide.colorfulmobs.lib;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 
 public class ColorObject {
     
@@ -279,19 +281,15 @@ public class ColorObject {
         return tag;
     }
     
-    /**
-     * Creates a new version of the ColorObject, with an alpha layer borrowed from the provided
-     * ColorObject.
-     * 
-     * @param alphaObject: Another ColorObject instance, which is used to obtain a new alpha
-     *            color value.
-     * @return ColorObject: A new ColorObject instance, which contains the color values of the
-     *         original ColorObject and the alpha layer of the provided ColorObject.
-     */
-    public ColorObject mergeAlpha (ColorObject alphaObject) {
+    public ItemStack writeToItemStack (ItemStack stack) {
     
-        ColorObject colorObj = this.copy();
-        colorObj.setAlpha(alphaObject.getAlpha());
-        return colorObj;
+        stack.setTagCompound(writeToTag(stack.getTagCompound()));
+        return stack;
+    }
+    
+    @Override
+    public String toString () {
+    
+        return EnumChatFormatting.RED + "" + (int) (this.red * 255) + " " + EnumChatFormatting.GREEN + (int) (this.getGreen() * 255) + " " + EnumChatFormatting.BLUE + (int) (this.blue * 255);
     }
 }
