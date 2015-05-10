@@ -23,12 +23,10 @@ public class ForgeEventHandler {
     
         if (event.entity instanceof EntityLiving) {
             
-            ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
+            ColorProperties props = ColorProperties.setPropsToEntity((EntityLivingBase) event.entity);
             
-            if (ConfigurationHandler.spawnRandom && Math.random() < ConfigurationHandler.spawnRate && ColorProperties.isValidMob((EntityLivingBase) event.entity) && !ColorProperties.getPropsFromEntity((EntityLivingBase) event.entity).hasInitialized)
-                ColorProperties.setEntityColors(new ColorObject(false), (EntityLivingBase) event.entity);
-            
-            ColorProperties.getPropsFromEntity((EntityLivingBase) event.entity).hasInitialized = true;
+            if (ConfigurationHandler.spawnRandom && Math.random() < ConfigurationHandler.spawnRate && props.isValidTarget() && !props.isInitialized())
+                props.setColorObject(new ColorObject(false));
         }
     }
     
@@ -36,22 +34,27 @@ public class ForgeEventHandler {
     public void onEntityTracked (PlayerEvent.StartTracking event) {
     
         if (event.target instanceof EntityLiving && ColorProperties.hasColorProperties((EntityLivingBase) event.target) && !event.target.worldObj.isRemote)
-            ColorfulMobs.network.sendToAll(new PacketColorSync(ColorProperties.getPropsFromEntity((EntityLivingBase) event.target).colorObj, (EntityLivingBase) event.target));
+            ColorfulMobs.network.sendToAll(new PacketColorSync(ColorProperties.getPropsFromEntity((EntityLivingBase) event.target).getColorObj(), (EntityLivingBase) event.target));
     }
     
     @SubscribeEvent
     public void onMobDeath (LivingDropsEvent event) {
     
-        if (ConfigurationHandler.dropPowder && ColorProperties.isEntityDyed(event.entityLiving)) {
+        if (ConfigurationHandler.dropPowder && ColorProperties.hasColorProperties(event.entityLiving)) {
             
-            ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
-            ColorProperties.getPropsFromEntity(event.entityLiving).colorObj.writeToItemStack(stack);
-            Utilities.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
+            ColorProperties props = ColorProperties.getPropsFromEntity(event.entityLiving);
             
-            if (event.source.getEntity() instanceof EntityPlayer) {
+            if (props.isDyed() && !props.getColorObj().isGenericWhite()) {
                 
-                EntityPlayer player = (EntityPlayer) event.source.getEntity();
-                player.triggerAchievement(AchievementHandler.achKillDyed);
+                ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
+                props.getColorObj().writeToItemStack(stack);
+                Utilities.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
+                
+                if (event.source.getEntity() instanceof EntityPlayer) {
+                    
+                    EntityPlayer player = (EntityPlayer) event.source.getEntity();
+                    player.triggerAchievement(AchievementHandler.achKillDyed);
+                }
             }
         }
         
@@ -60,7 +63,7 @@ public class ForgeEventHandler {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             EntityLivingBase base = (EntityLivingBase) event.source.getEntity();
             
-            if (ColorProperties.hasColorProperties(base) && !ColorProperties.getPropsFromEntity(base).colorObj.isGenericWhite())
+            if (ColorProperties.hasColorProperties(base) && !ColorProperties.getPropsFromEntity(base).getColorObj().isGenericWhite())
                 player.triggerAchievement(AchievementHandler.achColorDeath);
         }
     }

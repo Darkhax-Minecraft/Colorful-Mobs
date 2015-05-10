@@ -32,6 +32,9 @@ public class GuiColorSelection extends GuiScreenBase {
     private EntityLivingBase entity;
     private EntityLivingBase tempEntity;
     
+    private ColorProperties baseProps;
+    private ColorProperties tempProps;
+    
     private ColorObject initialColor;
     
     public GuiColorSelection(EntityLivingBase entity) {
@@ -45,13 +48,15 @@ public class GuiColorSelection extends GuiScreenBase {
         NBTTagCompound compound = new NBTTagCompound();
         entity.writeEntityToNBT(compound);
         tempEntity.readEntityFromNBT(compound);
+        this.baseProps = ColorProperties.getPropsFromEntity(entity);
+        this.tempProps = ColorProperties.getPropsFromEntity(tempEntity);
     }
     
     @Override
     protected void drawGuiContainerBackgroundLayer () {
     
         ColorObject currentColor = new ColorObject(sliderRed.getSliderValue(), sliderGreen.getSliderValue(), sliderBlue.getSliderValue(), sliderAlpha.getSliderValue());
-        ColorProperties.setEntityColors(currentColor, tempEntity);
+        tempProps.setColorObject(currentColor);
         
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
@@ -77,8 +82,8 @@ public class GuiColorSelection extends GuiScreenBase {
         
         if (ColorProperties.hasColorProperties(entity)) {
             
-            this.initialColor = ColorProperties.getPropsFromEntity(entity).colorObj;
-            ColorProperties.setEntityColors(this.initialColor, tempEntity);
+            this.initialColor = baseProps.getColorObj();
+            tempProps.setColorObject(this.initialColor);
         }
         
         this.sliderRed = new GuiSlider(2, EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red"), initialColor.getRed(), k + 25, l + 140, true, 255);

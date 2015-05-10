@@ -21,12 +21,13 @@ public class ItemColorSetter extends Item {
     
         if (!player.worldObj.isRemote) {
             
+            ColorProperties entProps = ColorProperties.getPropsFromEntity(entity);
             ColorObject colorObj = getColorToApply(stack);
             
-            if (ColorProperties.isEntityDyed(entity))
-                colorObj = applyMerger(ColorProperties.getColorFromEntity(entity), colorObj);
+            if (entProps.isDyed())
+                colorObj = applyMerger(entProps.getColorObj(), colorObj);
             
-            ColorProperties.setEntityColors(colorObj, entity);
+            entProps.setColorObject(colorObj);
             ColorfulMobs.network.sendToAll(new PacketColorSync(colorObj, entity));
         }
         

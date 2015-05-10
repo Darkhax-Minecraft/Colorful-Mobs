@@ -17,7 +17,7 @@ public class RenderingHandler {
             
             if (ColorProperties.hasColorProperties(event.entity)) {
                 
-                ColorObject obj = ColorProperties.getPropsFromEntity(event.entity).colorObj;
+                ColorObject obj = ColorProperties.getPropsFromEntity(event.entity).getColorObj();
                 
                 GL11.glPushMatrix();
                 GL11.glEnable(GL11.GL_BLEND);

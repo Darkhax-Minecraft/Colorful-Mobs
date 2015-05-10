@@ -15,14 +15,15 @@ public class ColorProperties implements IExtendedEntityProperties {
     
     public static final String PROP_NAME = "ColorProperties";
     
-    public EntityLivingBase entity;
-    public ColorObject colorObj;
-    public boolean hasInitialized;
+    private EntityLivingBase entity;
+    private ColorObject colorObj;
+    private boolean hasInitialized;
     
     public ColorProperties(EntityLivingBase living) {
     
         entity = living;
-        colorObj = new ColorObject(1.0f, 1.0f, 1.0f, 1.0f);
+        colorObj = new ColorObject();
+        hasInitialized = true;
     }
     
     @Override
@@ -46,11 +47,11 @@ public class ColorProperties implements IExtendedEntityProperties {
     }
     
     /**
-     * Retrieves a ColorProperties object from a provided entity.
+     * Creates an instance of ColorProperties from an instance of an entity.
      * 
-     * @param living : A living entity which extends EntityLivingBase, this is where the data
-     *            comes from.
-     * @return ColorProperties: A ColorProperties object unique to the specified living entity.
+     * @param living: The instance of the entity being read.
+     * @return ColorProperties: An instance of ColorProperties, which holds all of the color
+     *         data.
      */
     public static ColorProperties getPropsFromEntity (EntityLivingBase living) {
     
@@ -58,21 +59,23 @@ public class ColorProperties implements IExtendedEntityProperties {
     }
     
     /**
-     * Sets a new ColorProperties object to a living entity, this will override any existing
-     * color data, and is mandatory to apply before setting colors to mobs.
+     * Registers the properties in the entities data. This allows custom data to be read and
+     * written.
      * 
-     * @param living
+     * @param living: An instance of the entity being set up.
+     * @return ColorProperties: The newly created instance of ColorProperties.
      */
-    public static void setPropsToEntity (EntityLivingBase living) {
+    public static ColorProperties setPropsToEntity (EntityLivingBase living) {
     
         living.registerExtendedProperties(PROP_NAME, new ColorProperties(living));
+        return getPropsFromEntity(living);
     }
     
     /**
-     * Checks to see if a living entity has color properties.
+     * A basic check to see if an entity already has the data available.
      * 
-     * @param living : A living entity to check for colored properties.
-     * @return boolean: True if the mob has a ColorProperties object.
+     * @param living: An instance of the entity being checked.
+     * @return boolean: True if the entity's property value is not null.
      */
     public static boolean hasColorProperties (EntityLivingBase living) {
     
@@ -80,60 +83,50 @@ public class ColorProperties implements IExtendedEntityProperties {
     }
     
     /**
-     * Sets the color for an entity. Has built in check to ensure the mob actually has a
-     * ColorProperties object to write to.
+     * Retrieves a usable ColorObject instance from the properties instance.
      * 
-     * @param color : A ColorObject containing the color being set. This will override existing
-     *            colors.
-     * @param living : A living entity to have color data applied to.
+     * @return ColorObject: An object containing all of the color data. If the one from the
+     *         properties is not usable, a default one is provided.
      */
-    public static void setEntityColors (ColorObject color, EntityLivingBase living) {
+    public ColorObject getColorObj () {
     
-        if (!hasColorProperties(living))
-            setPropsToEntity(living);
-        
-        ColorProperties props = getPropsFromEntity(living);
-        props.colorObj = color;
+        return (this.colorObj == null) ? new ColorObject() : this.colorObj;
     }
     
     /**
-     * Checks to see if a mob is a valid target for working with color.
+     * Sets a ColorObject to the ColorProperties for an entity.
      * 
-     * @param living : The entity being checked.
-     * @return boolean: True if the mob is a player, false if the spawn limits are on but the
-     *         mob is not in the allowed list, and true if no limits are placed.
+     * @param newColor: The new color to set. If this value is null, a new ColorObject will be
+     *            created.
      */
-    public static boolean isValidMob (EntityLivingBase living) {
+    public void setColorObject (ColorObject newColor) {
     
-        if (living instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
+        this.colorObj = (newColor == null) ? new ColorObject() : newColor;
+    }
+    
+    /**
+     * Checks if the color for this entity has any abnormalities.
+     * 
+     * @return boolean: True if any of the color values are less than one.
+     */
+    public boolean isDyed () {
+    
+        return (this.colorObj.getRed() < 1f || this.colorObj.getGreen() < 1f || this.colorObj.getBlue() < 1f || this.colorObj.getAlpha() < 1f);
+    }
+    
+    public boolean isInitialized () {
+    
+        return this.hasInitialized;
+    }
+    
+    public boolean isValidTarget () {
+    
+        if (this.entity instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
             return true;
         
-        if (ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(living)))
+        if (ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(entity)))
             return false;
         
         return true;
-    }
-    
-    /**
-     * Checks to see if an entity is dyed, this is an advanced version of hasColorProperties,
-     * that excludes white as a valid dye color.
-     * 
-     * @param living : The entity being checked for color.
-     * @return boolean: True if the mob has color data that is not white, false if it doesn't.
-     */
-    public static boolean isEntityDyed (EntityLivingBase living) {
-    
-        return (hasColorProperties(living) && !getPropsFromEntity(living).colorObj.isGenericWhite()) ? true : false;
-    }
-    
-    /**
-     * Simple method to make grabbing colors look nicer.
-     * 
-     * @param living : The entity to grab color from.
-     * @return ColorObject: The color of that entity.
-     */
-    public static ColorObject getColorFromEntity (EntityLivingBase living) {
-    
-        return ColorProperties.getPropsFromEntity(living).colorObj;
     }
 }

@@ -55,7 +55,7 @@ public class PacketColorSync implements IMessage {
             Entity entity = player.worldObj.getEntityByID(packet.entityID);
             
             if (entity instanceof EntityLivingBase)
-                ColorProperties.setEntityColors(packet.colorObj, (EntityLivingBase) entity);
+                ColorProperties.getPropsFromEntity((EntityLivingBase) entity).setColorObject(packet.colorObj);
             
             if (ctx.side == Side.SERVER)
                 ColorfulMobs.network.sendToAll(packet);
