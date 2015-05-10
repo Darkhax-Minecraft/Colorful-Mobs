@@ -4,10 +4,10 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ColorObject {
     
-    public float red;
-    public float green;
-    public float blue;
-    public float alpha;
+    private float red = 1.0f;
+    private float green = 1.0f;
+    private float blue = 1.0f;
+    private float alpha = 1.0f;
     
     /**
      * Constructs a new ColorObject with completely random values for RGBA.
@@ -17,6 +17,27 @@ public class ColorObject {
     public ColorObject(boolean doAlpha) {
     
         this(getRandomColor(), getRandomColor(), getRandomColor(), (doAlpha) ? getRandomColor() : 1.0f);
+    }
+    
+    /**
+     * Constructs a new ColorObject from a NBTTagCompound.
+     * 
+     * @param tag: An NBTTagCompound which should have color data written to it.
+     */
+    public ColorObject(NBTTagCompound tag) {
+    
+        this(tag.getFloat("red"), tag.getFloat("green"), tag.getFloat("blue"), (tag.hasKey("alpha")) ? tag.getFloat("alpha") : 1.0f);
+    }
+    
+    /**
+     * Converts a decimal color integer like the one produced in getIntFromColor back into a
+     * ColorObject.
+     * 
+     * @param rgb : The decimal value which represents all of the color data.
+     */
+    public ColorObject(int rgb) {
+    
+        this((float) (rgb >> 16 & 255) / 255.0F, (float) (rgb >> 8 & 255) / 255.0F, (float) (rgb & 255) / 255.0F);
     }
     
     /**
@@ -77,62 +98,115 @@ public class ColorObject {
     }
     
     /**
-     * Creates a ColorObject from an NBTTagCompound, like the one created by getTagFromColor().
+     * Sets the red value for this color object. If the value provided is not appropriate, it
+     * will be corrected.
      * 
-     * @param tag : An NBTTagCompound which contains a red green blue and alpha tag. If a
-     *            specific piece of data is missing, it will be treated as a 0.
-     * @return ColorObject: A ColorObject which contains all of the color data from the
-     *         provided NBTTagCompound.
+     * @param amount: The amount of red to set the value at. 0.0f -> 1.0f
      */
-    public static ColorObject getColorFromTag (NBTTagCompound tag) {
+    public void setRed (float amount) {
     
-        return new ColorObject(tag.getFloat("red"), tag.getFloat("green"), tag.getFloat("blue"), tag.getFloat("alpha"));
+        this.red = (amount < 0.0f) ? 0.0f : (amount > 1.0f) ? 1.0f : amount;
     }
     
     /**
-     * Creates a NBTTagCompound from a ColorObject.
+     * Retrieves the red value from this color object. If the value stored is not appropriate,
+     * it will be corrected.
      * 
-     * @param colorObj : An instance of ColorObject to be converted into a NBTTagCompound.
+     * @return float: The value of the red color.
+     */
+    public float getRed () {
+    
+        return (this.red < 0.0f) ? 0.0f : (this.red > 1.0f) ? 1.0f : this.red;
+    }
+    
+    /**
+     * Sets the green value for this color object. If the value provided is not appropriate, it
+     * will be corrected.
+     * 
+     * @param amount: The amount of green to set the value at. 0.0f -> 1.0f
+     */
+    public void setGreen (float amount) {
+    
+        this.green = (amount < 0.0f) ? 0.0f : (amount > 1.0f) ? 1.0f : amount;
+    }
+    
+    /**
+     * Retrieves the green value from this color object. If the value stored is not
+     * appropriate, it will be corrected.
+     * 
+     * @return float: The value of the green color.
+     */
+    public float getGreen () {
+    
+        return (this.green < 0.0f) ? 0.0f : (this.green > 1.0f) ? 1.0f : this.green;
+    }
+    
+    /**
+     * Sets the blue value for this color object. If the value provided is not appropriate, it
+     * will be corrected.
+     * 
+     * @param amount: The amount of blue to set the value at. 0.0f -> 1.0f
+     */
+    public void setBlue (float amount) {
+    
+        this.blue = (amount < 0.0f) ? 0.0f : (amount > 1.0f) ? 1.0f : amount;
+    }
+    
+    /**
+     * Retrieves the blue value from this color object. If the value stored is not appropriate,
+     * it will be corrected.
+     * 
+     * @return float: The value of the blue color.
+     */
+    public float getBlue () {
+    
+        return (this.blue < 0.0f) ? 0.0f : (this.blue > 1.0f) ? 1.0f : this.blue;
+    }
+    
+    /**
+     * Sets the transparency value for this color object. If the value provided is not
+     * appropriate, it will be corrected.
+     * 
+     * @param amount: The amount of alpha to set the value at. 0.0f -> 1.0f
+     */
+    public void setAlpha (float amount) {
+    
+        this.alpha = (amount < 0.0f) ? 0.0f : (amount > 1.0f) ? 1.0f : amount;
+    }
+    
+    /**
+     * Retrieves the transparency value from this color object. If the value stored is not
+     * appropriate, it will be corrected.
+     * 
+     * @return float: The value of the transparency color.
+     */
+    public float getAlpha () {
+    
+        return (this.alpha < 0.0f) ? 0.0f : (this.alpha > 1.0f) ? 1.0f : this.alpha;
+    }
+    
+    /**
+     * Creates a new NBTTagCompound from a ColorObject.
+     * 
      * @return NBTTagCompound: A NBTTagCompound containing the RGBA of the ColorObject.
      */
-    public static NBTTagCompound getTagFromColor (ColorObject colorObj) {
+    public NBTTagCompound getTagFromColor () {
     
-        NBTTagCompound colorTag = new NBTTagCompound();
-        colorTag.setFloat("red", colorObj.red);
-        colorTag.setFloat("green", colorObj.green);
-        colorTag.setFloat("blue", colorObj.blue);
-        colorTag.setFloat("alpha", colorObj.alpha);
-        return colorTag;
+        return this.writeToTag(new NBTTagCompound());
     }
     
     /**
      * Converts a ColorObject to a decimal color value. This is most notably used by Mojang for
-     * item overlay colors.
+     * item overlay colors and font rendering colors.
      * 
-     * @param colorObj : An instance of the ColorObject that is being converted.
      * @return int: An Integer which represents all of the color data.
      */
-    public static int getIntFromColor (ColorObject colorObj) {
+    public int getIntFromColor () {
     
-        int rgb = (int) (colorObj.red * 255);
-        rgb = (rgb << 8) + (int) (colorObj.green * 255);
-        rgb = (rgb << 8) + (int) (colorObj.blue * 255);
+        int rgb = (int) (this.red * 255);
+        rgb = (rgb << 8) + (int) (this.green * 255);
+        rgb = (rgb << 8) + (int) (this.blue * 255);
         return rgb;
-    }
-    
-    /**
-     * Converts a decimal color integer like the one produced in getIntFromColor back into a
-     * ColorObject.
-     * 
-     * @param rgb : The decimal value which represents all of the color data.
-     * @return ColorObject: A new ColorObject which contains all of the color data.
-     */
-    public static ColorObject getObjectFromInt (int rgb) {
-    
-        float red = (float) (rgb >> 16 & 255) / 255.0F;
-        float green = (float) (rgb >> 8 & 255) / 255.0F;
-        float blue = (float) (rgb & 255) / 255.0F;
-        return new ColorObject(red, green, blue);
     }
     
     /**
@@ -142,69 +216,82 @@ public class ColorObject {
      */
     public static float getRandomColor () {
     
-        return GenericUtilities.nextIntII(1, 255) / 255;
+        return Constants.RANDOM.nextFloat();
     }
     
     /**
      * A simple method used to check if a ColorObject is generic. A generic ColorObject is
      * considered a ColorObject that represents White.
      * 
-     * @param colorObj : A ColorObject to be checked.
      * @return boolean: If the ColorObject represents pure white, this method will return true.
      */
-    public static boolean isGeneric (ColorObject colorObj) {
+    public boolean isGenericWhite () {
     
-        if (colorObj == null)
-            return false;
-        
-        return isGeneric(colorObj, 1.0f);
+        return isGeneric(1.0f);
     }
     
     /**
      * A method which can be used to check if a ColorObject is generic. A Generic ColorObject,
      * as defined in this method, is a ColorObject which has the same value for R, G and B.
      * 
-     * @param colorObj : A ColorObject to be check.
      * @param color : The value of the color being checked for the RGB.
      * @return boolean: If true, the ColorObject will be considered generic.
      */
-    public static boolean isGeneric (ColorObject colorObj, float color) {
+    public boolean isGeneric (float color) {
     
-        return (colorObj.red >= color && colorObj.blue >= color && colorObj.green >= color);
+        return (this.red >= color && this.blue >= color && this.green >= color);
     }
     
     /**
      * Creates a copy of the provided ColorObject, useful when you don't want to mess up
      * existing instances.
      * 
-     * @param colorObj : A ColorObject to be cloned.
      * @return ColorObject: A clone of the provided ColorObject;
      */
-    public static ColorObject clone (ColorObject colorObj) {
+    public ColorObject copy () {
     
         ColorObject clone = new ColorObject(false);
-        clone.red = colorObj.red;
-        clone.green = colorObj.green;
-        clone.blue = colorObj.blue;
-        clone.alpha = colorObj.alpha;
+        clone.red = this.red;
+        clone.green = this.green;
+        clone.blue = this.blue;
+        clone.alpha = this.alpha;
         
         return clone;
     }
     
     /**
-     * Merges two ColorObject together. The first object represents the primary colors, while
-     * the second represents the alpha.
+     * Writes the data contained within the ColorObject to the provided NBTTagCompound.
      * 
-     * @param primary : The primary colors, only the RGB of this will be kept.
-     * @param alpha : The alpha layer, only the alpha value of this color will be kept.
-     * @return ColorObject: A new ColorObject which has the RGB of the primary color, and the A
-     *         of the alpha color.
+     * @param tag: An NBTTagCompound used to write data to. If null is provided, one will be
+     *            generated for you.
+     * @return NBTTagCompound: An NBTTagCompound instance which contains the color data. Can be
+     *         used with the NBTTagCompound based constructor to recreate a ColorObject.
      */
-    public static ColorObject mergeColors (ColorObject primary, ColorObject alpha) {
+    public NBTTagCompound writeToTag (NBTTagCompound tag) {
     
-        ColorObject colorObj = primary;
+        if (tag == null)
+            tag = new NBTTagCompound();
         
-        colorObj.alpha = alpha.alpha;
-        return clone(colorObj);
+        tag.setFloat("red", this.red);
+        tag.setFloat("green", this.green);
+        tag.setFloat("blue", this.blue);
+        tag.setFloat("alpha", this.alpha);
+        return tag;
+    }
+    
+    /**
+     * Creates a new version of the ColorObject, with an alpha layer borrowed from the provided
+     * ColorObject.
+     * 
+     * @param alphaObject: Another ColorObject instance, which is used to obtain a new alpha
+     *            color value.
+     * @return ColorObject: A new ColorObject instance, which contains the color values of the
+     *         original ColorObject and the alpha layer of the provided ColorObject.
+     */
+    public ColorObject mergeAlpha (ColorObject alphaObject) {
+    
+        ColorObject colorObj = this.copy();
+        colorObj.setAlpha(alphaObject.getAlpha());
+        return colorObj;
     }
 }
