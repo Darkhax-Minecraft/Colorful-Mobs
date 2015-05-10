@@ -7,6 +7,7 @@ import net.epoxide.colorfulmobs.lib.Utilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -32,14 +33,17 @@ public class PacketColorSync implements IMessage {
     public void fromBytes (ByteBuf buf) {
     
         this.entityID = buf.readInt();
-        this.colorObj = new ColorObject(ByteBufUtils.readTag(buf));
+        
+        NBTTagCompound colorTag = ByteBufUtils.readTag(buf);
+        this.colorObj = (colorTag.hasKey("red")) ? new ColorObject(colorTag) : new ColorObject();
     }
     
     @Override
     public void toBytes (ByteBuf buf) {
     
         buf.writeInt(this.entityID);
-        ByteBufUtils.writeTag(buf, this.colorObj.getTagFromColor());
+        ColorObject colorToWrite = (this.colorObj != null) ? this.colorObj : new ColorObject();
+        ByteBufUtils.writeTag(buf, colorToWrite.getTagFromColor());
     }
     
     public static class PacketColorSyncHandler implements IMessageHandler<PacketColorSync, IMessage> {
