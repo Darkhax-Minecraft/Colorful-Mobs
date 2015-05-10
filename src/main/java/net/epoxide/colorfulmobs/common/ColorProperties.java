@@ -114,11 +114,25 @@ public class ColorProperties implements IExtendedEntityProperties {
         return (this.colorObj.getRed() < 1f || this.colorObj.getGreen() < 1f || this.colorObj.getBlue() < 1f || this.colorObj.getAlpha() < 1f);
     }
     
+    /**
+     * Checks if the mob has been initialized. This is used to differentiate between
+     * pre-existing mobs, and new ones.
+     * 
+     * @return boolean: True, if the mob has already been spawned into the world.
+     */
     public boolean isInitialized () {
     
         return this.hasInitialized;
     }
     
+    /**
+     * Checks to see if the mob is a valid target for being colored. If the target mob is a
+     * player, it will only be valid if the config option for dying players is set to true. If
+     * the entity is not a player, it will be valid, unless it is on the prohibited mobs config
+     * list.
+     * 
+     * @return boolean: True, but only if the mob is a valid target to be dyed.
+     */
     public boolean isValidTarget () {
     
         if (this.entity instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
