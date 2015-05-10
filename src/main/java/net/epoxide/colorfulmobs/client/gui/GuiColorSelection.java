@@ -7,7 +7,6 @@ import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.EntityList;
@@ -20,41 +19,46 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class GuiColorSelection extends GuiScreen {
+public class GuiColorSelection extends GuiScreenBase {
     
-    private GuiSlider sliderR, sliderG, sliderB, sliderA;
+    private GuiSlider sliderRed;
+    private GuiSlider sliderGreen;
+    private GuiSlider sliderBlue;
+    private GuiSlider sliderAlpha;
+    
     protected final int xSize = 177;
     protected final int ySize = 222;
     
     private EntityLivingBase entity;
     private EntityLivingBase tempEntity;
-    private int r = 255, g = 255, b = 255, a = 100;
+    
+    private ColorObject initialColor;
     
     public GuiColorSelection(EntityLivingBase entity) {
     
         this.entity = entity;
         this.tempEntity = (EntityLivingBase) EntityList.createEntityByName(EntityList.getEntityString(entity), entity.worldObj);
         
-        if (this.tempEntity == null) {
+        if (this.tempEntity == null)
             this.tempEntity = entity;
-            
-        }
         
         NBTTagCompound compound = new NBTTagCompound();
         entity.writeEntityToNBT(compound);
         tempEntity.readEntityFromNBT(compound);
     }
     
+    @Override
     protected void drawGuiContainerBackgroundLayer () {
     
+        ColorObject currentColor = new ColorObject(sliderRed.getSliderValue(), sliderGreen.getSliderValue(), sliderBlue.getSliderValue(), sliderAlpha.getSliderValue());
+        ColorProperties.setEntityColors(currentColor, tempEntity);
+        
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(new ResourceLocation(Constants.MOD_ID + ":textures/gui/color.png"));
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-        
         GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
-        
         this.drawTexturedModalRect(k + 32, l + 20, 20, 20, 110, 115);
         
         if (tempEntity != null)
@@ -73,25 +77,21 @@ public class GuiColorSelection extends GuiScreen {
         
         if (ColorProperties.hasColorProperties(entity)) {
             
-            ColorObject obj = ColorProperties.getPropsFromEntity(entity).colorObj;
-            r = (int) (obj.getRed() * 255);
-            g = (int) (obj.getGreen() * 255);
-            b = (int) (obj.getBlue() * 255);
-            a = (int) (obj.getAlpha() * 100);
-            
-            ColorProperties.setEntityColors(obj, tempEntity);
+            this.initialColor = ColorProperties.getPropsFromEntity(entity).colorObj;
+            ColorProperties.setEntityColors(this.initialColor, tempEntity);
         }
-        this.sliderR = new GuiSlider(2, k + 3, l + 140, 0, 255, r, EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red"), this);
-        buttonList.add(this.sliderR);
         
-        this.sliderG = new GuiSlider(3, k + 60, l + 140, 0, 255, g, EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green"), this);
-        buttonList.add(this.sliderG);
+        this.sliderRed = new GuiSlider(2, EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red"), initialColor.getRed(), k + 25, l + 140, true, 255);
+        buttonList.add(this.sliderRed);
         
-        this.sliderB = new GuiSlider(4, k + 117, l + 140, 0, 255, b, EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue"), this);
-        buttonList.add(this.sliderB);
+        this.sliderGreen = new GuiSlider(3, EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green"), initialColor.getGreen(), k + 95, l + 140, true, 255);
+        buttonList.add(this.sliderGreen);
         
-        this.sliderA = new GuiSlider(5, k + 61, l + 165, 0, 100, a, EnumChatFormatting.WHITE + StatCollector.translateToLocal("chat.colorfulmobs.alpha"), this);
-        buttonList.add(this.sliderA);
+        this.sliderBlue = new GuiSlider(4, EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue"), initialColor.getBlue(), k + 25, l + 165, true, 255);
+        buttonList.add(this.sliderBlue);
+        
+        this.sliderAlpha = new GuiSlider(5, EnumChatFormatting.WHITE + StatCollector.translateToLocal("chat.colorfulmobs.alpha"), initialColor.getAlpha(), k + 95, l + 165, true, 255);
+        buttonList.add(this.sliderAlpha);
     }
     
     @Override
@@ -102,9 +102,7 @@ public class GuiColorSelection extends GuiScreen {
         
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        
-        drawCenteredString(fontRendererObj, StatCollector.translateToLocal("chat.colorfulmobs.colormenu"), k + 87, l + 10, 0xffffff);
-        
+        drawCenteredString(fontRendererObj, StatCollector.translateToLocal("chat.colorfulmobs.colormenu"), xSize / 2, 10, 0xffffff);
     }
     
     float rotation = 0;
@@ -116,7 +114,7 @@ public class GuiColorSelection extends GuiScreen {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glPushMatrix();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glTranslatef(x, y, 200);
         GL11.glScalef((-scale), scale, scale);
@@ -136,45 +134,35 @@ public class GuiColorSelection extends GuiScreen {
     @Override
     protected void actionPerformed (GuiButton button) {
     
+        ColorObject currentColor = new ColorObject(sliderRed.getSliderValue(), sliderGreen.getSliderValue(), sliderBlue.getSliderValue(), sliderAlpha.getSliderValue());
         if (button.id == 1) {
             
             if (entity != null) {
                 
-                // send packet
-                PacketColorSync packetColorSync = new PacketColorSync(new ColorObject(r, g, b, a), entity);
+                PacketColorSync packetColorSync = new PacketColorSync(currentColor, entity);
                 ColorfulMobs.network.sendToServer(packetColorSync);
             }
-            // close gui
+            
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
-        else {
-            
-            if (button instanceof GuiSlider) {
-                
-                updateColor();
-            }
-        }
     }
     
-    /**
-     * Updates all the color text and values.
-     */
-    public void updateColor () {
+    @Override
+    protected void drawGuiContainerForegroundLayer () {
     
-        float color = sliderR.getValue();
-        r = (int) sliderG.denormalizeValue(color);
-        
-        color = sliderG.getValue();
-        g = (int) sliderG.denormalizeValue(color);
-        
-        color = sliderB.getValue();
-        b = (int) sliderB.denormalizeValue(color);
-        
-        color = sliderA.getValue();
-        a = (int) sliderA.denormalizeValue(color);
-        
-        ColorProperties.setEntityColors(new ColorObject(r, g, b, a), tempEntity);
+    }
+    
+    @Override
+    protected String getTooltipForButton (int buttonId) {
+    
+        return null;
+    }
+    
+    @Override
+    protected String getTooltipForMisc (int mouseX, int mouseY) {
+    
+        return null;
     }
     
 }

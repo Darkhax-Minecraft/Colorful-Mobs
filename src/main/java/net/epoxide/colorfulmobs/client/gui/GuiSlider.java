@@ -1,35 +1,96 @@
 package net.epoxide.colorfulmobs.client.gui;
 
+import net.epoxide.colorfulmobs.lib.Utilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
 public class GuiSlider extends GuiButton {
-    private float currentValue;
-    public boolean field_146135_o;
-    private final float valueMin;
-    private final float valueMax;
-    private final String color;
-    private final float valueStep = 1;
-    private GuiColorSelection gui;
     
-    public GuiSlider(int id, int xPos, int yPos, float valueMin, float valueMax, float currentValue, String color, GuiColorSelection gui) {
+    private String sliderName;
+    private float sliderValue;
+    private boolean isDragging;
+    private float minimum;
+    private float maximum;
+    private float valueStep;
+    private boolean repAsInt;
+    private int intValue;
+    
+    public GuiSlider(int id, String title, float initialValue, int xPos, int yPos, boolean repAsInt, int intValue) {
     
         super(id, xPos, yPos, 55, 20, "");
-        this.currentValue = 1.0F;
-        this.valueMin = valueMin;
-        this.valueMax = valueMax;
-        this.currentValue = normalizeValue(currentValue);
-        this.color = color;
-        this.displayString = color + ": " + (int) currentValue;
+        sliderName = title;
+        this.minimum = 0.0f;
+        this.maximum = 1.0f;
+        this.valueStep = intValue / 55;
+        this.setSliderValue(initialValue);
+        this.repAsInt = repAsInt;
+        this.intValue = intValue;
+    }
+    
+    @Override
+    protected void mouseDragged (Minecraft mc, int mouseX, int mouseY) {
+    
+        if (this.visible) {
+            
+            if (this.isDragging) {
+                
+                this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
+                this.sliderValue = (this.sliderValue < 0f) ? 0f : (this.sliderValue > 1f) ? 1f : this.sliderValue;
+            }
+            
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+            
+            this.updateDisplay();
+        }
+    }
+    
+    @Override
+    public boolean mousePressed (Minecraft mc, int mouseX, int mouseY) {
+    
+        if (super.mousePressed(mc, mouseX, mouseY)) {
+            
+            this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
+            this.sliderValue = (this.sliderValue < 0f) ? 0f : (this.sliderValue > 1f) ? 1f : this.sliderValue;
+            this.isDragging = true;
+            this.updateDisplay();
+            
+            return true;
+        }
         
-        this.gui = gui;
+        else
+            return false;
+    }
+    
+    @Override
+    public void mouseReleased (int mouseX, int mouseY) {
+    
+        this.isDragging = false;
+        this.updateDisplay();
+    }
+    
+    /**
+     * Sets the value of the slider.
+     * 
+     * @param value: The value to set.
+     */
+    public void setSliderValue (float value) {
+    
+        this.sliderValue = (float) value / this.maximum;
+        updateDisplay();
+    }
+    
+    /**
+     * Retrieves the value of the slider.
+     * 
+     * @return
+     */
+    public float getSliderValue () {
+    
+        return this.sliderValue * this.maximum;
     }
     
     @Override
@@ -38,96 +99,13 @@ public class GuiSlider extends GuiButton {
         return 0;
     }
     
-    @Override
-    protected void mouseDragged (Minecraft p_146119_1_, int p_146119_2_, int p_146119_3_) {
+    /**
+     * Basic method for updating the display. If repAsInt is true, value will be an int. If
+     * not, it will be the actual value rounded to 2 decimal places.
+     */
+    private void updateDisplay () {
     
-        if (this.visible) {
-            if (this.field_146135_o) {
-                this.currentValue = (float) (p_146119_2_ - (this.xPosition + 4)) / (float) (this.width - 8);
-                
-                if (this.currentValue < 0.0F) {
-                    this.currentValue = 0.0F;
-                }
-                
-                if (this.currentValue > 1.0F) {
-                    this.currentValue = 1.0F;
-                }
-                
-                float f = denormalizeValue(this.currentValue);
-                currentValue = f;
-                this.currentValue = normalizeValue(f);
-                this.displayString = color + ": " + (int) f;
-                
-                gui.updateColor();
-            }
-            
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.currentValue * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.currentValue * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
-        }
-    }
-    
-    @Override
-    public boolean mousePressed (Minecraft p_146116_1_, int p_146116_2_, int p_146116_3_) {
-    
-        if (super.mousePressed(p_146116_1_, p_146116_2_, p_146116_3_)) {
-            this.currentValue = (float) (p_146116_2_ - (this.xPosition + 4)) / (float) (this.width - 8);
-            
-            if (this.currentValue < 0.0F) {
-                this.currentValue = 0.0F;
-            }
-            
-            if (this.currentValue > 1.0F) {
-                this.currentValue = 1.0F;
-            }
-            this.displayString = color + ": " + (int) denormalizeValue(this.currentValue);
-            this.field_146135_o = true;
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    
-    @Override
-    public void mouseReleased (int p_146118_1_, int p_146118_2_) {
-    
-        this.field_146135_o = false;
-        gui.updateColor();
-    }
-    
-    public void setValue (float value) {
-    
-        this.currentValue += value;
-    }
-    
-    public float getValue () {
-    
-        return this.currentValue;
-    }
-    
-    public float normalizeValue (float value) {
-    
-        return MathHelper.clamp_float((this.snapToStepClamp(value) - this.valueMin) / (this.valueMax - this.valueMin), 0.0F, 1.0F);
-    }
-    
-    public float denormalizeValue (float value) {
-    
-        return this.snapToStepClamp(this.valueMin + (this.valueMax - this.valueMin) * MathHelper.clamp_float(value, 0.0F, 1.0F));
-    }
-    
-    private float snapToStepClamp (float value) {
-    
-        value = this.snapToStep(value);
-        return MathHelper.clamp_float(value, this.valueMin, this.valueMax);
-    }
-    
-    private float snapToStep (float value) {
-    
-        if (this.valueStep > 0.0F) {
-            value = this.valueStep * (float) Math.round(value / this.valueStep);
-        }
-        
-        return value;
+        String value = (this.repAsInt) ? "" + (int) (this.getSliderValue() * this.intValue) : "" + Utilities.round(this.getSliderValue(), 2);
+        this.displayString = this.sliderName + ": " + value;
     }
 }

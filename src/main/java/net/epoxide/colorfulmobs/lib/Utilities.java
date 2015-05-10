@@ -1,14 +1,68 @@
 package net.epoxide.colorfulmobs.lib;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.text.WordUtils;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class GenericUtilities {
+public class Utilities {
+    
+    /**
+     * This method can be used to round a double to a certain amount of places.
+     * 
+     * @param value: The double being round.
+     * @param places: The amount of places to round the double to.
+     * @return double: The double entered however being rounded to the amount of places
+     *         specified.
+     */
+    public static double round (double value, int places) {
+    
+        if (value >= 0 && places > 0) {
+            
+            BigDecimal bd = new BigDecimal(value);
+            bd = bd.setScale(places, RoundingMode.HALF_UP);
+            return bd.doubleValue();
+        }
+        
+        return value;
+    }
+    
+    /**
+     * This method will take a string and break it down into multiple lines based on a provided
+     * line length. The separate strings are then added to the list provided. This method is
+     * useful for adding a long description to an item tool tip and having it wrap. This method
+     * is similar to wrap in Apache WordUtils however it uses a List making it easier to use
+     * when working with Minecraft.
+     * 
+     * @param string: The string being split into multiple lines. It's recommended to use
+     *            StatCollector.translateToLocal() for this so multiple languages will be
+     *            supported.
+     * @param lnLength: The ideal size for each line of text.
+     * @param wrapLongWords: If true the ideal size will be exact, potentially splitting words
+     *            on the end of each line.
+     * @param list: A list to add each line of text to. An good example of such list would be
+     *            the list of tooltips on an item.
+     * @return List: The same List instance provided however the string provided will be
+     *         wrapped to the ideal line length and then added.
+     */
+    public static List<String> wrapStringToList (String string, int lnLength, boolean wrapLongWords, List<String> list) {
+    
+        String strings[] = WordUtils.wrap(string, lnLength, null, wrapLongWords).split(SystemUtils.LINE_SEPARATOR);
+        list.addAll(Arrays.asList(strings));
+        return list;
+    }
     
     /**
      * Returns a random number between the min and max. The min and max are both possible to

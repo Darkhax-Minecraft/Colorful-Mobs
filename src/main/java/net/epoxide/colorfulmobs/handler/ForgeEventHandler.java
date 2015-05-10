@@ -5,7 +5,7 @@ import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.items.ItemColoredPowder;
 import net.epoxide.colorfulmobs.lib.ColorObject;
-import net.epoxide.colorfulmobs.lib.GenericUtilities;
+import net.epoxide.colorfulmobs.lib.Utilities;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,7 +46,7 @@ public class ForgeEventHandler {
             
             ItemStack stack = new ItemStack(ColorfulMobs.itemPowder);
             ColorProperties.getPropsFromEntity(event.entityLiving).colorObj.writeToItemStack(stack);
-            GenericUtilities.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
+            Utilities.dropStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, stack, false);
             
             if (event.source.getEntity() instanceof EntityPlayer) {
                 

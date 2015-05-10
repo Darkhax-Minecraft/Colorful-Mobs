@@ -3,7 +3,7 @@ package net.epoxide.colorfulmobs.common;
 import io.netty.buffer.ByteBuf;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.lib.ColorObject;
-import net.epoxide.colorfulmobs.lib.GenericUtilities;
+import net.epoxide.colorfulmobs.lib.Utilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,7 +47,7 @@ public class PacketColorSync implements IMessage {
         @Override
         public IMessage onMessage (PacketColorSync packet, MessageContext ctx) {
         
-            EntityPlayer player = (ctx.side == Side.CLIENT) ? GenericUtilities.thePlayer() : ctx.getServerHandler().playerEntity;
+            EntityPlayer player = (ctx.side == Side.CLIENT) ? Utilities.thePlayer() : ctx.getServerHandler().playerEntity;
             Entity entity = player.worldObj.getEntityByID(packet.entityID);
             
             if (entity instanceof EntityLivingBase)
