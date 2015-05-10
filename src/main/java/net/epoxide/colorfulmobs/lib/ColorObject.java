@@ -12,6 +12,14 @@ public class ColorObject {
     private float alpha = 1.0f;
     
     /**
+     * Constructs a new ColorObject that is pure white and fully visible.
+     */
+    public ColorObject() {
+    
+        this(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+    
+    /**
      * Constructs a new ColorObject with completely random values for RGBA.
      * 
      * @param doAlpha : If true, the alpha value will also be randomized, by default it is 1.
@@ -28,7 +36,10 @@ public class ColorObject {
      */
     public ColorObject(NBTTagCompound tag) {
     
-        this(tag.getFloat("red"), tag.getFloat("green"), tag.getFloat("blue"), (tag.hasKey("alpha")) ? tag.getFloat("alpha") : 1.0f);
+        this.setRed(tag.hasKey("red") ? tag.getFloat("red") : 1.0f);
+        this.setGreen(tag.hasKey("green") ? tag.getFloat("green") : 1.0f);
+        this.setBlue(tag.hasKey("blue") ? tag.getFloat("blue") : 1.0f);
+        this.setAlpha((tag.hasKey("alpha")) ? tag.getFloat("alpha") : 1.0f);
     }
     
     /**
