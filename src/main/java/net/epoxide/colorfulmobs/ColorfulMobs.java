@@ -2,6 +2,7 @@ package net.epoxide.colorfulmobs;
 
 import java.util.Arrays;
 
+import net.epoxide.colorfulmobs.addons.AddonManager;
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.PacketColorSync;
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
@@ -73,6 +74,7 @@ public class ColorfulMobs {
         new LootHandler();
         new RecipeManager();
         new AchievementHandler();
+        new AddonManager();
     }
     
     /**
