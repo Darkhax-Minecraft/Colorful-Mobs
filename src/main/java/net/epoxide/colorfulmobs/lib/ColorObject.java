@@ -311,4 +311,16 @@ public class ColorObject {
     
         return EnumChatFormatting.RED + "" + (int) (this.red * 255) + " " + EnumChatFormatting.GREEN + (int) (this.getGreen() * 255) + " " + EnumChatFormatting.BLUE + (int) (this.blue * 255);
     }
+    
+    @Override
+    public boolean equals (Object obj) {
+    
+        if (obj instanceof ColorObject) {
+            
+            ColorObject colorObj = (ColorObject) obj;
+            return (colorObj.red == this.red && colorObj.green == this.green && colorObj.blue == this.blue && colorObj.alpha == this.alpha);
+        }
+        
+        return false;
+    }
 }
