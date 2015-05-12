@@ -78,7 +78,7 @@ public class GuiColorSelection extends GuiScreenBase {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         
-        buttonList.add(new GuiButton(1, k + 63, l + 190, 50, 20, "Confirm"));
+        buttonList.add(new GuiButton(0, k + 63, l + 190, 50, 20, "Confirm"));
         
         if (ColorProperties.hasColorProperties(entity)) {
             
@@ -86,16 +86,16 @@ public class GuiColorSelection extends GuiScreenBase {
             tempProps.setColorObject(this.initialColor);
         }
         
-        this.sliderRed = new GuiSlider(2, EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red"), initialColor.getRed(), k + 25, l + 140, true, 255);
+        this.sliderRed = new GuiSlider(1, EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red"), initialColor.getRed(), k + 25, l + 140, true, 255);
         buttonList.add(this.sliderRed);
         
-        this.sliderGreen = new GuiSlider(3, EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green"), initialColor.getGreen(), k + 95, l + 140, true, 255);
+        this.sliderGreen = new GuiSlider(2, EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green"), initialColor.getGreen(), k + 95, l + 140, true, 255);
         buttonList.add(this.sliderGreen);
         
-        this.sliderBlue = new GuiSlider(4, EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue"), initialColor.getBlue(), k + 25, l + 165, true, 255);
+        this.sliderBlue = new GuiSlider(3, EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue"), initialColor.getBlue(), k + 25, l + 165, true, 255);
         buttonList.add(this.sliderBlue);
         
-        this.sliderAlpha = new GuiSlider(5, EnumChatFormatting.WHITE + StatCollector.translateToLocal("chat.colorfulmobs.alpha"), initialColor.getAlpha(), k + 95, l + 165, true, 255);
+        this.sliderAlpha = new GuiSlider(4, EnumChatFormatting.WHITE + StatCollector.translateToLocal("chat.colorfulmobs.alpha"), initialColor.getAlpha(), k + 95, l + 165, true, 100, true);
         buttonList.add(this.sliderAlpha);
     }
     
@@ -140,7 +140,7 @@ public class GuiColorSelection extends GuiScreenBase {
     protected void actionPerformed (GuiButton button) {
     
         ColorObject currentColor = new ColorObject(sliderRed.getSliderValue(), sliderGreen.getSliderValue(), sliderBlue.getSliderValue(), sliderAlpha.getSliderValue());
-        if (button.id == 1) {
+        if (button.id == 0) {
             
             if (entity != null) {
                 
@@ -161,7 +161,22 @@ public class GuiColorSelection extends GuiScreenBase {
     @Override
     protected String getTooltipForButton (int buttonId) {
     
-        return null;
+        switch (buttonId) {
+        
+            case 0:
+                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.confirm");
+            case 1:
+                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.red");
+            case 2:
+                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.green");
+            case 3:
+                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.blue");
+            case 4:
+                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.alpha");
+                
+            default:
+                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.default");
+        }
     }
     
     @Override

@@ -11,22 +11,27 @@ public class GuiSlider extends GuiButton {
     private String sliderName;
     private float sliderValue;
     private boolean isDragging;
-    private float minimum;
-    private float maximum;
+    private float minimum = 0.0f;
+    private float maximum = 1.0f;
     private float valueStep;
     private boolean repAsInt;
-    private int intValue;
+    private int repValue;
+    private boolean shouldInvert;
     
-    public GuiSlider(int id, String title, float initialValue, int xPos, int yPos, boolean repAsInt, int intValue) {
+    public GuiSlider(int id, String title, float initialValue, int xPos, int yPos, boolean repAsInt, int repValue) {
+    
+        this(id, title, initialValue, xPos, yPos, repAsInt, repValue, false);
+    }
+    
+    public GuiSlider(int id, String title, float initialValue, int xPos, int yPos, boolean repAsInt, int intValue, boolean invert) {
     
         super(id, xPos, yPos, 55, 20, "");
         sliderName = title;
-        this.minimum = 0.0f;
-        this.maximum = 1.0f;
         this.valueStep = intValue / 55;
         this.setSliderValue(initialValue);
         this.repAsInt = repAsInt;
-        this.intValue = intValue;
+        this.repValue = intValue;
+        this.shouldInvert = invert;
     }
     
     @Override
@@ -105,7 +110,7 @@ public class GuiSlider extends GuiButton {
      */
     private void updateDisplay () {
     
-        String value = (this.repAsInt) ? "" + (int) (this.getSliderValue() * this.intValue) : "" + Utilities.round(this.getSliderValue(), 2);
+        String value = (this.repAsInt) ? (this.shouldInvert) ? this.repValue - (int) (this.getSliderValue() * this.repValue) + "%" : "" + (int) (this.getSliderValue() * this.repValue) : "" + Utilities.round(this.getSliderValue(), 2);
         this.displayString = this.sliderName + ": " + value;
     }
 }

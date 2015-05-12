@@ -1,15 +1,10 @@
 package net.epoxide.colorfulmobs.items;
 
-import java.util.List;
-
 import net.epoxide.colorfulmobs.handler.AchievementHandler;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRainbowDust extends ItemColorSetter {
     
@@ -37,12 +32,5 @@ public class ItemRainbowDust extends ItemColorSetter {
         super.itemInteractionForEntity(stack, player, entity);
         player.triggerAchievement(AchievementHandler.achRainbow);
         return true;
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean advanced) {
-    
-        list.add(StatCollector.translateToLocal("tooltip.colorfulmobs.rainbow"));
     }
 }
