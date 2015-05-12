@@ -9,6 +9,9 @@ item.colorfulmobs.colorwand.name=Color Wand
 item.colorfulmobs.datachecker.name=Data Checker
 item.colorfulmobs.pinkus.name=Wand Focus: Pinkus
 
+#Blocks
+tile.colorfulmobs.colorfulblock.name=Colorful Lucky Block
+
 #Chat
 chat.colorfulmobs.name=Entity Name
 chat.colorfulmobs.red=Red
@@ -18,7 +21,7 @@ chat.colorfulmobs.alpha=Alpha
 chat.colorfulmobs.transparency=Transparency
 chat.colorfulmobs.colormenu=Color Menu
 
-#Gui Comments
+#Config Gui Comments
 colorfulmobs.configGui.spawnRandom=Spawn Colored Mobs
 colorfulmobs.configGui.spawnRate=Dyed Spawn Chance
 colorfulmobs.configGui.dropPowder=Drop Dye Powder
@@ -34,6 +37,17 @@ colorfulmobs.configGui.canFindRainbow=Can Find Rainbow Dust
 colorfulmobs.configGui.chestLoot=Valid Chest List
 colorfulmobs.configGui.craftWand=Can Craft Rainbow Wand
 
+#Gui Tooltips
+tooltip.colorfulmobs.selection.confirm=Confirm: When this button is clicked, the color currently set within the GUI shall be applied to the entity.
+tooltip.colorfulmobs.selection.red=Red Slider: This slider controls the amount of red which is used when rendering the entities texture. Increasing this value will make the texture more red, while decreasing it will make it less red.
+tooltip.colorfulmobs.selection.green=Green Slider: This slider controls the amount of green which is used when rendering the entities texture. Increasing this value will make the texture more green, while decreasing it will make it less green.
+tooltip.colorfulmobs.selection.blue=Blue Slider: This slider controls the amount of blue which is used when rendering the entities texture. Increasing this value will make the texture more blue, while decreasing it will make it less blue. 
+tooltip.colorfulmobs.selection.alpha=Transparency Slider: This slider allows for control over the transparency for the entities texture. Increasing this slider will make the texture more transparent, while decreasing it will make it less transparent.
+
+#Waila Support
+option.waila.colorfulmobs.showcolors=Show Mob Colors
+option.waila.colorfulmobs.requirechcker=Require Data Checker
+
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs
 
@@ -47,7 +61,6 @@ achievement.cfm.overload=Spectral Overload
 achievement.cfm.death=Over Saturation
 achievement.cfm.purify=White Balance
 achievement.cfm.datachecker=Over 9000!!!
-
 achievement.cfm.harvester.desc=Kill a colored mob.
 achievement.cfm.artist.desc=Dye a mob.
 achievement.cfm.artisan.desc=Copy a dye color.
