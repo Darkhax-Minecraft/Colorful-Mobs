@@ -1,6 +1,8 @@
 out/
 eclipse/
+depends/
 .gradle/
+build/
 *.iml
 *ipr
 *iws
