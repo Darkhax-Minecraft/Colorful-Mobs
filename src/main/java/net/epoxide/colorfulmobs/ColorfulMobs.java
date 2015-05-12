@@ -25,13 +25,14 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, guiFactory = Constants.FACTORY, dependencies = "after:lucky")
+@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, guiFactory = Constants.FACTORY, dependencies = Constants.DEPENDANCIES)
 public class ColorfulMobs {
     
     public static SimpleNetworkWrapper network;
@@ -74,7 +75,13 @@ public class ColorfulMobs {
         new LootHandler();
         new RecipeManager();
         new AchievementHandler();
-        new AddonManager();
+        AddonManager.preInit(pre);
+    }
+    
+    @EventHandler
+    public void init (FMLInitializationEvent init) {
+    
+        AddonManager.init(init);
     }
     
     /**
