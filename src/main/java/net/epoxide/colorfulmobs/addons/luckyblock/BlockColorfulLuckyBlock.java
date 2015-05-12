@@ -15,7 +15,7 @@ public class BlockColorfulLuckyBlock extends Block {
     
     protected BlockColorfulLuckyBlock() {
     
-        super(Material.snow);
+        super(Material.cloth);
         this.setBlockName("colorfulmobs.colorfulblock");
         this.setBlockTextureName("colorfulmobs:lucky_block_colorful");
         this.setCreativeTab(ColorfulMobs.tabColor);
