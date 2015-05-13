@@ -206,7 +206,7 @@ public class WeightedPossibilities {
         
         public PossibilityEnjoyTheChickens() {
         
-            super(999);
+            super(1);
         }
         
         @Override
