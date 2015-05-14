@@ -2,6 +2,7 @@ package net.epoxide.colorfulmobs.addons.luckyblock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.minecraft.block.Block;
@@ -15,7 +16,7 @@ public class BlockColorfulLuckyBlock extends Block {
     
     protected BlockColorfulLuckyBlock() {
     
-        super(Material.cloth);
+        super(Material.glass);
         this.setBlockName("colorfulmobs.colorfulblock");
         this.setBlockTextureName("colorfulmobs:lucky_block_colorful");
         this.setCreativeTab(ColorfulMobs.tabColor);
@@ -25,5 +26,11 @@ public class BlockColorfulLuckyBlock extends Block {
     public boolean removedByPlayer (World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
     
         return WeightedPossibilities.triggerRandomEvent(outcomes, player, x, y, z);
+    }
+    
+    @Override
+    public int quantityDropped (Random rnd) {
+    
+        return 0;
     }
 }

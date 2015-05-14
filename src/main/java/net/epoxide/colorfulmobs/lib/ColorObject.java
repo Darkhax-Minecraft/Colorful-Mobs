@@ -309,7 +309,12 @@ public class ColorObject {
     @Override
     public String toString () {
     
-        return EnumChatFormatting.RED + "" + (int) (this.red * 255) + " " + EnumChatFormatting.GREEN + (int) (this.getGreen() * 255) + " " + EnumChatFormatting.BLUE + (int) (this.blue * 255);
+        String output = EnumChatFormatting.RED + "" + (int) (this.red * 255) + " " + EnumChatFormatting.GREEN + (int) (this.getGreen() * 255) + " " + EnumChatFormatting.BLUE + (int) (this.blue * 255);
+        
+        if (this.alpha < 1.0f)
+            output += " " + EnumChatFormatting.GRAY + (int) (100 - (this.alpha * 100));
+        
+        return output;
     }
     
     @Override

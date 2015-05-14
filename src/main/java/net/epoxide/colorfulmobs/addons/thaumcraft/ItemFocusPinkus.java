@@ -37,23 +37,22 @@ public class ItemFocusPinkus extends ItemFocusBasic {
     public ItemStack onFocusRightClick (ItemStack itemstack, World world, EntityPlayer player, MovingObjectPosition mop) {
     
         ItemWandCasting wand = (ItemWandCasting) itemstack.getItem();
-        if (wand.consumeAllVis(itemstack, player, getVisCost(itemstack), true, false)) {
+        
+        for (EntityLivingBase entity : getEntitiesInView(player, 5, 4.5d)) {
             
-            for (EntityLivingBase entity : getEntitiesInView(player, 5, 4.5d)) {
+            if (!ColorProperties.hasColorProperties(entity))
+                ColorProperties.setPropsToEntity(entity);
+            
+            ColorProperties props = ColorProperties.getPropsFromEntity(entity);
+            
+            if (!props.getColorObj().equals(pink) && props.isValidTarget()) {
                 
-                if (!ColorProperties.hasColorProperties(entity))
-                    ColorProperties.setPropsToEntity(entity);
-                
-                ColorProperties props = ColorProperties.getPropsFromEntity(entity);
-                
-                if (!props.getColorObj().equals(pink) && props.isValidTarget()) {
-                    
+                if (wand.consumeAllVis(itemstack, player, getVisCost(itemstack), true, false))
                     props.setColorObject(pink);
-                    break;
-                }
+                
+                break;
             }
         }
-        
         player.swingItem();
         return itemstack;
     }

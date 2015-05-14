@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
@@ -72,6 +73,9 @@ public class ItemColoredPowder extends ItemColorSetter {
     @Override
     public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
     
+        if (!stack.hasTagCompound())
+            stack.setTagCompound(new NBTTagCompound());
+        
         ColorObject colorObj = new ColorObject(stack.getTagCompound());
         
         if (colorObj.isGenericWhite())

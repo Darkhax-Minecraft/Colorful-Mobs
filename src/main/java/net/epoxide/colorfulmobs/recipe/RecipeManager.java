@@ -2,7 +2,6 @@ package net.epoxide.colorfulmobs.recipe;
 
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
-import net.epoxide.colorfulmobs.items.ItemGhostDust;
 import net.epoxide.colorfulmobs.lib.EnumVanillaColors;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,7 @@ public class RecipeManager {
             GameRegistry.addShapelessRecipe(new ItemStack(ColorfulMobs.itemDataChecker), ColorfulMobs.itemPowder, Items.book);
         
         if (ConfigurationHandler.craftGhostDust)
-            GameRegistry.addShapedRecipe(ItemGhostDust.getStackFromStrenght(0.80f), new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), Items.quartz });
+            GameRegistry.addShapedRecipe(new ItemStack(ColorfulMobs.itemGhostDust, 3), new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), Items.quartz });
         
         if (ConfigurationHandler.craftRainbowWand)
             GameRegistry.addShapedRecipe(new ItemStack(ColorfulMobs.itemColorWand), new Object[] { "xxx", "xyx", "xxx", Character.valueOf('x'), ColorfulMobs.itemRainbowDust, Character.valueOf('y'), Items.stick });

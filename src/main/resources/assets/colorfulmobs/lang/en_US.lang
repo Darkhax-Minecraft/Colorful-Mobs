@@ -48,6 +48,9 @@ tooltip.colorfulmobs.selection.alpha=Transparency Slider: This slider allows for
 option.waila.colorfulmobs.showcolors=Show Mob Colors
 option.waila.colorfulmobs.requirechcker=Require Data Checker
 
+#Item Tooltips
+tooltip.colorfulmobs.invisibledust=When used, a mob will become 20% more transparent!
+
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs
 
