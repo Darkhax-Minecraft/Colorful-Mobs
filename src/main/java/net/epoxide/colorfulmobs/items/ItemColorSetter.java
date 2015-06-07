@@ -42,7 +42,6 @@ public class ItemColorSetter extends Item {
      * change the behavior of colors being set.
      * 
      * @param stack : The ItemStack for this item.
-     * @param entity : The living entity which is having color applied to it.
      * @return ColorObject: A ColorObject to be applied by this item.
      */
     public ColorObject getColorToApply (ItemStack stack) {

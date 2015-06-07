@@ -1,7 +1,7 @@
 package net.epoxide.colorfulmobs.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ReportedException;
@@ -13,17 +13,17 @@ public class EntityUtil {
      */
     public static void renderEntityWithPosYaw (Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
     
-        Render render = RenderManager.instance.getEntityRenderObject(entity);
+        Render render = Minecraft.getMinecraft().getRenderManager().getEntityRenderObject(entity);
         
-        if (render != null && RenderManager.instance.renderEngine != null) {
-            if (!render.isStaticEntity()) {
+        if (render != null && Minecraft.getMinecraft().getRenderManager().renderEngine != null) {
+//            if (!render.isStaticEntity()) {
                 try {
                     render.doRender(entity, x, y, z, entityYaw, partialTicks);
                 }
                 catch (Throwable throwable2) {
                     throw new ReportedException(CrashReport.makeCrashReport(throwable2, "Rendering entity in world"));
                 }
-            }
+//            }
         }
     }
 }

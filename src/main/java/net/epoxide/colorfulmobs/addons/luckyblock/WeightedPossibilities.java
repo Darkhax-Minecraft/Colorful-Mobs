@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 
 public class WeightedPossibilities {
     
@@ -34,13 +35,11 @@ public class WeightedPossibilities {
      * actually broken.
      * 
      * @param player: The player who broken the block.
-     * @param x: The x position of the block in world.
-     * @param y: The y position of the block in world.
-     * @param z: The z position of the block in world.
+     * @param pos: The position of the block in world.
      */
-    public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+    public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
     
-        return player.worldObj.setBlockToAir(x, y, z);
+        return player.worldObj.setBlockToAir(pos);
     }
     
     /**
@@ -50,11 +49,9 @@ public class WeightedPossibilities {
      * @param options: A List of all possible WeightedPossibilities. This is where our outcome
      *            is pulled from.
      * @param player: An instance of the player who triggered the event.
-     * @param x: The x position where this event took place.
-     * @param y: The y position where the event took place.
-     * @param z: The z position where the event took place.
+     * @param pos: The position where this event took place.
      */
-    public static boolean triggerRandomEvent (List<WeightedPossibilities> options, EntityPlayer player, int x, int y, int z) {
+    public static boolean triggerRandomEvent (List<WeightedPossibilities> options, EntityPlayer player, BlockPos pos) {
     
         int total = 0;
         
@@ -70,13 +67,13 @@ public class WeightedPossibilities {
             
             if (random < current) {
                 
-                return possibility.onBlockBroken(player, x, y, z);
+                return possibility.onBlockBroken(player, pos);
             }
         }
         
-        return player.worldObj.setBlockToAir(x, y, z);
+        return player.worldObj.setBlockToAir(pos);
     }
-    
+
     public static class PossibilityNothing extends WeightedPossibilities {
         
         public PossibilityNothing() {
@@ -85,9 +82,9 @@ public class WeightedPossibilities {
         }
         
         @Override
-        public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+        public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
         
-            return super.onBlockBroken(player, x, y, z);
+            return super.onBlockBroken(player, pos);
         }
     }
     
@@ -99,9 +96,9 @@ public class WeightedPossibilities {
         }
         
         @Override
-        public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+        public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
         
-            player.worldObj.setBlock(x, y, z, Block.getBlockFromName("lucky:lucky_block"));
+            player.worldObj.func_175722_b(pos, Block.getBlockFromName("lucky:lucky_block"));
             return false;
         }
     }
@@ -114,7 +111,7 @@ public class WeightedPossibilities {
         }
         
         @Override
-        public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+        public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
         
             return false;
         }
@@ -128,16 +125,16 @@ public class WeightedPossibilities {
         }
         
         @Override
-        public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+        public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
         
-            for (int pos = 0; pos < Utilities.nextIntII(0, 12); pos++) {
+            for (int i = 0; i < Utilities.nextIntII(0, 12); i++) {
                 
                 ItemStack colorStack = new ItemStack(ColorfulMobs.itemPowder);
                 new ColorObject(false).writeToItemStack(colorStack);
-                Utilities.dropStackInWorld(player.worldObj, x, y, z, colorStack, true);
+                Utilities.dropStackInWorld(player.worldObj, pos.getX(), pos.getY(), pos.getZ(), colorStack, true);
             }
             
-            return super.onBlockBroken(player, x, y, z);
+            return super.onBlockBroken(player, pos);
         }
     }
     
@@ -149,13 +146,13 @@ public class WeightedPossibilities {
         }
         
         @Override
-        public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+        public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
         
             for (int i = 0; i < player.worldObj.loadedEntityList.size(); i++) {
                 
                 Entity target = (Entity) player.worldObj.loadedEntityList.get(i);
                 
-                if (target instanceof EntityLivingBase && target != player && Utilities.isEntityWithinRange(target, x, y, z, 5.0d)) {
+                if (target instanceof EntityLivingBase && target != player && Utilities.isEntityWithinRange(target, pos, 5.0d)) {
                     
                     ColorProperties props = ColorProperties.getPropsFromEntity((EntityLivingBase) target);
                     props.setColorObject(new ColorObject(false));
@@ -163,7 +160,7 @@ public class WeightedPossibilities {
                 }
             }
             
-            return super.onBlockBroken(player, x, y, z);
+            return super.onBlockBroken(player, pos);
         }
     }
     
@@ -175,7 +172,7 @@ public class WeightedPossibilities {
         }
         
         @Override
-        public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+        public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
         
             if (!player.worldObj.isRemote) {
                 
@@ -189,16 +186,16 @@ public class WeightedPossibilities {
                     
                     if (entity instanceof EntityLivingBase) {
                         
-                        entity.setLocationAndAngles(x, y, z, 0f, 0f);
+                        entity.setLocationAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0f, 0f);
                         ColorProperties props = ColorProperties.getPropsFromEntity((EntityLivingBase) entity);
                         props.setColorObject(new ColorObject(false));
                         player.worldObj.spawnEntityInWorld(entity);
-                        return super.onBlockBroken(player, x, y, z);
+                        return super.onBlockBroken(player, pos);
                     }
                 }
             }
             
-            return super.onBlockBroken(player, x, y, z);
+            return super.onBlockBroken(player, pos);
         }
     }
     
@@ -210,10 +207,10 @@ public class WeightedPossibilities {
         }
         
         @Override
-        public boolean onBlockBroken (EntityPlayer player, int x, int y, int z) {
+        public boolean onBlockBroken (EntityPlayer player, BlockPos pos) {
         
             int max = Utilities.nextIntII(3, 50);
-            for (int pos = 0; pos < max; pos++) {
+            for (int i = 0; i < max; i++) {
                 
                 EntityChicken entity = (EntityChicken) EntityList.createEntityByName("Chicken", player.worldObj);
                 
@@ -221,13 +218,13 @@ public class WeightedPossibilities {
                     
                     ColorProperties props = ColorProperties.getPropsFromEntity(entity);
                     props.setColorObject(new ColorObject(false));
-                    entity.setLocationAndAngles(x, y, z, 0, 0);
+                    entity.setLocationAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
                     player.worldObj.spawnEntityInWorld(entity);
                     entity.motionX += 0.01;
                 }
             }
             
-            return super.onBlockBroken(player, x, y, z);
+            return super.onBlockBroken(player, pos);
         }
     }
 }

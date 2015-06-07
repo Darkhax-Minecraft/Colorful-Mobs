@@ -14,7 +14,6 @@ public class ItemColorWand extends Item {
     
         this.setCreativeTab(ColorfulMobs.tabColor);
         this.setUnlocalizedName("colorfulmobs.colorwand");
-        this.setTextureName("colorfulmobs:colorwand");
         this.setMaxDamage(16);
     }
     

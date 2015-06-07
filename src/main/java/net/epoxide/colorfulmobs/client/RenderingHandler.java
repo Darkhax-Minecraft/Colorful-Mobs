@@ -4,9 +4,9 @@ import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraftforge.client.event.RenderLivingEvent;
 
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class RenderingHandler {
     

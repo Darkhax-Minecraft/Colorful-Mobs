@@ -8,20 +8,19 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemGhostDust extends ItemColorSetter {
     
     public ItemGhostDust() {
     
         this.setUnlocalizedName("colorfulmobs.ghostdust");
-        this.setTextureName("colorfulmobs:ghost_dust");
     }
     
     @Override
-    public boolean hasEffect (ItemStack stack, int pass) {
-    
+    public boolean hasEffect (ItemStack stack) {
+
         return true;
     }
     

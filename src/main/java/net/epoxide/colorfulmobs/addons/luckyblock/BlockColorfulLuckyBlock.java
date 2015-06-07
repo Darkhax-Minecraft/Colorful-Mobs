@@ -8,6 +8,7 @@ import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockColorfulLuckyBlock extends Block {
@@ -17,15 +18,15 @@ public class BlockColorfulLuckyBlock extends Block {
     protected BlockColorfulLuckyBlock() {
     
         super(Material.glass);
-        this.setBlockName("colorfulmobs.colorfulblock");
-        this.setBlockTextureName("colorfulmobs:lucky_block_colorful");
+        this.setUnlocalizedName("colorfulmobs.colorfulblock");
+        //this.setBlockTextureName("colorfulmobs:lucky_block_colorful");
         this.setCreativeTab(ColorfulMobs.tabColor);
     }
     
     @Override
-    public boolean removedByPlayer (World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
+    public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
     
-        return WeightedPossibilities.triggerRandomEvent(outcomes, player, x, y, z);
+        return WeightedPossibilities.triggerRandomEvent(outcomes, player, pos);
     }
     
     @Override

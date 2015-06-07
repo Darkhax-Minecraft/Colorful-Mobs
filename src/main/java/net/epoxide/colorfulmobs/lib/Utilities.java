@@ -10,13 +10,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class Utilities {
     
@@ -30,7 +31,7 @@ public class Utilities {
      */
     public static boolean isEntityWithinRange (Entity source, Entity target, double range) {
     
-        if (isEntityWithinRange(target, source.posX, source.posY, source.posZ, range)) {
+        if (isEntityWithinRange(target, new BlockPos(source.posX, source.posY, source.posZ), range)) {
             
             if (source != target) {
                 
@@ -45,17 +46,15 @@ public class Utilities {
      * Checks if an entity is within X range of given coordinates.
      * 
      * @param target: The target entity.
-     * @param x: The source X coord.
-     * @param y: The source Y coord.
-     * @param z: The source Z coord.
+     * @param pos: The source coord.
      * @param range: Acceptable range of distance between entity and position.
      * @return true if entity is within distance.
      */
-    public static boolean isEntityWithinRange (Entity target, double x, double y, double z, double range) {
+    public static boolean isEntityWithinRange (Entity target, BlockPos pos, double range) {
     
-        double disX = Math.abs(x - target.posX);
-        double disY = Math.abs(y - target.posY);
-        double disZ = Math.abs(z - target.posZ);
+        double disX = Math.abs(pos.getX() - target.posX);
+        double disY = Math.abs(pos.getY() - target.posY);
+        double disZ = Math.abs(pos.getZ() - target.posZ);
         
         if ((disX + disY + disZ < range)) {
             
@@ -139,9 +138,9 @@ public class Utilities {
      * Safely drops an ItemStack into the world as an EntityItem.
      * 
      * @param world : Instance of the world.
-     * @param x : The x position for the item to spawn.
-     * @param y : The y position for the item to spawn.
-     * @param z : The z position for the item to spawn.
+     * @param posX : The x position for the item to spawn.
+     * @param posY : The y position for the item to spawn.
+     * @param posZ : The z position for the item to spawn.
      * @param stack : The ItemStack being dropped into the world.
      * @param isTile : If the item being dropped into the world as a tile this should be set to
      *            true. This option allows for this code to adhere to the doTileDrops game
@@ -149,15 +148,15 @@ public class Utilities {
      */
     public static void dropStackInWorld (World world, double posX, double posY, double posZ, ItemStack stack, boolean isTile) {
     
-        boolean shouldDrop = (isTile) ? world.getGameRules().getGameRuleBooleanValue("doTileDrops") : true;
+        boolean shouldDrop = (!isTile) || world.getGameRules().getGameRuleBooleanValue("doTileDrops");
         if (!world.isRemote && shouldDrop) {
             
             float f = 0.7F;
             double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-            EntityItem entityitem = new EntityItem(world, (double) posX + d0, (double) posY + d1, (double) posZ + d2, stack);
-            entityitem.delayBeforeCanPickup = 10;
+            EntityItem entityitem = new EntityItem(world, posX + d0, posY + d1, posZ + d2, stack);
+            entityitem.setDefaultPickupDelay();
             world.spawnEntityInWorld(entityitem);
         }
     }

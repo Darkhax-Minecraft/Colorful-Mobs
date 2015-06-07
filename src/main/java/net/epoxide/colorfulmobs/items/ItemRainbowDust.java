@@ -10,7 +10,6 @@ public class ItemRainbowDust extends ItemColorSetter {
     
     public ItemRainbowDust() {
     
-        this.setTextureName("colorfulmobs:rainbowdust");
         this.setUnlocalizedName("colorfulmobs.rainbowdust");
     }
     

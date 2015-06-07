@@ -28,7 +28,7 @@ archivesBaseName = "ColorfulMobs"
 
 minecraft {
 
-    version = "1.7.10-10.13.2.1291"
+    version = "1.8-11.14.1.1334"
     runDir = "eclipse"
 }
 
@@ -63,13 +63,6 @@ repositories {
 }
 dependencies {
 
-    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
+   // compile "mcp.mobius.waila:Waila:1.6.0_B1_1.8.1"
 	compile files('depends/Thaumcraft.jar')
-}
-
-jar {
-    manifest {
-
-        attributes 'FMLCorePlugin': 'net.epoxide.musica.asm.MusicaLoadingPlugin', 'FMLCorePluginContainsFMLMod': 'true'
-    }
 }

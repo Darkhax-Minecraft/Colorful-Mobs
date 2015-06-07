@@ -176,7 +176,7 @@ public abstract class GuiScreenBase extends GuiScreen {
         int lineCount = 0;
         for (String line : tooltipArray) {
             
-            mc.fontRenderer.drawStringWithShadow(line, tooltipX + 2, tooltipY + 2 + lineCount * LINE_HEIGHT, 0xFFFFFF);
+            mc.fontRendererObj.func_175063_a(line, tooltipX + 2, tooltipY + 2 + lineCount * LINE_HEIGHT, 0xFFFFFF);
             lineCount++;
         }
     }
@@ -192,7 +192,7 @@ public abstract class GuiScreenBase extends GuiScreen {
         int longestWidth = 0;
         for (String line : tooltip) {
             
-            int width = mc.fontRenderer.getStringWidth(line);
+            int width = mc.fontRendererObj.getStringWidth(line);
             
             if (width > longestWidth)
                 longestWidth = width;
@@ -208,7 +208,7 @@ public abstract class GuiScreenBase extends GuiScreen {
      */
     private int getTooltipHeight (List<String> tooltips) {
     
-        int tooltipHeight = mc.fontRenderer.FONT_HEIGHT - 2;
+        int tooltipHeight = mc.fontRendererObj.FONT_HEIGHT - 2;
         
         if (tooltips.size() > 1)
             tooltipHeight += (tooltips.size() - 1) * LINE_HEIGHT;

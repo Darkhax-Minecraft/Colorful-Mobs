@@ -93,4 +93,9 @@ public class RecipeDyePowder implements IRecipe {
     
         return null;
     }
+
+    @Override
+    public ItemStack[] func_179532_b(InventoryCrafting inv) {
+        return new ItemStack[0];
+    }
 }

@@ -13,9 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import static net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 public class ForgeEventHandler {
     
     @SubscribeEvent
@@ -77,7 +76,7 @@ public class ForgeEventHandler {
                 
                 ColorObject color = new ColorObject(event.crafting.getTagCompound());
                 
-                if (color != null && !color.isGenericWhite())
+                if (!color.isGenericWhite())
                     event.player.triggerAchievement(AchievementHandler.achCloneDye);
             }
         }

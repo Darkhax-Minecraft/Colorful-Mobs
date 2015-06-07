@@ -19,7 +19,6 @@ public class ItemDataChecker extends Item {
     
         this.setCreativeTab(ColorfulMobs.tabColor);
         this.setUnlocalizedName("colorfulmobs.datachecker");
-        this.setTextureName("colorfulmobs:infobook");
     }
     
     public boolean itemInteractionForEntity (ItemStack item, EntityPlayer player, EntityLivingBase entity) {
