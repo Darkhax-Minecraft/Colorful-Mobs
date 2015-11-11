@@ -1,22 +1,28 @@
 buildscript {
-
     repositories {
-
         mavenCentral()
         maven {
-
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
         maven {
-
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
     }
     dependencies {
-
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+repositories {
+    maven {
+        name = "Epoxide"
+        url = "http://maven.cubedlc.com"
+    }
+    maven {
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
     }
 }
 
@@ -27,49 +33,28 @@ group = "net.epoxide.colorfulmobs"
 archivesBaseName = "ColorfulMobs"
 
 minecraft {
-
-    version = "1.7.10-10.13.2.1291"
+    version = "1.7.10-10.13.4.1517-1.7.10"
     runDir = "eclipse"
 }
 
 dependencies {
-
+    compile "mcp.mobius.waila:Waila:1.5.11-RC1_1.7.10:dev"
+	compile files('depends/Thaumcraft.jar')
+    compile "net.darkhax.bookshelf:Bookshelf:1.7.10-1.0.3.103:deobf"
 }
 
 processResources {
-
     from(sourceSets.main.resources.srcDirs) {
-
         include 'mcmod.info'
         expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-
     from(sourceSets.main.resources.srcDirs) {
-
         exclude 'mcmod.info'
     }
 }
 
-repositories {
-
-    maven {
-        name "Mobius Repo"
-        url "http://mobiusstrip.eu/maven"
-    }
-    maven {
-        name 'CB Repo'
-        url "http://chickenbones.net/maven/"
-    }
-}
-dependencies {
-
-    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
-	compile files('depends/Thaumcraft.jar')
-}
-
 jar {
     manifest {
-
         attributes 'FMLCorePlugin': 'net.epoxide.musica.asm.MusicaLoadingPlugin', 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
