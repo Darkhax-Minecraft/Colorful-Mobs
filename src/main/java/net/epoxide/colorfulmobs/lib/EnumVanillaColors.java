@@ -1,7 +1,7 @@
 package net.epoxide.colorfulmobs.lib;
 
 public enum EnumVanillaColors {
-
+    
     BLACK("dyeBlack", new ColorObject(25, 25, 25)),
     RED("dyeRed", new ColorObject(153, 51, 51)),
     GREEN("dyeGreen", new ColorObject(102, 127, 51)),
@@ -18,12 +18,12 @@ public enum EnumVanillaColors {
     MAGENTAG("dyeMagenta", new ColorObject(178, 76, 216)),
     ORANGE("dyeOrange", new ColorObject(216, 127, 5)),
     WHITE("dyeWhite", new ColorObject(255, 255, 255));
-
+    
     public String colorName;
     public ColorObject colorObj;
-
-    EnumVanillaColors (String name, ColorObject color) {
-
+    
+    EnumVanillaColors(String name, ColorObject color) {
+        
         colorName = name;
         colorObj = color;
     }
