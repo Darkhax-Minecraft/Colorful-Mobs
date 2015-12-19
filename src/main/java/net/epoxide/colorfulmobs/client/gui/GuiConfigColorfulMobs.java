@@ -24,10 +24,18 @@ public class GuiConfigColorfulMobs extends GuiConfig {
         super(parent, generateConfigList(), Constants.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
     }
     
+    /**
+     * Generates a List of IConfigElement to use in a configuration GUI.
+     * 
+     * @return The List<IConfigElement> generated.
+     */
     public static List<IConfigElement> generateConfigList () {
         
         ArrayList<IConfigElement> elements = new ArrayList<IConfigElement>();
-        elements.add(new ConfigElement(cfg.getCategory(cfgh.GENERAL)));
+        
+        for (String name : cfg.getCategoryNames())
+            elements.add(new ConfigElement(cfg.getCategory(name)));
+            
         return elements;
     }
 }
