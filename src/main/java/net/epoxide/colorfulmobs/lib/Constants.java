@@ -15,5 +15,5 @@ public class Constants {
     public static final String FACTORY = "net.epoxide.colorfulmobs.client.gui.GuiFactoryColorfulMobs";
     public static final String DEPENDANCIES = "after:Waila;after:lucky;after:Thaumcraft";
     public static final Random RANDOM = new Random();
-    public static final Logger LOGGER = LogManager.getLogger("MOD_NAME");
+    public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 }
