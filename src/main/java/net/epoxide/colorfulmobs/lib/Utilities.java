@@ -53,4 +53,20 @@ public class Utilities {
             world.spawnEntityInWorld(entityitem);
         }
     }
+    
+    /**
+     * Checks if an array of String contains a particular String.
+     * 
+     * @param array: The array of strings to search through.
+     * @param entry: The string to search for.
+     * @return boolean: Whether or not the array contains the String.
+     */
+    public static boolean arrayContains (String[] array, String entry) {
+        
+        for (String element : array)
+            if (element.equals(entry))
+                return true;
+                
+        return false;
+    }
 }
