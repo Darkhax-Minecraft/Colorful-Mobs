@@ -141,6 +141,14 @@ public class ColorProperties implements IExtendedEntityProperties {
     }
     
     /**
+     * Marks that an entity has been initialized. 
+     */
+    public void setInitialized() {
+        
+        this.hasInitialized = true;
+    }
+    
+    /**
      * Checks to see if the mob is a valid target for being colored. If the target mob is a
      * player, it will only be valid if the config option for dying players is set to true. If
      * the entity is not a player, it will be valid, unless it is on the prohibited mobs config
