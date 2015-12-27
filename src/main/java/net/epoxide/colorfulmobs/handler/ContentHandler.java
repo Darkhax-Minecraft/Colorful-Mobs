@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
+import net.epoxide.colorfulmobs.item.ItemAlphaDust;
 import net.epoxide.colorfulmobs.item.ItemRGBDust;
 
 public class ContentHandler {
@@ -18,5 +19,8 @@ public class ContentHandler {
         
         itemRGBDust = new ItemRGBDust();
         GameRegistry.registerItem(itemRGBDust, "rgb_dust");
+        
+        itemAlphaDust = new ItemAlphaDust();
+        GameRegistry.registerItem(itemAlphaDust, "alpha_dust");
     }
 }
