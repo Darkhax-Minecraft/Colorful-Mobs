@@ -149,9 +149,6 @@ public class ColorProperties implements IExtendedEntityProperties {
      * @return boolean: True, but only if the mob is a valid target to be dyed.
      */
     public boolean isValidTarget () {
-        
-        if (this.entity instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
-            return true;
             
         if (ConfigurationHandler.limitMobs && !Utilities.arrayContains(ConfigurationHandler.validMobs, EntityList.getEntityString(entity)))
             return false;
