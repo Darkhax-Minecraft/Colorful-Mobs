@@ -6,6 +6,8 @@ import net.darkhax.bookshelf.lib.ColorObject;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
+import net.epoxide.colorfulmobs.lib.Utilities;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -151,7 +153,7 @@ public class ColorProperties implements IExtendedEntityProperties {
         if (this.entity instanceof EntityPlayer && ConfigurationHandler.dyePlayer)
             return true;
             
-        if (ConfigurationHandler.limitMobs && !ConfigurationHandler.validMobs.contains(EntityList.getEntityString(entity)))
+        if (ConfigurationHandler.limitMobs && !Utilities.arrayContains(ConfigurationHandler.validMobs, EntityList.getEntityString(entity)))
             return false;
             
         return true;
