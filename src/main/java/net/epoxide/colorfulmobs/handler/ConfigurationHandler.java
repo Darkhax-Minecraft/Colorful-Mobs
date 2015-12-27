@@ -27,7 +27,7 @@ public class ConfigurationHandler {
     public static boolean craftRainbowWand = true;
     public static boolean findRainbowDust = true;
     public static int rainbowDustRate = 10;
-    public static String[] validLootLocations = new String[] {"dungeonChest", "pyramidJungleDispenser", "strongholdLibrary", "pyramidDesertyChest", "bonusChest"};
+    public static String[] validLootLocations = new String[] { "dungeonChest", "pyramidJungleDispenser", "strongholdLibrary", "pyramidDesertyChest", "bonusChest" };
     
     public static Configuration config;
     
