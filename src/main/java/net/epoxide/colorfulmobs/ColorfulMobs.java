@@ -2,6 +2,8 @@ package net.epoxide.colorfulmobs;
 
 import net.minecraft.creativetab.CreativeTabs;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -11,6 +13,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.creativetab.CreativeTabColorfulMobs;
+import net.epoxide.colorfulmobs.handler.ForgeEventHandler;
 import net.epoxide.colorfulmobs.lib.Constants;
 
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, guiFactory = Constants.FACTORY, dependencies = Constants.DEPENDANCIES)
@@ -29,5 +32,7 @@ public class ColorfulMobs {
     public void preInit (FMLPreInitializationEvent pre) {
         
         network = NetworkRegistry.INSTANCE.newSimpleChannel("ColorfulMobs");
+        
+        MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
     }
 }
