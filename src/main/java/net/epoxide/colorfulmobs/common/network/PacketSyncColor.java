@@ -1,21 +1,20 @@
 package net.epoxide.colorfulmobs.common.network;
 
-import io.netty.buffer.ByteBuf;
-import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
-import net.epoxide.colorfulmobs.lib.Utilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+
 import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.common.network.simpleimpl.*;
 import cpw.mods.fml.relauncher.Side;
 
 import net.darkhax.bookshelf.lib.ColorObject;
 import net.darkhax.bookshelf.lib.util.PlayerUtils;
+
+import io.netty.buffer.ByteBuf;
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.common.ColorProperties;
 
 public class PacketSyncColor implements IMessage {
     

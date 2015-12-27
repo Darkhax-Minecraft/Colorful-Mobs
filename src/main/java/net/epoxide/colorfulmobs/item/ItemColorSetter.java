@@ -1,14 +1,14 @@
 package net.epoxide.colorfulmobs.item;
 
-import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import net.darkhax.bookshelf.lib.ColorObject;
+
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.common.ColorProperties;
 
 public class ItemColorSetter extends Item {
     

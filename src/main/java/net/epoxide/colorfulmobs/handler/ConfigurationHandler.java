@@ -1,10 +1,8 @@
 package net.epoxide.colorfulmobs.handler;
 
 import java.io.File;
-import java.util.*;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;

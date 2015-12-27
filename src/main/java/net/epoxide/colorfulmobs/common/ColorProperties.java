@@ -1,20 +1,17 @@
 package net.epoxide.colorfulmobs.common;
 
-import net.darkhax.bookshelf.Bookshelf;
+import net.minecraft.entity.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+
+import net.minecraftforge.common.IExtendedEntityProperties;
+
 import net.darkhax.bookshelf.lib.ColorObject;
 
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
 import net.epoxide.colorfulmobs.lib.Utilities;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import net.minecraftforge.common.IExtendedEntityProperties;
 
 public class ColorProperties implements IExtendedEntityProperties {
     
@@ -141,9 +138,9 @@ public class ColorProperties implements IExtendedEntityProperties {
     }
     
     /**
-     * Marks that an entity has been initialized. 
+     * Marks that an entity has been initialized.
      */
-    public void setInitialized() {
+    public void setInitialized () {
         
         this.hasInitialized = true;
     }
@@ -157,7 +154,7 @@ public class ColorProperties implements IExtendedEntityProperties {
      * @return boolean: True, but only if the mob is a valid target to be dyed.
      */
     public boolean isValidTarget () {
-            
+        
         if (ConfigurationHandler.limitMobs && !Utilities.arrayContains(ConfigurationHandler.validMobs, EntityList.getEntityString(entity)))
             return false;
             
