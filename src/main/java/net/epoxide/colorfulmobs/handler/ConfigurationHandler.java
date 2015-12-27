@@ -19,7 +19,6 @@ public class ConfigurationHandler {
     public static boolean dropPowder = true;
     public static boolean limitMobs = false;
     public static String[] validMobs = new String[] {};
-    public static boolean dyePlayer = false;
     public static boolean craftDye = true;
     public static boolean cloneDye = true;
     public static boolean craftBook = true;
