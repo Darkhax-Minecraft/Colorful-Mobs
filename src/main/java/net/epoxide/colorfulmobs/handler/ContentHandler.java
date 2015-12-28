@@ -24,5 +24,8 @@ public class ContentHandler {
         
         itemRainbowDust = new ItemRainbowDust();
         GameRegistry.registerItem(itemRainbowDust, "rainbow_dust");
+        
+        itemRainbowWand = new ItemColorWand();
+        GameRegistry.registerItem(itemRainbowWand, "rainbow_wand");
     }
 }
