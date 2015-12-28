@@ -20,19 +20,22 @@ public class ItemColorSetter extends Item {
     @Override
     public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
         
-        if (!player.worldObj.isRemote && ColorProperties.hasProperties(entity)) {
+        if (ColorProperties.hasProperties(entity)) {
             
-            ColorProperties entProps = ColorProperties.getProperties(entity);
-            ColorObject colorObj = getColorToApply(stack);
-            
-            if (entProps.isDyed())
-                colorObj = handleColorMerge(entProps.getColorObj(), colorObj);
+            if (!player.worldObj.isRemote) {
                 
-            entProps.setColorObject(colorObj).sync();
+                ColorProperties entProps = ColorProperties.getProperties(entity);
+                ColorObject colorObj = getColorToApply(stack);
+                
+                if (entProps.isDyed())
+                    colorObj = handleColorMerge(entProps.getColorObj(), colorObj);
+                    
+                entProps.setColorObject(colorObj).sync();
+            }
+            
+            if (shouldConsumeItem(stack, entity))
+                stack.stackSize--;
         }
-        
-        if (shouldConsumeItem(stack, entity))
-            stack.stackSize--;
             
         return true;
     }
