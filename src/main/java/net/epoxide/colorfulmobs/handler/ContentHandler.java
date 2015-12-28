@@ -27,5 +27,8 @@ public class ContentHandler {
         
         itemRainbowWand = new ItemColorWand();
         GameRegistry.registerItem(itemRainbowWand, "rainbow_wand");
+        
+        itemDataChecker = new ItemDataChecker();
+        GameRegistry.registerItem(itemDataChecker, "data_checker");
     }
 }
