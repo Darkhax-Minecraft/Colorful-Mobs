@@ -36,7 +36,7 @@ public class ItemColorSetter extends Item {
             if (shouldConsumeItem(stack, entity))
                 stack.stackSize--;
         }
-            
+        
         return true;
     }
     

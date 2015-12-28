@@ -1,6 +1,5 @@
 package net.epoxide.colorfulmobs.creativetab;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 import net.darkhax.bookshelf.creativetab.CreativeTabCached;

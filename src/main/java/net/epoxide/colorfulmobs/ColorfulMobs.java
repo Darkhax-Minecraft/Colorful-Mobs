@@ -45,6 +45,6 @@ public class ColorfulMobs {
         
         ContentHandler.initItems();
         ContentHandler.initRecipes();
-        ContentHandler.initDungeonLoot();
+        ContentHandler.initMisc();
     }
 }
