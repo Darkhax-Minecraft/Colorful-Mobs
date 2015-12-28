@@ -9,8 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.*;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -98,7 +97,7 @@ public class ItemRGBDust extends ItemColorSetter {
             
             ItemStack stack = new ItemStack(this);
             new ColorObject(false).writeToItemStack(stack);
-            stack.setStackDisplayName(EnumChatFormatting.DARK_AQUA + "Random Dye Powder");
+            stack.setStackDisplayName(EnumChatFormatting.DARK_AQUA + StatCollector.translateToLocal("item.colorfulmobs.powder.random.name"));
             itemList.add(stack);
         }
     }
