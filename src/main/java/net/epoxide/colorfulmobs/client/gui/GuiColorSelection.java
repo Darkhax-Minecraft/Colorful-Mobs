@@ -145,7 +145,7 @@ public class GuiColorSelection extends GuiScreenBase {
             
             if (entity != null) {
                 
-                PacketSyncColor packetColorSync = new PacketSyncColor(currentColor, entity);
+                PacketSyncColor packetColorSync = new PacketSyncColor(currentColor, entity, false);
                 ColorfulMobs.network.sendToServer(packetColorSync);
             }
             

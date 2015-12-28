@@ -18,15 +18,17 @@ public class PacketSyncColor implements IMessage {
     
     public int entityID;
     public ColorObject colorObj;
+    public boolean radiant;
     
     public PacketSyncColor() {
     
     }
     
-    public PacketSyncColor(ColorObject color, EntityLivingBase living) {
+    public PacketSyncColor(ColorObject color, EntityLivingBase living, boolean radiant) {
         
-        entityID = living.getEntityId();
+        this.entityID = living.getEntityId();
         this.colorObj = color;
+        this.radiant = radiant;
     }
     
     @Override
@@ -34,6 +36,7 @@ public class PacketSyncColor implements IMessage {
         
         this.entityID = buf.readInt();
         this.colorObj = new ColorObject(buf);
+        this.radiant = buf.readBoolean();
     }
     
     @Override
@@ -41,6 +44,7 @@ public class PacketSyncColor implements IMessage {
         
         buf.writeInt(this.entityID);
         this.colorObj.writeToBuffer(buf);
+        buf.writeBoolean(radiant);
     }
     
     public static class PacketColorSyncHandler implements IMessageHandler<PacketSyncColor, IMessage> {

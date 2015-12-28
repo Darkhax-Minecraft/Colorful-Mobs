@@ -25,6 +25,7 @@ public class ContentHandler {
     public static Item itemRainbowDust;
     public static Item itemRainbowWand;
     public static Item itemDataChecker;
+    public static Item itemRadiantDust;
     
     /**
      * Initializes all items within the mod.
@@ -45,6 +46,9 @@ public class ContentHandler {
         
         itemDataChecker = new ItemDataChecker();
         GameRegistry.registerItem(itemDataChecker, "data_checker");
+        
+        itemRadiantDust = new ItemRadiantDust();
+        GameRegistry.registerItem(itemRadiantDust, "radiant_dust");
     }
     
     /**

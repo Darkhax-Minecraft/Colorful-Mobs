@@ -49,8 +49,13 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public void onEntityTracked (PlayerEvent.StartTracking event) {
         
-        if (event.target instanceof EntityLiving && ColorProperties.hasProperties((EntityLivingBase) event.target) && !event.target.worldObj.isRemote && event.entityPlayer instanceof EntityPlayerMP)
-            ColorfulMobs.network.sendTo(new PacketSyncColor(ColorProperties.getProperties((EntityLivingBase) event.target).getColorObj(), (EntityLivingBase) event.target), (EntityPlayerMP) event.entityPlayer);
+        if (event.target instanceof EntityLivingBase && ColorProperties.hasProperties((EntityLivingBase) event.target) && !event.target.worldObj.isRemote && event.entityPlayer instanceof EntityPlayerMP) {
+            
+            ColorProperties props = ColorProperties.getProperties((EntityLivingBase) event.target);
+            
+            if (props != null && (props.isDyed() || props.isRadiant()))
+                ColorfulMobs.network.sendTo(new PacketSyncColor(props.getColorObj(), (EntityLivingBase) event.target, props.isRadiant()), (EntityPlayerMP) event.entityPlayer);
+        }
     }
     
     @SubscribeEvent

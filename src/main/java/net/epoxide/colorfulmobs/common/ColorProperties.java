@@ -21,12 +21,14 @@ public class ColorProperties implements IExtendedEntityProperties {
     private EntityLivingBase entity;
     private ColorObject colorObj;
     private boolean hasInitialized;
+    private boolean radiant;
     
     public ColorProperties(EntityLivingBase living) {
         
         entity = living;
         colorObj = new ColorObject();
         hasInitialized = true;
+        radiant = false;
     }
     
     @Override
@@ -35,6 +37,7 @@ public class ColorProperties implements IExtendedEntityProperties {
         NBTTagCompound entityData = new NBTTagCompound();
         entityData.setTag("color", this.colorObj.getTagFromColor());
         entityData.setBoolean("init", this.hasInitialized);
+        entityData.setBoolean("radiant", this.radiant);
         compound.setTag(PROP_NAME, entityData);
     }
     
@@ -44,6 +47,7 @@ public class ColorProperties implements IExtendedEntityProperties {
         NBTTagCompound playerData = compound.getCompoundTag(PROP_NAME);
         this.colorObj = new ColorObject(playerData.getCompoundTag("color"));
         this.hasInitialized = playerData.getBoolean("init");
+        this.radiant = compound.getBoolean("radiant");
     }
     
     @Override
@@ -56,7 +60,7 @@ public class ColorProperties implements IExtendedEntityProperties {
      */
     public void sync () {
         
-        ColorfulMobs.network.sendToAll(new PacketSyncColor(this.colorObj, this.entity));
+        ColorfulMobs.network.sendToAll(new PacketSyncColor(this.colorObj, this.entity, this.radiant));
     }
     
     /**
@@ -144,6 +148,26 @@ public class ColorProperties implements IExtendedEntityProperties {
     public void setInitialized () {
         
         this.hasInitialized = true;
+    }
+    
+    /**
+     * Checks if the mob is radiant.
+     * 
+     * @return boolean: Whether or not the mob is radiant.
+     */
+    public boolean isRadiant () {
+        
+        return this.radiant;
+    }
+    
+    /**
+     * Updates the radiant status of the entity.
+     * 
+     * @param radiant: Whether or not the entity should be radiant.
+     */
+    public void setRadiant (boolean radiant) {
+        
+        this.radiant = radiant;
     }
     
     /**
