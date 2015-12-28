@@ -58,7 +58,7 @@ public class ContentHandler {
                 
                 ItemStack powderStack = new ItemStack(ContentHandler.itemRGBDust, 3);
                 new ColorObject(color.color).writeToItemStack(powderStack);
-                GameRegistry.addRecipe(new ShapedOreRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), color.name }));
+                GameRegistry.addRecipe(new ShapedOreRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), color.getDyeName() }));
             }
             
         if (ConfigurationHandler.craftBook)
