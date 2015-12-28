@@ -1,6 +1,7 @@
 package net.epoxide.colorfulmobs.common;
 
 import net.minecraft.entity.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -155,7 +156,7 @@ public class ColorProperties implements IExtendedEntityProperties {
      */
     public boolean isValidTarget () {
         
-        if (ConfigurationHandler.limitMobs && !Utilities.arrayContains(ConfigurationHandler.validMobs, EntityList.getEntityString(entity)))
+        if (entity instanceof EntityPlayer || ConfigurationHandler.limitMobs && !Utilities.arrayContains(ConfigurationHandler.validMobs, EntityList.getEntityString(entity)))
             return false;
             
         return true;
