@@ -14,6 +14,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.network.GuiHandler;
 import net.epoxide.colorfulmobs.creativetab.CreativeTabColorfulMobs;
+import net.epoxide.colorfulmobs.handler.ContentHandler;
 import net.epoxide.colorfulmobs.handler.ForgeEventHandler;
 import net.epoxide.colorfulmobs.lib.Constants;
 
@@ -35,6 +36,11 @@ public class ColorfulMobs {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("ColorfulMobs");
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         
+        proxy.registerSidedEvents();
         MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
+        
+        ContentHandler.initItems();
+        ContentHandler.initRecipes();
+        ContentHandler.initDungeonLoot();
     }
 }
