@@ -7,10 +7,6 @@ item.colorfulmobs.ghostdust.name=Invisibility Powder
 item.colorfulmobs.rainbowdust.name=Rainbow Dust
 item.colorfulmobs.colorwand.name=Color Wand
 item.colorfulmobs.datachecker.name=Data Checker
-item.colorfulmobs.pinkus.name=Wand Focus: Pinkus
-
-#Blocks
-tile.colorfulmobs.colorfulblock.name=Colorful Lucky Block
 
 #Chat
 chat.colorfulmobs.name=Entity Name
@@ -20,22 +16,6 @@ chat.colorfulmobs.green=Green
 chat.colorfulmobs.alpha=Alpha
 chat.colorfulmobs.transparency=Transparency
 chat.colorfulmobs.colormenu=Color Menu
-
-#Config Gui Comments
-colorfulmobs.configGui.spawnRandom=Spawn Colored Mobs
-colorfulmobs.configGui.spawnRate=Dyed Spawn Chance
-colorfulmobs.configGui.dropPowder=Drop Dye Powder
-colorfulmobs.configGui.playerDye=Dyeable Players
-colorfulmobs.configGui.limitMobs=Limit To Valid Mobs
-colorfulmobs.configGui.craftDye=Craft Blank Dye
-colorfulmobs.configGui.dataChecker=Craft Data Checker
-colorfulmobs.configGui.cloneDye=Clone Dyes
-colorfulmobs.configGui.validMobs=Valid Mob List
-colorfulmobs.configGui.ghostDust=Craft Ghost Dust
-colorfulmobs.configGui.rainbowRate=Rainbow Dust Spawn Rate
-colorfulmobs.configGui.canFindRainbow=Can Find Rainbow Dust
-colorfulmobs.configGui.chestLoot=Valid Chest List
-colorfulmobs.configGui.craftWand=Can Craft Rainbow Wand
 
 #Gui Tooltips
 tooltip.colorfulmobs.selection.confirm=Confirm: When this button is clicked, the color currently set within the GUI shall be applied to the entity.
@@ -53,23 +33,3 @@ tooltip.colorfulmobs.invisibledust=When used, a mob will become 20% more transpa
 
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs
-
-#Achievement
-achievement.cfm.harvester=Rainbow Factory
-achievement.cfm.artist=Artist
-achievement.cfm.artisan=Artisan
-achievement.cfm.ghost=2Spooky5Me
-achievement.cfm.rainbow=Spectrum
-achievement.cfm.overload=Spectral Overload
-achievement.cfm.death=Over Saturation
-achievement.cfm.purify=White Balance
-achievement.cfm.datachecker=Over 9000!!!
-achievement.cfm.harvester.desc=Kill a colored mob.
-achievement.cfm.artist.desc=Dye a mob.
-achievement.cfm.artisan.desc=Copy a dye color.
-achievement.cfm.ghost.desc=Make a ghost!
-achievement.cfm.rainbow.desc=Use the rainbow dust.
-achievement.cfm.overload.desc=Use the color wand.
-achievement.cfm.death.desc=Get killed by a colored mob.
-achievement.cfm.purify.desc=Restore a mob to it's normal color.
-achievement.cfm.datachecker.desc=Vegeta, what does the scouter say about his power level?
