@@ -13,7 +13,7 @@ import net.epoxide.colorfulmobs.lib.Constants;
 public class ConfigurationHandler {
     
     public static boolean spawnRandom = true;
-    public static float spawnRate = 0.04f;
+    public static float spawnRate = 0.01f;
     public static boolean dropPowder = true;
     public static boolean limitMobs = false;
     public static String[] validMobs = new String[] {};
