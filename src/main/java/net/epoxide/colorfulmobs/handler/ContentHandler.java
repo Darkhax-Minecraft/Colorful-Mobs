@@ -1,12 +1,17 @@
 package net.epoxide.colorfulmobs.handler;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+
+import net.darkhax.bookshelf.lib.ColorObject;
+import net.darkhax.bookshelf.lib.VanillaColor;
 
 import net.epoxide.colorfulmobs.item.*;
 
@@ -42,14 +47,33 @@ public class ContentHandler {
     /**
      * Initializes all the recipes in the mod.
      */
-    public static void initRecipes() {
+    public static void initRecipes () {
         
+        if (ConfigurationHandler.cloneDye)
+            GameRegistry.addRecipe(new RecipeDyePowder());
+            
+        if (ConfigurationHandler.craftDye)
+            for (VanillaColor color : VanillaColor.values()) {
+                
+                ItemStack powderStack = new ItemStack(ContentHandler.itemRGBDust, 3);
+                new ColorObject(color.color).writeToItemStack(powderStack);
+                GameRegistry.addRecipe(new ShapedOreRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), color.name }));
+            }
+            
+        if (ConfigurationHandler.craftBook)
+            GameRegistry.addShapelessRecipe(new ItemStack(ContentHandler.itemDataChecker), ContentHandler.itemRGBDust, Items.book);
+            
+        if (ConfigurationHandler.craftGhostDust)
+            GameRegistry.addShapedRecipe(new ItemStack(ContentHandler.itemAlphaDust, 3), new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), Items.quartz });
+            
+        if (ConfigurationHandler.craftRainbowWand)
+            GameRegistry.addShapedRecipe(new ItemStack(ContentHandler.itemRainbowWand), new Object[] { "xxx", "xyx", "xxx", Character.valueOf('x'), ContentHandler.itemRainbowDust, Character.valueOf('y'), Items.stick });
     }
     
     /**
      * Initializes dungeon loot.
      */
-    public static void initDungeonLoot() {
+    public static void initDungeonLoot () {
         
         for (String chestType : ConfigurationHandler.validLootLocations)
             ChestGenHooks.addItem(chestType, new WeightedRandomChestContent(new ItemStack(ContentHandler.itemRainbowDust), 1, 1, ConfigurationHandler.rainbowDustRate));
