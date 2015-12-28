@@ -5,7 +5,20 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import net.darkhax.bookshelf.lib.ColorObject;
+import net.darkhax.bookshelf.lib.Position;
+
 public class Utilities {
+    
+    public static void spawnDyeParticles (ColorObject color, World world, Position pos, int amount) {
+        
+        int red = (int) (color.getRed() * 255);
+        int green = (int) (color.getGreen() * 255);
+        int blue = (int) (color.getBlue() * 255);
+        
+        for (int count = 0; count < amount; count++)
+            world.spawnParticle("reddust", (double) pos.getX() + Constants.RANDOM.nextDouble(), (double) pos.getY() + Constants.RANDOM.nextDouble(), (double) pos.getZ() + Constants.RANDOM.nextDouble(), red, green, blue);
+    }
     
     /**
      * Checks if an entity is within X range of given coordinates.
