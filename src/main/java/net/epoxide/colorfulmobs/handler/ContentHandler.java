@@ -1,5 +1,6 @@
 package net.epoxide.colorfulmobs.handler;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.darkhax.bookshelf.lib.ColorObject;
 import net.darkhax.bookshelf.lib.VanillaColor;
 
+import net.epoxide.colorfulmobs.dispenser.BehaviorDispenseDye;
 import net.epoxide.colorfulmobs.item.*;
 import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 
@@ -72,11 +74,15 @@ public class ContentHandler {
     }
     
     /**
-     * Initializes dungeon loot.
+     * Initializes the miscellaneous stuff.
      */
-    public static void initDungeonLoot () {
+    public static void initMisc () {
         
         for (String chestType : ConfigurationHandler.validLootLocations)
             ChestGenHooks.addItem(chestType, new WeightedRandomChestContent(new ItemStack(ContentHandler.itemRainbowDust), 1, 1, ConfigurationHandler.rainbowDustRate));
+            
+        BlockDispenser.dispenseBehaviorRegistry.putObject(itemRGBDust, new BehaviorDispenseDye());
+        BlockDispenser.dispenseBehaviorRegistry.putObject(itemAlphaDust, new BehaviorDispenseDye());
+        BlockDispenser.dispenseBehaviorRegistry.putObject(itemRainbowDust, new BehaviorDispenseDye());
     }
 }
