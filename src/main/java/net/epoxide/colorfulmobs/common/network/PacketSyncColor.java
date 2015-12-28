@@ -35,17 +35,14 @@ public class PacketSyncColor implements IMessage {
     public void fromBytes (ByteBuf buf) {
         
         this.entityID = buf.readInt();
-        
-        NBTTagCompound colorTag = ByteBufUtils.readTag(buf);
-        this.colorObj = (colorTag.hasKey("red")) ? new ColorObject(colorTag) : new ColorObject();
+        this.colorObj = new ColorObject(buf);
     }
     
     @Override
     public void toBytes (ByteBuf buf) {
         
         buf.writeInt(this.entityID);
-        ColorObject colorToWrite = (this.colorObj != null) ? this.colorObj : new ColorObject();
-        ByteBufUtils.writeTag(buf, colorToWrite.getTagFromColor());
+        this.colorObj.writeToBuffer(buf);
     }
     
     public static class PacketColorSyncHandler implements IMessageHandler<PacketSyncColor, IMessage> {
