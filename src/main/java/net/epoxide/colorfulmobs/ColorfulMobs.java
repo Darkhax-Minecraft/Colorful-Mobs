@@ -10,9 +10,11 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.relauncher.Side;
 
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.network.GuiHandler;
+import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
 import net.epoxide.colorfulmobs.creativetab.CreativeTabColorfulMobs;
 import net.epoxide.colorfulmobs.handler.ContentHandler;
 import net.epoxide.colorfulmobs.handler.ForgeEventHandler;
@@ -34,6 +36,8 @@ public class ColorfulMobs {
     public void preInit (FMLPreInitializationEvent pre) {
         
         network = NetworkRegistry.INSTANCE.newSimpleChannel("ColorfulMobs");
+        network.registerMessage(PacketSyncColor.PacketColorSyncHandler.class, PacketSyncColor.class, 0, Side.CLIENT);
+        network.registerMessage(PacketSyncColor.PacketColorSyncHandler.class, PacketSyncColor.class, 0, Side.SERVER);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         
         proxy.registerSidedEvents();
