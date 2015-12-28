@@ -5,6 +5,8 @@ import net.minecraft.item.Item;
 
 import net.darkhax.bookshelf.creativetab.CreativeTabCached;
 
+import net.epoxide.colorfulmobs.handler.ContentHandler;
+
 public class CreativeTabColorfulMobs extends CreativeTabCached {
     
     public CreativeTabColorfulMobs() {
@@ -15,6 +17,6 @@ public class CreativeTabColorfulMobs extends CreativeTabCached {
     @Override
     public Item getTabIconItem () {
         
-        return Items.dye;
+        return ContentHandler.itemDataChecker;
     }
 }
