@@ -14,6 +14,7 @@ import net.darkhax.bookshelf.lib.ColorObject;
 import net.darkhax.bookshelf.lib.VanillaColor;
 
 import net.epoxide.colorfulmobs.item.*;
+import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 
 public class ContentHandler {
     
