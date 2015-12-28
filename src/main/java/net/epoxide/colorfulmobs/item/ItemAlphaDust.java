@@ -2,15 +2,17 @@ package net.epoxide.colorfulmobs.item;
 
 import java.util.List;
 
-import net.darkhax.bookshelf.lib.ColorObject;
-
-import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
+import net.darkhax.bookshelf.lib.ColorObject;
+
+import net.epoxide.colorfulmobs.common.ColorProperties;
 
 public class ItemAlphaDust extends ItemColorSetter {
     
@@ -63,7 +65,7 @@ public class ItemAlphaDust extends ItemColorSetter {
      */
     public float mergeAlpha (float existing) {
         
-        float newColor = existing - 0.2f;       
+        float newColor = existing - 0.2f;
         return (newColor > 1.0f) ? 1.0f : (newColor < 0.0f) ? 0.0f : newColor;
     }
 }
