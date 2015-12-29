@@ -13,7 +13,7 @@ public class Constants {
     public static final String CLIENT_PROXY_CLASS = "net.epoxide.colorfulmobs.client.ClientProxy";
     public static final String SERVER_PROXY_CLASS = "net.epoxide.colorfulmobs.common.CommonProxy";
     public static final String FACTORY = "net.epoxide.colorfulmobs.client.gui.GuiFactoryColorfulMobs";
-    public static final String DEPENDANCIES = "";
+    public static final String DEPENDENCIES = "required-after:bookshelf@[1.0.4.172,)";
     public static final Random RANDOM = new Random();
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 }

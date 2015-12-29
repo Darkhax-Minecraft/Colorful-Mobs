@@ -22,7 +22,7 @@ import net.epoxide.colorfulmobs.handler.ContentHandler;
 import net.epoxide.colorfulmobs.handler.ForgeEventHandler;
 import net.epoxide.colorfulmobs.lib.Constants;
 
-@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, guiFactory = Constants.FACTORY, dependencies = "required-after:bookshelf@[1.0.4.127,)")
+@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, guiFactory = Constants.FACTORY, dependencies = Constants.DEPENDENCIES)
 public class ColorfulMobs {
     
     @SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
