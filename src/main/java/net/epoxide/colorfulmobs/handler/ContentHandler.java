@@ -11,6 +11,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
+import net.darkhax.bookshelf.common.BookshelfRegistry;
 import net.darkhax.bookshelf.lib.ColorObject;
 import net.darkhax.bookshelf.lib.VanillaColor;
 
@@ -88,5 +89,12 @@ public class ContentHandler {
         BlockDispenser.dispenseBehaviorRegistry.putObject(itemRGBDust, new BehaviorDispenseDye());
         BlockDispenser.dispenseBehaviorRegistry.putObject(itemAlphaDust, new BehaviorDispenseDye());
         BlockDispenser.dispenseBehaviorRegistry.putObject(itemRainbowDust, new BehaviorDispenseDye());
+        
+        BookshelfRegistry.addInformation(itemRGBDust);
+        BookshelfRegistry.addInformation(itemAlphaDust);
+        BookshelfRegistry.addInformation(itemRainbowDust);
+        BookshelfRegistry.addInformation(itemRainbowWand);
+        BookshelfRegistry.addInformation(itemDataChecker);
+        BookshelfRegistry.addInformation(itemRadiantDust);
     }
 }

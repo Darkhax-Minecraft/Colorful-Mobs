@@ -25,12 +25,16 @@ tooltip.colorfulmobs.selection.green=Green Slider: This slider controls the amou
 tooltip.colorfulmobs.selection.blue=Blue Slider: This slider controls the amount of blue which is used when rendering the entities texture. Increasing this value will make the texture more blue, while decreasing it will make it less blue. 
 tooltip.colorfulmobs.selection.alpha=Transparency Slider: This slider allows for control over the transparency for the entities texture. Increasing this slider will make the texture more transparent, while decreasing it will make it less transparent.
 
-#Waila Support
-option.waila.colorfulmobs.showcolors=Show Mob Colors
-option.waila.colorfulmobs.requirechcker=Require Data Checker
-
 #Item Tooltips
 tooltip.colorfulmobs.invisibledust=When used, a mob will become 20% more transparent!
 
 #Misc
 itemGroup.colorfulmobs=Colorful Mobs
+
+#Descriptions
+info.colorfulmobs.colorwand=When right clicked while looking at a mob, the color GUI will be displayed. The color GUI allows the player to change RGB and transparency.
+info.colorfulmobs.ghostdust=When used on a mob, it will become 20% more transparent. This can also be applied using dispensers. 
+info.colorfulmobs.powder=Dye powder can be applied to almost any mob. Doing so will change that mobs color to be like the color of the dye. This can also be applied using a dispenser.
+info.colorfulmobs.rainbowdust=When used on a mob, the mob will be changed to a random color. This can also be applied using dispensers.
+info.colorfulmobs.datachecker=When used on a mob, relevent information will be posted to the chat. This includes the RGB, transparency and mob name.
+info.colorfulmobs.radiantdust=When used on a mob, it will gain the radiant effect. This effect will cause the mob to slowly change between colors. This will cause all other color and transparency settings to be ignored. 
