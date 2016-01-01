@@ -1,2 +1,2 @@
-# CustomMobTags
-Custom Mob Tags - To be announced. 
+# Colorful Mobs
+Colorful Mobs: Lets players dye almost any mob.
