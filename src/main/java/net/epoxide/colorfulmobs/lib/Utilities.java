@@ -5,20 +5,8 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import net.darkhax.bookshelf.lib.ColorObject;
-import net.darkhax.bookshelf.lib.Position;
-
+//TOOD move to bookshelf
 public class Utilities {
-    
-    public static void spawnDyeParticles (ColorObject color, World world, Position pos, int amount) {
-        
-        int red = (int) (color.getRed() * 255);
-        int green = (int) (color.getGreen() * 255);
-        int blue = (int) (color.getBlue() * 255);
-        
-        for (int count = 0; count < amount; count++)
-            world.spawnParticle("reddust", (double) pos.getX() + Constants.RANDOM.nextDouble(), (double) pos.getY() + Constants.RANDOM.nextDouble(), (double) pos.getZ() + Constants.RANDOM.nextDouble(), red, green, blue);
-    }
     
     /**
      * Checks if an entity is within X range of given coordinates.
@@ -49,12 +37,11 @@ public class Utilities {
      * @param posZ : The z position for the item to spawn.
      * @param stack : The ItemStack being dropped into the world.
      * @param isTile : If the item being dropped into the world as a tile this should be set to
-     *            true. This option allows for this code to adhere to the doTileDrops game
-     *            rule.
+     *        true. This option allows for this code to adhere to the doTileDrops game rule.
      */
     public static void dropStackInWorld (World world, double posX, double posY, double posZ, ItemStack stack, boolean isTile) {
         
-        boolean shouldDrop = !isTile || world.getGameRules().getGameRuleBooleanValue("doTileDrops");
+        boolean shouldDrop = !isTile || world.getGameRules().getBoolean("doTileDrops");
         if (!world.isRemote && shouldDrop) {
             
             float f = 0.7F;
@@ -79,7 +66,7 @@ public class Utilities {
         for (String element : array)
             if (element.equals(entry))
                 return true;
-                
+            
         return false;
     }
 }

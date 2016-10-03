@@ -1,43 +1,36 @@
 package net.epoxide.colorfulmobs.item;
 
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.common.ColorProperties.IColorHolder;
+import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 
 public class ItemRadiantDust extends Item {
     
     public ItemRadiantDust() {
         
         this.setCreativeTab(ColorfulMobs.tabColors);
-        this.setTextureName("colorfulmobs:rainbowdust");
         this.setUnlocalizedName("colorfulmobs.radiantdust");
+        this.setRegistryName(new ResourceLocation(Constants.MOD_ID, "radiant_dust"));
         this.setMaxStackSize(1);
     }
     
     @Override
-    public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
+    public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
         
-        if (entity instanceof EntityLivingBase && ColorProperties.hasProperties(entity)) {
+        if (target instanceof EntityLivingBase && ColorProperties.hasProperties(target)) {
             
-            ColorProperties props = ColorProperties.getProperties(entity);
+            IColorHolder props = ColorProperties.getProperties(target);
             props.setRadiant(true);
             props.sync();
             stack.stackSize--;
         }
-        
-        return true;
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean hasEffect (ItemStack stack, int pass) {
         
         return true;
     }

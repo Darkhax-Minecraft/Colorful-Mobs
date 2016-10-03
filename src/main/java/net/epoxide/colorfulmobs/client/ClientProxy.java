@@ -1,8 +1,7 @@
 package net.epoxide.colorfulmobs.client;
 
-import net.minecraftforge.common.MinecraftForge;
-
 import net.epoxide.colorfulmobs.common.CommonProxy;
+import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
     

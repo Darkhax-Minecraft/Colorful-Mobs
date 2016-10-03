@@ -2,41 +2,36 @@ package net.epoxide.colorfulmobs.client;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayer;
-
-import net.minecraftforge.client.event.RenderLivingEvent;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
-import net.darkhax.bookshelf.lib.ColorObject;
-
 import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.common.ColorProperties.IColorHolder;
+import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class RenderingHandler {
     
     @SubscribeEvent
     public void onEntityRenderPre (RenderLivingEvent.Pre event) {
         
-        if (event.entity instanceof EntityLivingBase) {
+        Entity entity = event.getEntity();
+        
+        if (entity instanceof EntityLivingBase) {
             
-            if (ColorProperties.hasProperties(event.entity)) {
+            if (ColorProperties.hasProperties((EntityLivingBase) entity)) {
                 
-                ColorProperties props = ColorProperties.getProperties(event.entity);
+                IColorHolder props = ColorProperties.getProperties((EntityLivingBase) entity);
                 
-                if (props.isRadiant() || !(event.entity instanceof EntityPlayer) && event.entity.getCommandSenderName().equalsIgnoreCase("darkhax")) {
+                // TOOD add darkhax variant
+                if (props.isRadiant()) {
                     
-                    int tickOffset = event.entity.ticksExisted / 25 + event.entity.getEntityId();
-                    int colorIndex = tickOffset % EntitySheep.fleeceColorTable.length;
-                    int offsetIndex = (tickOffset + 1) % EntitySheep.fleeceColorTable.length;
-                    float colorOffset = ((float) (event.entity.ticksExisted % 25) + event.entity.swingProgress) / 25.0F;
-                    GL11.glColor3f(EntitySheep.fleeceColorTable[colorIndex][0] * (1.0F - colorOffset) + EntitySheep.fleeceColorTable[offsetIndex][0] * colorOffset, EntitySheep.fleeceColorTable[colorIndex][1] * (1.0F - colorOffset) + EntitySheep.fleeceColorTable[offsetIndex][1] * colorOffset, EntitySheep.fleeceColorTable[colorIndex][2] * (1.0F - colorOffset) + EntitySheep.fleeceColorTable[offsetIndex][2] * colorOffset);
+                    // TODO make fleece code
                 }
                 
                 else if (props.isDyed()) {
                     
-                    ColorObject obj = props.getColorObj();
+                    ColorObject obj = props.getColor();
                     
                     GL11.glPushMatrix();
                     GL11.glEnable(GL11.GL_BLEND);
@@ -50,11 +45,11 @@ public class RenderingHandler {
     @SubscribeEvent
     public void onEntityRenderPost (RenderLivingEvent.Post event) {
         
-        if (event.entity instanceof EntityLivingBase) {
+        if (event.getEntity() instanceof EntityLivingBase) {
             
-            if (ColorProperties.hasProperties(event.entity)) {
+            if (ColorProperties.hasProperties(event.getEntity())) {
                 
-                ColorProperties props = ColorProperties.getProperties(event.entity);
+                IColorHolder props = ColorProperties.getProperties(event.getEntity());
                 
                 if (props.isDyed()) {
                     

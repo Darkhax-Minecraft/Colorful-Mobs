@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import net.darkhax.bookshelf.lib.util.TextUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-
-import net.darkhax.bookshelf.lib.util.Utilities;
 
 public abstract class GuiScreenBase extends GuiScreen {
     
@@ -102,7 +101,7 @@ public abstract class GuiScreenBase extends GuiScreen {
         String miscTooltip = getTooltipForMisc(mouseX, mouseY);
         if (miscTooltip != null && !miscTooltip.isEmpty())
             isMiscLocation = true;
-            
+        
         // If valid location, start the delay timer.
         if (mousedOverButtonId > -1 || isMiscLocation) {
             
@@ -110,7 +109,7 @@ public abstract class GuiScreenBase extends GuiScreen {
             
             if (prevSystemTime > 0)
                 mouseoverTime += systemTime - prevSystemTime;
-                
+            
             prevSystemTime = systemTime;
         }
         
@@ -143,7 +142,7 @@ public abstract class GuiScreenBase extends GuiScreen {
      */
     public void renderTooltip (int mouseX, int mouseY, String tooltip) {
         
-        List<String> tooltipArray = Utilities.wrapStringToList(tooltip, this.tooltipMaxWidth, false, new ArrayList<String>());
+        List<String> tooltipArray = TextUtils.wrapStringToList(tooltip, this.tooltipMaxWidth, false, new ArrayList<String>());
         
         int tooltipWidth = getTooltipWidth(tooltipArray);
         int tooltipHeight = getTooltipHeight(tooltipArray);
@@ -153,10 +152,10 @@ public abstract class GuiScreenBase extends GuiScreen {
         
         if (tooltipX > width - tooltipWidth - 7)
             tooltipX = width - tooltipWidth - 7;
-            
+        
         if (tooltipY > height - tooltipHeight - 8)
             tooltipY = height - tooltipHeight - 8;
-            
+        
         // Inside the tool tip box.
         int innerAlpha = -0xFEFFFF0;
         drawGradientRect(tooltipX, tooltipY - 1, tooltipX + tooltipWidth + 6, tooltipY, innerAlpha, innerAlpha);
@@ -177,7 +176,7 @@ public abstract class GuiScreenBase extends GuiScreen {
         int lineCount = 0;
         for (String line : tooltipArray) {
             
-            mc.fontRenderer.drawStringWithShadow(line, tooltipX + 2, tooltipY + 2 + lineCount * LINE_HEIGHT, 0xFFFFFF);
+            mc.fontRendererObj.drawStringWithShadow(line, tooltipX + 2, tooltipY + 2 + lineCount * LINE_HEIGHT, 0xFFFFFF);
             lineCount++;
         }
     }
@@ -193,7 +192,7 @@ public abstract class GuiScreenBase extends GuiScreen {
         int longestWidth = 0;
         for (String line : tooltip) {
             
-            int width = mc.fontRenderer.getStringWidth(line);
+            int width = mc.fontRendererObj.getStringWidth(line);
             
             if (width > longestWidth)
                 longestWidth = width;
@@ -209,11 +208,11 @@ public abstract class GuiScreenBase extends GuiScreen {
      */
     private int getTooltipHeight (List<String> tooltips) {
         
-        int tooltipHeight = mc.fontRenderer.FONT_HEIGHT - 2;
+        int tooltipHeight = mc.fontRendererObj.FONT_HEIGHT - 2;
         
         if (tooltips.size() > 1)
             tooltipHeight += (tooltips.size() - 1) * LINE_HEIGHT;
-            
+        
         return tooltipHeight;
     }
     

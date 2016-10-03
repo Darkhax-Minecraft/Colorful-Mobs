@@ -1,188 +1,226 @@
 package net.epoxide.colorfulmobs.common;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-
-import net.minecraftforge.common.IExtendedEntityProperties;
-
-import net.darkhax.bookshelf.lib.ColorObject;
-
+import net.darkhax.bookshelf.lib.util.MathsUtils;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
 import net.epoxide.colorfulmobs.handler.ConfigurationHandler;
+import net.epoxide.colorfulmobs.handler.ContentHandler;
+import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.epoxide.colorfulmobs.lib.Constants;
 import net.epoxide.colorfulmobs.lib.Utilities;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class ColorProperties implements IExtendedEntityProperties {
+public class ColorProperties {
     
-    public static final String PROP_NAME = "ColorProperties";
+    @CapabilityInject(IColorHolder.class)
+    public static final Capability<IColorHolder> CUSTOM_DATA = null;
     
-    private EntityLivingBase entity;
-    private ColorObject colorObj;
-    private boolean hasInitialized;
-    private boolean radiant;
-    
-    public ColorProperties(EntityLivingBase living) {
+    public static void init () {
         
-        entity = living;
-        colorObj = new ColorObject();
-        hasInitialized = true;
-        radiant = false;
+        CapabilityManager.INSTANCE.register(IColorHolder.class, new Storage(), Default.class);
+        MinecraftForge.EVENT_BUS.register(new ColorProperties());
     }
     
-    @Override
-    public void saveNBTData (NBTTagCompound compound) {
+    public static IColorHolder getProperties (EntityLivingBase entity) {
         
-        NBTTagCompound entityData = new NBTTagCompound();
-        entityData.setTag("color", this.colorObj.getTagFromColor());
-        entityData.setBoolean("init", this.hasInitialized);
-        entityData.setBoolean("radiant", this.radiant);
-        compound.setTag(PROP_NAME, entityData);
-    }
-    
-    @Override
-    public void loadNBTData (NBTTagCompound compound) {
+        if (entity.hasCapability(CUSTOM_DATA, EnumFacing.UP))
+            return entity.getCapability(CUSTOM_DATA, EnumFacing.UP);
         
-        NBTTagCompound playerData = compound.getCompoundTag(PROP_NAME);
-        this.colorObj = new ColorObject(playerData.getCompoundTag("color"));
-        this.hasInitialized = playerData.getBoolean("init");
-        this.radiant = compound.getBoolean("radiant");
+        return null;
     }
     
-    @Override
-    public void init (Entity entity, World world) {
-    
-    }
-    
-    /**
-     * Synchronizes the EntityProperties data.
-     */
-    public void sync () {
-        
-        ColorfulMobs.network.sendToAll(new PacketSyncColor(this.colorObj, this.entity, this.radiant));
-    }
-    
-    /**
-     * Retrieves the EntityProperties instance from an Entity.
-     *
-     * @param entity: The Entity to retrieve from.
-     * @return ColorProperties: The EntityProperties instance for that entity.
-     */
-    public static ColorProperties getProperties (EntityLivingBase entity) {
-        
-        return (ColorProperties) entity.getExtendedProperties(PROP_NAME);
-    }
-    
-    /**
-     * Sets the EntityProperties instance for an entity.
-     *
-     * @param entity: The entity to set to.
-     * @return EntityProperties: The new EntityProperties instance.
-     */
-    public static ColorProperties setProperties (EntityLivingBase entity) {
-        
-        entity.registerExtendedProperties(PROP_NAME, new ColorProperties(entity));
-        return getProperties(entity);
-    }
-    
-    /**
-     * A check to determine whether or not an Entity has an instance of EntityProperties.
-     *
-     * @param entity: The Entity to check.
-     * @return boolean: Whether or not the entity has an instance of EntityProperties.
-     */
     public static boolean hasProperties (EntityLivingBase entity) {
         
-        return getProperties(entity) != null;
+        return entity.hasCapability(CUSTOM_DATA, EnumFacing.UP);
     }
     
-    /**
-     * Retrieves a usable ColorObject instance from the properties instance.
-     *
-     * @return ColorObject: An object containing all of the color data. If the one from the
-     *         properties is not usable, a default one is provided.
-     */
-    public ColorObject getColorObj () {
+    @SubscribeEvent
+    public void attachCapabilities (AttachCapabilitiesEvent<Entity> event) {
         
-        return (this.colorObj == null) ? new ColorObject() : this.colorObj;
+        if (event.getObject() instanceof EntityLivingBase)
+            event.addCapability(new ResourceLocation(Constants.MOD_ID, "Colors"), new Provider());
     }
     
-    /**
-     * Sets a ColorObject to the ColorProperties for an entity.
-     *
-     * @param newColor: The new color to set. If this value is null, a new ColorObject will be
-     *            created.
-     */
-    public ColorProperties setColorObject (ColorObject newColor) {
+    @SubscribeEvent
+    public void onEntityJoinWorld (EntityJoinWorldEvent event) {
         
-        this.colorObj = (newColor == null) ? new ColorObject() : newColor;
-        
-        return this;
-    }
-    
-    /**
-     * Checks if the color for this entity has any abnormalities.
-     *
-     * @return boolean: True if any of the color values are less than one.
-     */
-    public boolean isDyed () {
-        
-        return (this.colorObj.getRed() < 1f || this.colorObj.getGreen() < 1f || this.colorObj.getBlue() < 1f || this.colorObj.getAlpha() < 1f);
-    }
-    
-    /**
-     * Checks if the mob has been initialized. This is used to differentiate between
-     * pre-existing mobs, and new ones.
-     *
-     * @return boolean: True, if the mob has already been spawned into the world.
-     */
-    public boolean isInitialized () {
-        
-        return this.hasInitialized;
-    }
-    
-    /**
-     * Marks that an entity has been initialized.
-     */
-    public void setInitialized () {
-        
-        this.hasInitialized = true;
-    }
-    
-    /**
-     * Checks if the mob is radiant.
-     * 
-     * @return boolean: Whether or not the mob is radiant.
-     */
-    public boolean isRadiant () {
-        
-        return this.radiant;
-    }
-    
-    /**
-     * Updates the radiant status of the entity.
-     * 
-     * @param radiant: Whether or not the entity should be radiant.
-     */
-    public void setRadiant (boolean radiant) {
-        
-        this.radiant = radiant;
-    }
-    
-    /**
-     * Checks to see if the mob is a valid target for being colored. If the target mob is a
-     * player, it will only be valid if the config option for dying players is set to true. If
-     * the entity is not a player, it will be valid, unless it is on the prohibited mobs config
-     * list.
-     *
-     * @return boolean: True, but only if the mob is a valid target to be dyed.
-     */
-    public boolean isValidTarget () {
-        
-        if (entity instanceof EntityPlayer || ConfigurationHandler.limitMobs && !Utilities.arrayContains(ConfigurationHandler.validMobs, EntityList.getEntityString(entity)))
-            return false;
+        if (event.getEntity() instanceof EntityLiving && ColorProperties.hasProperties((EntityLivingBase) event.getEntity())) {
             
-        return true;
+            // TODO add a check to the mob
+            IColorHolder props = ColorProperties.getProperties((EntityLiving) event.getEntity());
+            if (ConfigurationHandler.spawnRandom && MathsUtils.tryPercentage(ConfigurationHandler.spawnRate) && props.isValidTarget(event.getEntity()))
+                props.setColor(new ColorObject(false));
+        }
+    }
+    
+    @SubscribeEvent
+    public void onEntityTracked (PlayerEvent.StartTracking event) {
+        
+        Entity target = event.getTarget();
+        if (target instanceof EntityLivingBase && ColorProperties.hasProperties((EntityLivingBase) target) && !target.worldObj.isRemote && event.getEntityPlayer() instanceof EntityPlayerMP) {
+            
+            IColorHolder props = ColorProperties.getProperties((EntityLivingBase) target);
+            
+            if (props != null && (props.isDyed() || props.isRadiant()))
+                ColorfulMobs.network.sendTo(new PacketSyncColor(props.getColor(), (EntityLivingBase) target, props.isRadiant()), (EntityPlayerMP) event.getEntityPlayer());
+        }
+    }
+    
+    @SubscribeEvent
+    public void onMobDeath (LivingDropsEvent event) {
+        
+        EntityLivingBase entity = event.getEntityLiving();
+        if (ConfigurationHandler.dropPowder && ColorProperties.hasProperties(entity)) {
+            
+            IColorHolder props = ColorProperties.getProperties(entity);
+            
+            if (props.isDyed() && !props.getColor().isWhite()) {
+                
+                ItemStack stack = new ItemStack(ContentHandler.itemRGBDust);
+                props.getColor().write(stack);
+                Utilities.dropStackInWorld(entity.worldObj, entity.posX, entity.posY, entity.posZ, stack, false);
+            }
+        }
+    }
+    
+    public static interface IColorHolder {
+        
+        ColorObject getColor ();
+        
+        void setColor (ColorObject color);
+        
+        void sync ();
+        
+        boolean isDyed ();
+        
+        void setRadiant (boolean radiant);
+        
+        boolean isRadiant ();
+        
+        boolean isValidTarget (Entity entity);
+    }
+    
+    public static class Default implements IColorHolder {
+        
+        private ColorObject color;
+        private boolean radiant;
+        
+        @Override
+        public ColorObject getColor () {
+            
+            return this.color;
+        }
+        
+        @Override
+        public void setColor (ColorObject color) {
+            
+            this.color = color;
+        }
+        
+        @Override
+        public boolean isDyed () {
+            
+            return color != null || !color.isWhite();
+        }
+        
+        @Override
+        public void sync () {
+            // TODO Auto-generated method stub
+            
+        }
+        
+        @Override
+        public void setRadiant (boolean radiant) {
+            
+            this.radiant = radiant;
+        }
+        
+        @Override
+        public boolean isRadiant () {
+            
+            return this.radiant;
+        }
+        
+        @Override
+        public boolean isValidTarget (Entity entity) {
+            
+            return !(entity instanceof EntityPlayer || (ConfigurationHandler.limitMobs && !Utilities.arrayContains(ConfigurationHandler.validMobs, EntityList.getEntityString(entity))));
+        }
+    }
+    
+    /**
+     * Handles reand/write of custom data.
+     */
+    public static class Storage implements Capability.IStorage<IColorHolder> {
+        
+        @Override
+        public NBTBase writeNBT (Capability<IColorHolder> capability, IColorHolder instance, EnumFacing side) {
+            
+            final NBTTagCompound tag = new NBTTagCompound();
+            
+            instance.getColor().write(tag);
+            
+            return tag;
+        }
+        
+        @Override
+        public void readNBT (Capability<IColorHolder> capability, IColorHolder instance, EnumFacing side, NBTBase nbt) {
+            
+            final NBTTagCompound tag = (NBTTagCompound) nbt;
+            
+            instance.setColor(new ColorObject(tag));
+        }
+    }
+    
+    /**
+     * Handles all the checks and delegate methods for the capability.
+     */
+    public static class Provider implements ICapabilitySerializable<NBTTagCompound> {
+        
+        IColorHolder instance = CUSTOM_DATA.getDefaultInstance();
+        
+        @Override
+        public boolean hasCapability (Capability<?> capability, EnumFacing facing) {
+            
+            return capability == CUSTOM_DATA;
+        }
+        
+        @Override
+        public <T> T getCapability (Capability<T> capability, EnumFacing facing) {
+            
+            return hasCapability(capability, facing) ? CUSTOM_DATA.<T> cast(instance) : null;
+        }
+        
+        @Override
+        public NBTTagCompound serializeNBT () {
+            
+            return (NBTTagCompound) CUSTOM_DATA.getStorage().writeNBT(CUSTOM_DATA, instance, null);
+        }
+        
+        @Override
+        public void deserializeNBT (NBTTagCompound nbt) {
+            
+            CUSTOM_DATA.getStorage().readNBT(CUSTOM_DATA, instance, null, nbt);
+        }
     }
 }

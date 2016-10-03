@@ -1,34 +1,29 @@
 package net.epoxide.colorfulmobs;
 
-import net.minecraft.creativetab.CreativeTabs;
-
-import net.minecraftforge.common.MinecraftForge;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
-
-import net.darkhax.bookshelf.common.BookshelfRegistry;
-
+import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.CommonProxy;
 import net.epoxide.colorfulmobs.common.network.GuiHandler;
 import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
 import net.epoxide.colorfulmobs.creativetab.CreativeTabColorfulMobs;
 import net.epoxide.colorfulmobs.handler.ContentHandler;
-import net.epoxide.colorfulmobs.handler.ForgeEventHandler;
 import net.epoxide.colorfulmobs.lib.Constants;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, guiFactory = Constants.FACTORY, dependencies = Constants.DEPENDENCIES)
+@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, dependencies = Constants.DEPENDENCIES)
 public class ColorfulMobs {
     
     @SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
     public static CommonProxy proxy;
     
-    @Mod.Instance(Constants.MOD_ID)
+    @Instance(Constants.MOD_ID)
     public static ColorfulMobs instance;
     
     public static SimpleNetworkWrapper network;
@@ -43,7 +38,7 @@ public class ColorfulMobs {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         
         proxy.registerSidedEvents();
-        MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
+        ColorProperties.init();
         
         ContentHandler.initItems();
         ContentHandler.initRecipes();

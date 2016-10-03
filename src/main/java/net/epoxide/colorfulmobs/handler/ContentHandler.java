@@ -1,23 +1,21 @@
 package net.epoxide.colorfulmobs.handler;
 
+import net.epoxide.colorfulmobs.dispenser.BehaviorDispenseDye;
+import net.epoxide.colorfulmobs.item.ItemAlphaDust;
+import net.epoxide.colorfulmobs.item.ItemColorWand;
+import net.epoxide.colorfulmobs.item.ItemDataChecker;
+import net.epoxide.colorfulmobs.item.ItemRGBDust;
+import net.epoxide.colorfulmobs.item.ItemRadiantDust;
+import net.epoxide.colorfulmobs.item.ItemRainbowDust;
+import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.epoxide.colorfulmobs.lib.VanillaColor;
+import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomChestContent;
-
-import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-
-import net.darkhax.bookshelf.common.BookshelfRegistry;
-import net.darkhax.bookshelf.lib.ColorObject;
-import net.darkhax.bookshelf.lib.VanillaColor;
-
-import net.epoxide.colorfulmobs.dispenser.BehaviorDispenseDye;
-import net.epoxide.colorfulmobs.item.*;
-import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 
 public class ContentHandler {
     
@@ -34,22 +32,22 @@ public class ContentHandler {
     public static void initItems () {
         
         itemRGBDust = new ItemRGBDust();
-        GameRegistry.registerItem(itemRGBDust, "rgb_dust");
+        GameRegistry.register(itemRGBDust);
         
         itemAlphaDust = new ItemAlphaDust();
-        GameRegistry.registerItem(itemAlphaDust, "alpha_dust");
+        GameRegistry.register(itemAlphaDust);
         
         itemRainbowDust = new ItemRainbowDust();
-        GameRegistry.registerItem(itemRainbowDust, "rainbow_dust");
+        GameRegistry.register(itemRainbowDust);
         
         itemRainbowWand = new ItemColorWand();
-        GameRegistry.registerItem(itemRainbowWand, "rainbow_wand");
+        GameRegistry.register(itemRainbowWand);
         
         itemDataChecker = new ItemDataChecker();
-        GameRegistry.registerItem(itemDataChecker, "data_checker");
+        GameRegistry.register(itemDataChecker);
         
         itemRadiantDust = new ItemRadiantDust();
-        GameRegistry.registerItem(itemRadiantDust, "radiant_dust");
+        GameRegistry.register(itemRadiantDust);
     }
     
     /**
@@ -59,23 +57,23 @@ public class ContentHandler {
         
         if (ConfigurationHandler.cloneDye)
             GameRegistry.addRecipe(new RecipeDyePowder());
-            
+        
         if (ConfigurationHandler.craftDye)
             for (VanillaColor color : VanillaColor.values()) {
                 
                 ItemStack powderStack = new ItemStack(ContentHandler.itemRGBDust, 3);
-                new ColorObject(color.color).writeToItemStack(powderStack);
-                GameRegistry.addRecipe(new ShapedOreRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), color.getDyeName() }));
+                new ColorObject(color.getColor()).write(powderStack);
+                GameRegistry.addRecipe(new ShapedOreRecipe(powderStack, new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.STRING, Character.valueOf('p'), Items.PAPER, Character.valueOf('d'), color.getDyeName() }));
             }
-            
+        
         if (ConfigurationHandler.craftBook)
-            GameRegistry.addShapelessRecipe(new ItemStack(ContentHandler.itemDataChecker), ContentHandler.itemRGBDust, Items.book);
-            
+            GameRegistry.addShapelessRecipe(new ItemStack(ContentHandler.itemDataChecker), ContentHandler.itemRGBDust, Items.BOOK);
+        
         if (ConfigurationHandler.craftGhostDust)
-            GameRegistry.addShapedRecipe(new ItemStack(ContentHandler.itemAlphaDust, 3), new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.string, Character.valueOf('p'), Items.paper, Character.valueOf('d'), Items.quartz });
-            
+            GameRegistry.addShapedRecipe(new ItemStack(ContentHandler.itemAlphaDust, 3), new Object[] { " s ", "pdp", " p ", Character.valueOf('s'), Items.STRING, Character.valueOf('p'), Items.PAPER, Character.valueOf('d'), Items.QUARTZ });
+        
         if (ConfigurationHandler.craftRainbowWand)
-            GameRegistry.addShapedRecipe(new ItemStack(ContentHandler.itemRainbowWand), new Object[] { "xxx", "xyx", "xxx", Character.valueOf('x'), ContentHandler.itemRainbowDust, Character.valueOf('y'), Items.stick });
+            GameRegistry.addShapedRecipe(new ItemStack(ContentHandler.itemRainbowWand), new Object[] { "xxx", "xyx", "xxx", Character.valueOf('x'), ContentHandler.itemRainbowDust, Character.valueOf('y'), Items.STICK });
     }
     
     /**
@@ -83,18 +81,8 @@ public class ContentHandler {
      */
     public static void initMisc () {
         
-        for (String chestType : ConfigurationHandler.validLootLocations)
-            ChestGenHooks.addItem(chestType, new WeightedRandomChestContent(new ItemStack(ContentHandler.itemRainbowDust), 1, 1, ConfigurationHandler.rainbowDustRate));
-            
-        BlockDispenser.dispenseBehaviorRegistry.putObject(itemRGBDust, new BehaviorDispenseDye());
-        BlockDispenser.dispenseBehaviorRegistry.putObject(itemAlphaDust, new BehaviorDispenseDye());
-        BlockDispenser.dispenseBehaviorRegistry.putObject(itemRainbowDust, new BehaviorDispenseDye());
-        
-        BookshelfRegistry.addInformation(itemRGBDust);
-        BookshelfRegistry.addInformation(itemAlphaDust);
-        BookshelfRegistry.addInformation(itemRainbowDust);
-        BookshelfRegistry.addInformation(itemRainbowWand);
-        BookshelfRegistry.addInformation(itemDataChecker);
-        BookshelfRegistry.addInformation(itemRadiantDust);
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(itemRGBDust, new BehaviorDispenseDye());
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(itemAlphaDust, new BehaviorDispenseDye());
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(itemRainbowDust, new BehaviorDispenseDye());
     }
 }

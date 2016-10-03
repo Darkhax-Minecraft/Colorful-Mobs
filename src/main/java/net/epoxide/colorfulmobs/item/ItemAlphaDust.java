@@ -2,36 +2,30 @@ package net.epoxide.colorfulmobs.item;
 
 import java.util.List;
 
+import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.epoxide.colorfulmobs.lib.Constants;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import net.darkhax.bookshelf.lib.ColorObject;
-
-import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemAlphaDust extends ItemColorSetter {
     
     public ItemAlphaDust() {
         
         this.setUnlocalizedName("colorfulmobs.ghostdust");
-        this.setTextureName("colorfulmobs:ghost_dust");
-    }
-    
-    @Override
-    public boolean hasEffect (ItemStack stack, int pass) {
-        
-        return true;
+        this.setRegistryName(new ResourceLocation(Constants.MOD_ID, "alpha_dust"));
     }
     
     @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List tip, boolean isAdvanced) {
+    public void addInformation (ItemStack stack, EntityPlayer player, List<String> tip, boolean isAdvanced) {
         
-        tip.add(StatCollector.translateToLocal("tooltip.colorfulmobs.invisibledust"));
+        tip.add(I18n.format("tooltip.colorfulmobs.invisibledust"));
     }
     
     @Override
@@ -47,22 +41,14 @@ public class ItemAlphaDust extends ItemColorSetter {
     }
     
     @Override
-    public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
+    public boolean itemInteractionForEntity (ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
         
-        if (!(ColorProperties.getProperties(entity).getColorObj().getAlpha() > 0.0f))
+        if (!(ColorProperties.getProperties(target).getColor().getAlpha() > 0.0f))
             return false;
-            
-        super.itemInteractionForEntity(stack, player, entity);
-        return true;
+        
+        return super.itemInteractionForEntity(stack, player, target, hand);
     }
     
-    /**
-     * Makes the alpha value 20% less. Has some checks to prevent the alpha value from going
-     * lower then 0f.
-     * 
-     * @param existing: The existing alpha value.
-     * @return float: The new alpha value.
-     */
     public float mergeAlpha (float existing) {
         
         float newColor = existing - 0.2f;

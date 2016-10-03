@@ -1,12 +1,10 @@
 package net.epoxide.colorfulmobs.common.network;
 
+import net.epoxide.colorfulmobs.client.gui.GuiColorSelection;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-
-import cpw.mods.fml.common.network.IGuiHandler;
-
-import net.epoxide.colorfulmobs.client.gui.GuiColorSelection;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
     

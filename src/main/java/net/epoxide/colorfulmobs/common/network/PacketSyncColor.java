@@ -1,18 +1,17 @@
 package net.epoxide.colorfulmobs.common.network;
 
+import io.netty.buffer.ByteBuf;
+import net.darkhax.bookshelf.lib.util.PlayerUtils;
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-
-import cpw.mods.fml.common.network.simpleimpl.*;
-import cpw.mods.fml.relauncher.Side;
-
-import net.darkhax.bookshelf.lib.ColorObject;
-import net.darkhax.bookshelf.lib.util.PlayerUtils;
-
-import io.netty.buffer.ByteBuf;
-import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class PacketSyncColor implements IMessage {
     
@@ -21,7 +20,7 @@ public class PacketSyncColor implements IMessage {
     public boolean radiant;
     
     public PacketSyncColor() {
-    
+        
     }
     
     public PacketSyncColor(ColorObject color, EntityLivingBase living, boolean radiant) {
@@ -43,7 +42,7 @@ public class PacketSyncColor implements IMessage {
     public void toBytes (ByteBuf buf) {
         
         buf.writeInt(this.entityID);
-        this.colorObj.writeToBuffer(buf);
+        this.colorObj.write(buf);
         buf.writeBoolean(radiant);
     }
     
@@ -56,11 +55,11 @@ public class PacketSyncColor implements IMessage {
             Entity entity = player.worldObj.getEntityByID(packet.entityID);
             
             if (entity instanceof EntityLivingBase)
-                ColorProperties.getProperties((EntityLivingBase) entity).setColorObject(packet.colorObj);
-                
+                ColorProperties.getProperties((EntityLivingBase) entity).setColor(packet.colorObj);
+            
             if (ctx.side == Side.SERVER)
                 ColorfulMobs.network.sendToAll(packet);
-                
+            
             return null;
         }
     }

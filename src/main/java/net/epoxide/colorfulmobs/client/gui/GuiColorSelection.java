@@ -3,22 +3,24 @@ package net.epoxide.colorfulmobs.client.gui;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+
+import net.darkhax.bookshelf.client.gui.GuiSlider;
+import net.darkhax.bookshelf.lib.util.RenderUtils;
+import net.epoxide.colorfulmobs.ColorfulMobs;
+import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.common.ColorProperties.IColorHolder;
+import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
+import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
-
-import net.darkhax.bookshelf.client.gui.GuiSlider;
-import net.darkhax.bookshelf.lib.ColorObject;
-import net.darkhax.bookshelf.lib.util.RenderUtils;
-
-import net.epoxide.colorfulmobs.ColorfulMobs;
-import net.epoxide.colorfulmobs.common.ColorProperties;
-import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
-import net.epoxide.colorfulmobs.lib.Constants;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiColorSelection extends GuiScreenBase {
     
@@ -33,8 +35,8 @@ public class GuiColorSelection extends GuiScreenBase {
     private EntityLivingBase entity;
     private EntityLivingBase tempEntity;
     
-    private ColorProperties baseProps;
-    private ColorProperties tempProps;
+    private IColorHolder baseProps;
+    private IColorHolder tempProps;
     
     private ColorObject initialColor;
     
@@ -45,7 +47,7 @@ public class GuiColorSelection extends GuiScreenBase {
         
         if (this.tempEntity == null)
             this.tempEntity = entity;
-            
+        
         NBTTagCompound compound = new NBTTagCompound();
         entity.writeEntityToNBT(compound);
         tempEntity.readEntityFromNBT(compound);
@@ -57,7 +59,7 @@ public class GuiColorSelection extends GuiScreenBase {
     protected void drawGuiContainerBackgroundLayer () {
         
         ColorObject currentColor = new ColorObject(sliderRed.getSliderValue(), sliderGreen.getSliderValue(), sliderBlue.getSliderValue(), sliderAlpha.getSliderValue());
-        tempProps.setColorObject(currentColor);
+        tempProps.setColor(currentColor);
         
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
@@ -83,20 +85,20 @@ public class GuiColorSelection extends GuiScreenBase {
         
         if (ColorProperties.hasProperties(entity)) {
             
-            this.initialColor = baseProps.getColorObj();
-            tempProps.setColorObject(this.initialColor);
+            this.initialColor = baseProps.getColor();
+            tempProps.setColor(this.initialColor);
         }
         
-        this.sliderRed = new GuiSlider(1, EnumChatFormatting.RED + StatCollector.translateToLocal("chat.colorfulmobs.red"), initialColor.getRed(), k + 25, l + 140, true, 255);
+        this.sliderRed = new GuiSlider(1, ChatFormatting.RED + I18n.format("chat.colorfulmobs.red"), initialColor.getRed(), k + 25, l + 140, true, 255);
         buttonList.add(this.sliderRed);
         
-        this.sliderGreen = new GuiSlider(2, EnumChatFormatting.GREEN + StatCollector.translateToLocal("chat.colorfulmobs.green"), initialColor.getGreen(), k + 95, l + 140, true, 255);
+        this.sliderGreen = new GuiSlider(2, ChatFormatting.GREEN + I18n.format("chat.colorfulmobs.green"), initialColor.getGreen(), k + 95, l + 140, true, 255);
         buttonList.add(this.sliderGreen);
         
-        this.sliderBlue = new GuiSlider(3, EnumChatFormatting.BLUE + StatCollector.translateToLocal("chat.colorfulmobs.blue"), initialColor.getBlue(), k + 25, l + 165, true, 255);
+        this.sliderBlue = new GuiSlider(3, ChatFormatting.BLUE + I18n.format("chat.colorfulmobs.blue"), initialColor.getBlue(), k + 25, l + 165, true, 255);
         buttonList.add(this.sliderBlue);
         
-        this.sliderAlpha = new GuiSlider(4, EnumChatFormatting.WHITE + StatCollector.translateToLocal("chat.colorfulmobs.alpha"), initialColor.getAlpha(), k + 95, l + 165, true, 100, true);
+        this.sliderAlpha = new GuiSlider(4, ChatFormatting.WHITE + I18n.format("chat.colorfulmobs.alpha"), initialColor.getAlpha(), k + 95, l + 165, true, 100, true);
         buttonList.add(this.sliderAlpha);
     }
     
@@ -105,10 +107,7 @@ public class GuiColorSelection extends GuiScreenBase {
         
         drawGuiContainerBackgroundLayer();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
-        drawCenteredString(fontRendererObj, StatCollector.translateToLocal("chat.colorfulmobs.colormenu"), xSize / 2, 10, 0xffffff);
+        drawCenteredString(fontRendererObj, I18n.format("chat.colorfulmobs.colormenu"), xSize / 2, 10, 0xffffff);
     }
     
     float rotation = 0;
@@ -156,7 +155,7 @@ public class GuiColorSelection extends GuiScreenBase {
     
     @Override
     protected void drawGuiContainerForegroundLayer () {
-    
+        
     }
     
     @Override
@@ -165,18 +164,18 @@ public class GuiColorSelection extends GuiScreenBase {
         switch (buttonId) {
             
             case 0:
-                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.confirm");
+                return I18n.format("tooltip.colorfulmobs.selection.confirm");
             case 1:
-                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.red");
+                return I18n.format("tooltip.colorfulmobs.selection.red");
             case 2:
-                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.green");
+                return I18n.format("tooltip.colorfulmobs.selection.green");
             case 3:
-                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.blue");
+                return I18n.format("tooltip.colorfulmobs.selection.blue");
             case 4:
-                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.alpha");
-                
+                return I18n.format("tooltip.colorfulmobs.selection.alpha");
+            
             default:
-                return StatCollector.translateToLocal("tooltip.colorfulmobs.selection.default");
+                return I18n.format("tooltip.colorfulmobs.selection.default");
         }
     }
     

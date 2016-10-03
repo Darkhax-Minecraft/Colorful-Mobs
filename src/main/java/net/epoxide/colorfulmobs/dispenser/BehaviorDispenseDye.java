@@ -2,51 +2,50 @@ package net.epoxide.colorfulmobs.dispenser;
 
 import java.util.List;
 
+import net.epoxide.colorfulmobs.common.ColorProperties;
+import net.epoxide.colorfulmobs.common.ColorProperties.IColorHolder;
+import net.epoxide.colorfulmobs.item.ItemColorSetter;
+import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
-
-import net.darkhax.bookshelf.lib.ColorObject;
-import net.darkhax.bookshelf.lib.util.ItemStackUtils;
-
-import net.epoxide.colorfulmobs.common.ColorProperties;
-import net.epoxide.colorfulmobs.item.ItemColorSetter;
+import net.minecraft.util.math.AxisAlignedBB;
 
 public class BehaviorDispenseDye extends BehaviorDefaultDispenseItem {
     
     @Override
     protected ItemStack dispenseStack (IBlockSource source, ItemStack stack) {
         
-        EnumFacing facing = BlockDispenser.func_149937_b(source.getBlockMetadata());
-        int posX = source.getXInt() + facing.getFrontOffsetX();
-        int posY = source.getYInt() + facing.getFrontOffsetY();
-        int posZ = source.getZInt() + facing.getFrontOffsetZ();
-        AxisAlignedBB targetArea = AxisAlignedBB.getBoundingBox((double) posX, (double) posY, (double) posZ, (double) (posX + 1), (double) (posY + 1), (double) (posZ + 1));
+        EnumFacing enumfacing = (EnumFacing) source.func_189992_e().getValue(BlockDispenser.FACING);
+        double posX = source.getX() + (double) ((float) enumfacing.getFrontOffsetX() * 1.125F);
+        double posY = source.getY() + (double) ((float) enumfacing.getFrontOffsetY() * 1.125F);
+        double posZ = source.getZ() + (double) ((float) enumfacing.getFrontOffsetZ() * 1.125F);
+        AxisAlignedBB targetArea = new AxisAlignedBB((double) posX, (double) posY, (double) posZ, (double) (posX + 1), (double) (posY + 1), (double) (posZ + 1));
         
-        List entityList = source.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, targetArea);
+        List<EntityLivingBase> entityList = source.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, targetArea);
         
         if (!entityList.isEmpty()) {
             
             EntityLivingBase living = (EntityLivingBase) entityList.get(0);
             
-            if (!(living instanceof EntityPlayer) && ItemStackUtils.isValidStack(stack) && stack.getItem() instanceof ItemColorSetter && ColorProperties.hasProperties(living)) {
+            if (!(living instanceof EntityPlayer) && stack != null && stack.getItem() instanceof ItemColorSetter && ColorProperties.hasProperties(living)) {
                 
                 ItemColorSetter item = (ItemColorSetter) stack.getItem();
                 
                 if (!source.getWorld().isRemote) {
                     
-                    ColorProperties entProps = ColorProperties.getProperties(living);
+                    IColorHolder entProps = ColorProperties.getProperties(living);
                     ColorObject colorObj = item.getColorToApply(stack);
                     
                     if (entProps.isDyed())
-                        colorObj = item.handleColorMerge(entProps.getColorObj(), colorObj);
-                        
-                    entProps.setColorObject(colorObj).sync();
+                        colorObj = item.handleColorMerge(entProps.getColor(), colorObj);
+                    
+                    entProps.setColor(colorObj);
+                    entProps.sync();
                 }
                 
                 if (item.shouldConsumeItem(stack, living))

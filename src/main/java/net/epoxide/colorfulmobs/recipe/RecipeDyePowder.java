@@ -1,12 +1,11 @@
 package net.epoxide.colorfulmobs.recipe;
 
+import net.epoxide.colorfulmobs.handler.ContentHandler;
+import net.epoxide.colorfulmobs.item.ItemRGBDust;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-
-import net.epoxide.colorfulmobs.handler.ContentHandler;
-import net.epoxide.colorfulmobs.item.ItemRGBDust;
 
 public class RecipeDyePowder implements IRecipe {
     
@@ -24,18 +23,18 @@ public class RecipeDyePowder implements IRecipe {
                 
                 ItemRGBDust powder = (ItemRGBDust) currentStack.getItem();
                 
-                if (!powder.getColorToApply(currentStack).isGenericWhite()) {
+                if (!powder.getColorToApply(currentStack).isWhite()) {
                     
                     if (mainStack != null)
                         return false;
-                        
+                    
                     else {
                         
                         mainStack = currentStack;
                     }
                 }
                 
-                if (powder.getColorToApply(currentStack).isGenericWhite())
+                if (powder.getColorToApply(currentStack).isWhite())
                     itemCount++;
             }
         }
@@ -57,18 +56,18 @@ public class RecipeDyePowder implements IRecipe {
                 
                 ItemRGBDust powder = (ItemRGBDust) currentStack.getItem();
                 
-                if (!powder.getColorToApply(currentStack).isGenericWhite()) {
+                if (!powder.getColorToApply(currentStack).isWhite()) {
                     
                     if (mainStack != null)
                         return null;
-                        
+                    
                     else {
                         
                         mainStack = currentStack;
                     }
                 }
                 
-                if (powder.getColorToApply(currentStack).isGenericWhite())
+                if (powder.getColorToApply(currentStack).isWhite())
                     itemCount++;
             }
         }
@@ -93,5 +92,19 @@ public class RecipeDyePowder implements IRecipe {
     public ItemStack getRecipeOutput () {
         
         return null;
+    }
+    
+    @Override
+    public ItemStack[] getRemainingItems (InventoryCrafting inv) {
+        
+        ItemStack[] results = new ItemStack[inv.getSizeInventory()];
+        
+        for (int slot = 0; slot < results.length; ++slot) {
+            
+            ItemStack itemstack = inv.getStackInSlot(slot);
+            results[slot] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack);
+        }
+        
+        return results;
     }
 }

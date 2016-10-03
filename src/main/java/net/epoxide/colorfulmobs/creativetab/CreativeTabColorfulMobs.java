@@ -1,12 +1,10 @@
 package net.epoxide.colorfulmobs.creativetab;
 
+import net.epoxide.colorfulmobs.handler.ContentHandler;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-import net.darkhax.bookshelf.creativetab.CreativeTabCached;
-
-import net.epoxide.colorfulmobs.handler.ContentHandler;
-
-public class CreativeTabColorfulMobs extends CreativeTabCached {
+public class CreativeTabColorfulMobs extends CreativeTabs {
     
     public CreativeTabColorfulMobs() {
         

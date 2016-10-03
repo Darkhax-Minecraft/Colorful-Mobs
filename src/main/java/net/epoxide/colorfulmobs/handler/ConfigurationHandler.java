@@ -4,12 +4,6 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
-import net.epoxide.colorfulmobs.lib.Constants;
-
 public class ConfigurationHandler {
     
     public static boolean spawnRandom = true;
@@ -28,22 +22,13 @@ public class ConfigurationHandler {
     
     public static Configuration config;
     
-    public ConfigurationHandler(File file) {
+    public static void init (File file) {
         
         config = new Configuration(file);
-        
-        FMLCommonHandler.instance().bus().register(this);
         syncConfigData();
     }
     
-    @SubscribeEvent
-    public void onConfigChange (ConfigChangedEvent.OnConfigChangedEvent event) {
-        
-        if (event.modID.equals(Constants.MOD_ID))
-            syncConfigData();
-    }
-    
-    private void syncConfigData () {
+    private static void syncConfigData () {
         
         String category = "Settings";
         spawnRandom = config.getBoolean("spawnRandom", category, spawnRandom, "Should mobs randomly spawn with a color?");

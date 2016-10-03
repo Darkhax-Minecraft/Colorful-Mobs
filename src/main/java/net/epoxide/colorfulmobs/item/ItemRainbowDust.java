@@ -1,15 +1,16 @@
 package net.epoxide.colorfulmobs.item;
 
+import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.item.ItemStack;
-
-import net.darkhax.bookshelf.lib.ColorObject;
+import net.minecraft.util.ResourceLocation;
 
 public class ItemRainbowDust extends ItemColorSetter {
     
     public ItemRainbowDust() {
         
-        this.setTextureName("colorfulmobs:rainbowdust");
         this.setUnlocalizedName("colorfulmobs.rainbowdust");
+        this.setRegistryName(new ResourceLocation(Constants.MOD_ID, "random_dust"));
     }
     
     @Override
