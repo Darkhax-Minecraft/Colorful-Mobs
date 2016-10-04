@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.ColorProperties.IColorHolder;
 import net.epoxide.colorfulmobs.lib.ColorObject;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -33,10 +34,10 @@ public class RenderingHandler {
                     
                     ColorObject obj = props.getColor();
                     
-                    GL11.glPushMatrix();
-                    GL11.glEnable(GL11.GL_BLEND);
-                    GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                    GL11.glColor4f(obj.getRed(), obj.getGreen(), obj.getBlue(), obj.getAlpha());
+                    GlStateManager.pushMatrix();
+                    GlStateManager.enableBlend();
+                    GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                    GlStateManager.color(obj.getRed(), obj.getGreen(), obj.getBlue(), obj.getAlpha());
                 }
             }
         }
@@ -53,8 +54,8 @@ public class RenderingHandler {
                 
                 if (props.isDyed()) {
                     
-                    GL11.glDisable(GL11.GL_BLEND);
-                    GL11.glPopMatrix();
+                    GlStateManager.disableBlend();
+                    GlStateManager.popMatrix();
                 }
             }
         }

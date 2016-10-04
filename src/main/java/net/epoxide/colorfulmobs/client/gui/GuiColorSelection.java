@@ -1,7 +1,6 @@
 package net.epoxide.colorfulmobs.client.gui;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
@@ -14,6 +13,7 @@ import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.Constants;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -58,19 +58,21 @@ public class GuiColorSelection extends GuiScreenBase {
     @Override
     protected void drawGuiContainerBackgroundLayer () {
         
+        GlStateManager.pushMatrix();
         ColorObject currentColor = new ColorObject(sliderRed.getSliderValue(), sliderGreen.getSliderValue(), sliderBlue.getSliderValue(), sliderAlpha.getSliderValue());
         tempProps.setColor(currentColor);
         
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        int x = (this.width - this.xSize) / 2;
+        int y = (this.height - this.ySize) / 2;
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(new ResourceLocation(Constants.MOD_ID + ":textures/gui/color.png"));
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-        GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
-        this.drawTexturedModalRect(k + 32, l + 20, 20, 20, 110, 115);
+        this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+        GlStateManager.color(0.0F, 0.0F, 0.0F, 1.0F);
+        this.drawTexturedModalRect(x + 32, y + 20, 20, 20, 110, 115);
+        GlStateManager.popMatrix();
         
         if (tempEntity != null)
-            drawEntityOnScreen(k + 87, l + 120, 40, tempEntity);
+            drawEntityOnScreen(x + 87, y + 120, 40, tempEntity);
     }
     
     @Override
@@ -114,25 +116,18 @@ public class GuiColorSelection extends GuiScreenBase {
     
     public void drawEntityOnScreen (int x, int y, float scale, EntityLivingBase entity) {
         
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glDepthMask(true);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glPushMatrix();
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-        GL11.glTranslatef(x, y, 200);
-        GL11.glScalef((-scale), scale, scale);
-        GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+        GlStateManager.pushMatrix();
+        GlStateManager.disableBlend();
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.translate(x, y, 200);
+        GlStateManager.scale((-scale), scale, scale);
+        GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+        GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
         RenderUtils.renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
-        GL11.glPopMatrix();
-        RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
-        
+        GlStateManager.popMatrix();
         rotation -= 1.25F;
     }
     
