@@ -122,7 +122,7 @@ public class ColorProperties {
     
     public static class Default implements IColorHolder {
         
-        private ColorObject color;
+        private ColorObject color = new ColorObject(1f, 1f, 1f);
         private boolean radiant;
         
         @Override

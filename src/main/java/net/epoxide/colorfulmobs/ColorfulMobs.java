@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -37,11 +38,17 @@ public class ColorfulMobs {
         network.registerMessage(PacketSyncColor.PacketColorSyncHandler.class, PacketSyncColor.class, 0, Side.SERVER);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         
-        proxy.registerSidedEvents();
         ColorProperties.init();
         
         ContentHandler.initItems();
         ContentHandler.initRecipes();
         ContentHandler.initMisc();
+        proxy.preInit();
+    }
+    
+    @EventHandler
+    public void init (FMLInitializationEvent event) {
+        
+        proxy.init();
     }
 }

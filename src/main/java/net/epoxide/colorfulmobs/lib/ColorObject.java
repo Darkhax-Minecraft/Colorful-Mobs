@@ -5,6 +5,7 @@ import java.awt.Color;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextFormatting;
 
 public class ColorObject {
     
@@ -16,6 +17,11 @@ public class ColorObject {
     public ColorObject(boolean alpha) {
         
         this(Constants.RANDOM.nextFloat(), Constants.RANDOM.nextFloat(), Constants.RANDOM.nextFloat(), (alpha) ? Constants.RANDOM.nextFloat() : 1f);
+    }
+    
+    public ColorObject (ItemStack stack) {
+        
+        this (stack.getTagCompound());
     }
     
     public ColorObject(NBTTagCompound tag) {
@@ -118,5 +124,21 @@ public class ColorObject {
     public boolean isWhite () {
         
         return red == 1f && green == 1f && blue == 1f;
+    }
+    
+    public Color toAWTColor() {
+        
+        return new Color((int) (this.red * 255f), (int) (this.green * 255f), (int) (this.blue * 255f));
+    }
+    
+    @Override
+    public String toString () {
+        
+        String output = TextFormatting.RED + "" + (int) (this.red * 255) + " " + TextFormatting.GREEN + (int) (this.getGreen() * 255) + " " + TextFormatting.BLUE + (int) (this.blue * 255);
+        
+        if (this.alpha < 1.0f)
+            output += " " + TextFormatting.GRAY + (int) (100 - this.alpha * 100);
+        
+        return output;
     }
 }

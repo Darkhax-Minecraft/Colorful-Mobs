@@ -1,5 +1,6 @@
 package net.epoxide.colorfulmobs.handler;
 
+import net.epoxide.colorfulmobs.client.ColorHandler;
 import net.epoxide.colorfulmobs.dispenser.BehaviorDispenseDye;
 import net.epoxide.colorfulmobs.item.ItemAlphaDust;
 import net.epoxide.colorfulmobs.item.ItemColorWand;
@@ -11,10 +12,15 @@ import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.VanillaColor;
 import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ContentHandler {
@@ -50,9 +56,6 @@ public class ContentHandler {
         GameRegistry.register(itemRadiantDust);
     }
     
-    /**
-     * Initializes all the recipes in the mod.
-     */
     public static void initRecipes () {
         
         if (ConfigurationHandler.cloneDye)
@@ -76,9 +79,6 @@ public class ContentHandler {
             GameRegistry.addShapedRecipe(new ItemStack(ContentHandler.itemRainbowWand), new Object[] { "xxx", "xyx", "xxx", Character.valueOf('x'), ContentHandler.itemRainbowDust, Character.valueOf('y'), Items.STICK });
     }
     
-    /**
-     * Initializes the miscellaneous stuff.
-     */
     public static void initMisc () {
         
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(itemRGBDust, new BehaviorDispenseDye());

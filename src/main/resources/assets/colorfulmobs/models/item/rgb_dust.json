@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "colorfulmobs:items/dust_rope",
+        "layer1": "colorfulmobs:items/dust_bag"
+    }
+}
