@@ -1,6 +1,5 @@
 package net.epoxide.colorfulmobs.handler;
 
-import net.epoxide.colorfulmobs.client.ColorHandler;
 import net.epoxide.colorfulmobs.dispenser.BehaviorDispenseDye;
 import net.epoxide.colorfulmobs.item.ItemAlphaDust;
 import net.epoxide.colorfulmobs.item.ItemColorWand;
@@ -12,15 +11,10 @@ import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.VanillaColor;
 import net.epoxide.colorfulmobs.recipe.RecipeDyePowder;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ContentHandler {

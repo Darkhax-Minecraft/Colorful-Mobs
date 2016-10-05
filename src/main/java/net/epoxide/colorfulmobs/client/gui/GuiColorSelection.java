@@ -1,21 +1,20 @@
 package net.epoxide.colorfulmobs.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.darkhax.bookshelf.client.gui.GuiSlider;
-import net.darkhax.bookshelf.lib.util.RenderUtils;
 import net.epoxide.colorfulmobs.ColorfulMobs;
 import net.epoxide.colorfulmobs.common.ColorProperties;
 import net.epoxide.colorfulmobs.common.ColorProperties.IColorHolder;
 import net.epoxide.colorfulmobs.common.network.PacketSyncColor;
 import net.epoxide.colorfulmobs.lib.ColorObject;
 import net.epoxide.colorfulmobs.lib.Constants;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -115,19 +114,25 @@ public class GuiColorSelection extends GuiScreenBase {
     float rotation = 0;
     
     public void drawEntityOnScreen (int x, int y, float scale, EntityLivingBase entity) {
-        
+
         GlStateManager.pushMatrix();
-        GlStateManager.disableBlend();
         GlStateManager.color(1f, 1f, 1f, 1f);
         GlStateManager.translate(x, y, 200);
         GlStateManager.scale((-scale), scale, scale);
         GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
-        RenderUtils.renderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
-        OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        RenderHelper.enableStandardItemLighting();
+        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+        rendermanager.setPlayerViewY(180.0F);
+        rendermanager.setRenderShadow(false);
+        rendermanager.doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
+        rendermanager.setRenderShadow(true);
         GlStateManager.popMatrix();
+        RenderHelper.disableStandardItemLighting();
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GlStateManager.disableTexture2D();
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
         rotation -= 1.25F;
     }
     
